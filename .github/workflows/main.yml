@@ -3,7 +3,7 @@ name: 🚀 Despliegue Automático Las Pilcas
 on:
   push:
     branches:
-      - main  # Esto hace que se active solo cuando subes cambios a la rama main
+      - main  # <--- ESTO es lo que hace que se active SOLO al hacer push
 
 jobs:
   web-deploy:
@@ -21,7 +21,6 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         server-dir: /public_html/
         local-dir: ./
-        # Esto evita que se borre la carpeta _version_antigua que creaste en el hosting
         exclude: |
           **/.git*
           **/.github*
