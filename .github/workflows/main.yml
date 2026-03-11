@@ -1,0 +1,28 @@
+name: 🚀 Despliegue Automático Las Pilcas
+
+on:
+  push:
+    branches:
+      - main  # Esto hace que se active solo cuando subes cambios a la rama main
+
+jobs:
+  web-deploy:
+    name: 🎉 Subiendo archivos al hosting
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Obtener código desde GitHub
+      uses: actions/checkout@v3
+
+    - name: 📂 Sincronizar vía FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: laspilcas.cl
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        server-dir: /public_html/
+        local-dir: ./
+        # Esto evita que se borre la carpeta _version_antigua que creaste en el hosting
+        exclude: |
+          **/.git*
+          **/.github*
+          _version_antigua/**
