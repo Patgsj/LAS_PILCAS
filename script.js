@@ -1,0 +1,356 @@
+const tooltip = document.getElementById('lote-tooltip');
+const lotes = document.querySelectorAll('.lote');
+const camino = document.getElementById('CAMINO');
+const menuBtn = document.getElementById('menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileMenuClose = document.getElementById('mobile-menu-close');
+const mobileLinks = document.querySelectorAll('.mobile-menu__link');
+const iconOpen = document.getElementById('menu-icon-open');
+const iconClose = document.getElementById('menu-icon-close');
+const galleryItems = document.querySelectorAll('.gallery-item');
+const galleryLightbox = document.getElementById('gallery-lightbox');
+const galleryClose = document.getElementById('gallery-close');
+const galleryPrev = document.getElementById('gallery-prev');
+const galleryNext = document.getElementById('gallery-next');
+const lightboxImage = document.getElementById('lightbox-image');
+const lightboxVideo = document.getElementById('lightbox-video');
+const lightboxCaption = document.getElementById('lightbox-caption');
+let currentGalleryIndex = 0;
+const contactForm = document.getElementById('contact-form');
+const contactSuccessModal = document.getElementById('contact-success-modal');
+const contactSuccessClose = document.getElementById('contact-success-close');
+
+// --- MENÚ MÓVIL: toggle clase active, bloqueo de scroll y cierre en enlaces ---
+function setMobileMenuActive(active) {
+    if (!mobileMenu) return;
+    if (active) {
+        mobileMenu.classList.add('active');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        if (iconOpen) iconOpen.classList.add('hidden');
+        if (iconClose) iconClose.classList.remove('hidden');
+    } else {
+        mobileMenu.classList.remove('active');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (iconOpen) iconOpen.classList.remove('hidden');
+        if (iconClose) iconClose.classList.add('hidden');
+    }
+}
+
+function openMobileMenu() {
+    setMobileMenuActive(true);
+}
+
+function closeMobileMenu() {
+    setMobileMenuActive(false);
+}
+
+function toggleMobileMenu() {
+    const isOpen = mobileMenu && mobileMenu.classList.contains('active');
+    setMobileMenuActive(!isOpen);
+}
+
+if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleMobileMenu();
+    });
+}
+
+if (mobileMenuClose) {
+    mobileMenuClose.addEventListener('click', closeMobileMenu);
+}
+
+mobileLinks.forEach(function (link) {
+    link.addEventListener('click', function () {
+        closeMobileMenu();
+    });
+});
+
+if (mobileMenu) {
+    mobileMenu.addEventListener('click', function (e) {
+        if (e.target === mobileMenu || e.target.classList.contains('mobile-menu__backdrop')) {
+            closeMobileMenu();
+        }
+    });
+}
+
+// --- GALERÍA / LIGHTBOX ---
+function openGalleryItem(index) {
+    if (!galleryLightbox) return;
+    const items = Array.from(galleryItems);
+    const item = items[index];
+    if (!item) return;
+    currentGalleryIndex = index;
+
+    const type = item.getAttribute('data-type');
+    const src = item.getAttribute('data-src');
+    const caption = item.getAttribute('data-caption') || '';
+
+    if (type === 'video') {
+        lightboxImage.classList.add('hidden');
+        if (lightboxVideo) {
+            lightboxVideo.classList.remove('hidden');
+            lightboxVideo.src = src;
+        }
+    } else {
+        if (lightboxImage) {
+            lightboxImage.src = src;
+            lightboxImage.classList.remove('hidden');
+        }
+        if (lightboxVideo) {
+            lightboxVideo.classList.add('hidden');
+            lightboxVideo.src = '';
+        }
+    }
+
+    if (lightboxCaption) {
+        lightboxCaption.textContent = caption;
+    }
+
+    galleryLightbox.classList.remove('hidden');
+    galleryLightbox.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeGallery() {
+    if (!galleryLightbox) return;
+    galleryLightbox.classList.add('hidden');
+    galleryLightbox.classList.remove('flex');
+    document.body.style.overflow = '';
+    if (lightboxVideo) {
+        lightboxVideo.src = '';
+    }
+}
+
+function showNextGalleryItem(direction) {
+    const items = Array.from(galleryItems);
+    if (!items.length) return;
+    currentGalleryIndex = (currentGalleryIndex + direction + items.length) % items.length;
+    openGalleryItem(currentGalleryIndex);
+}
+
+if (galleryItems && galleryItems.length) {
+    galleryItems.forEach((item, index) => {
+        item.addEventListener('click', () => openGalleryItem(index));
+    });
+}
+
+if (galleryClose) {
+    galleryClose.addEventListener('click', closeGallery);
+}
+
+if (galleryPrev) {
+    galleryPrev.addEventListener('click', () => showNextGalleryItem(-1));
+}
+
+if (galleryNext) {
+    galleryNext.addEventListener('click', () => showNextGalleryItem(1));
+}
+
+if (galleryLightbox) {
+    galleryLightbox.addEventListener('click', (e) => {
+        if (e.target === galleryLightbox) {
+            closeGallery();
+        }
+    });
+}
+
+// Navegación con teclado dentro de la galería (solo cuando el lightbox está visible)
+document.addEventListener('keydown', (e) => {
+    if (!galleryLightbox || galleryLightbox.classList.contains('hidden')) return;
+
+    if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        showNextGalleryItem(1);
+    } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        showNextGalleryItem(-1);
+    } else if (e.key === 'Escape') {
+        e.preventDefault();
+        closeGallery();
+    }
+});
+
+// --- ENVÍO FORMULARIO CONTACTO (Formspree + modal de éxito) ---
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(contactForm);
+
+        try {
+            const response = await fetch('enviar.php', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json().catch(() => ({ success: false }));
+                if (!data.success) {
+                    console.error('Error en la respuesta del servidor');
+                    return;
+                }
+                contactForm.reset();
+                if (contactSuccessModal) {
+                    contactSuccessModal.classList.add('flex');
+                    contactSuccessModal.classList.remove('hidden');
+                }
+            } else {
+                console.error('Error al enviar el formulario');
+            }
+        } catch (error) {
+            console.error('Error de red al enviar el formulario', error);
+        }
+    });
+}
+
+if (contactSuccessClose && contactSuccessModal) {
+    contactSuccessClose.addEventListener('click', () => {
+        contactSuccessModal.classList.add('hidden');
+        contactSuccessModal.classList.remove('flex');
+    });
+    contactSuccessModal.addEventListener('click', (e) => {
+        if (e.target === contactSuccessModal) {
+            contactSuccessModal.classList.add('hidden');
+            contactSuccessModal.classList.remove('flex');
+        }
+    });
+}
+
+// --- TOOLTIP LÓGICA ---
+function showTooltip(e, id, estadoText, precioHTML) {
+    const isTouch = e.type.startsWith('touch');
+    tooltip.style.display = 'block';
+
+    if (isTouch) {
+        tooltip.classList.add('lote-tooltip--touch');
+        tooltip.innerHTML = `
+            <div style="min-width:140px">
+                <div class="text-[7px] text-gray-300 mb-0.5 tracking-[0.3em]">Propiedad</div>
+                <div class="lote-tooltip__title text-white font-bold text-base mb-1">${id}</div>
+                ${estadoText}
+                ${precioHTML}
+            </div>`;
+        tooltip.style.left = '';
+        tooltip.style.top = '';
+    } else {
+        tooltip.classList.remove('lote-tooltip--touch');
+        tooltip.innerHTML = `
+            <div style="min-width:180px">
+                <div class="text-[8px] text-gray-300 mb-1 tracking-[0.4em]">Propiedad</div>
+                <div class="text-white font-bold text-xl mb-3">${id}</div>
+                ${estadoText}
+                ${precioHTML}
+            </div>`;
+        var x = e.clientX || 0;
+        var y = e.clientY || 0;
+        tooltip.style.left = (x + 52) + 'px';
+        tooltip.style.top = (y + 52) + 'px';
+        tooltip.style.transform = '';
+    }
+}
+
+// Eventos para lotes
+lotes.forEach(lote => {
+    const handleMove = (e) => {
+        const id = lote.getAttribute('id').replace('-', ' ');
+        let estadoText = "";
+        let precioHTML = "";
+
+        if (lote.classList.contains('vendido')) {
+            estadoText = '<span class="font-bold text-[9px]" style="color:#fca5a5;">VENDIDA</span>';
+        } else if (lote.classList.contains('reservado')) {
+            estadoText = '<span class="font-bold text-[9px]" style="color:#fbbf77;">RESERVADA</span>';
+        } else if (lote.classList.contains('tramite')) {
+            estadoText = '<span class="font-bold text-[9px]" style="color:#7dd3fc;">EN TRÁMITE</span>';
+        } else {
+            estadoText = '<span class="font-bold text-[9px]" style="color:#a7f3d0;">ENTREGA INMEDIATA</span>';
+            precioHTML = '<div class="mt-4 text-white font-light text-2xl tracking-tighter italic border-t border-white/10 pt-2">$65.000.000</div>';
+        }
+
+        showTooltip(e, id, estadoText, precioHTML);
+    };
+
+    lote.addEventListener('mousemove', handleMove);
+    lote.addEventListener('touchstart', (e) => {
+        handleMove(e);
+        // Evitar que el primer toque abra WhatsApp si solo queremos ver el tooltip
+    }, {passive: true});
+
+    lote.addEventListener('mouseleave', () => tooltip.style.display = 'none');
+    
+    lote.addEventListener('click', (e) => {
+        if (!lote.classList.contains('disponible')) return;
+
+        // En dispositivos táctiles (móvil/tablet), no abrir WhatsApp al hacer tap
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        if (isTouchDevice) return;
+
+        const id = lote.getAttribute('id').replace('-', ' ');
+        const msg = `Me interesa recibir información técnica de la ${id} (Valor $65.000.000) de Las Pilcas`;
+        window.open(`https://wa.me/56966640562?text=${encodeURIComponent(msg)}`);
+    });
+});
+
+// Tooltip para camino (Ruta N-31)
+if (camino) {
+    const handleCamino = (e) => {
+        tooltip.style.display = 'block';
+        tooltip.innerHTML = `
+            <div style="min-width:180px">
+                <div class="text-[8px] text-gray-300 mb-1 tracking-[0.4em]">Vialidad</div>
+                <div class="text-white font-bold text-xl mb-1">Ruta N-31</div>
+                <div class="text-[10px] text-gray-400 tracking-[0.15em] uppercase">Camino de acceso principal</div>
+            </div>`;
+        
+        let x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+        let y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+        const offset = e.type.startsWith('touch') ? -100 : 52;
+        
+        tooltip.style.left = (x + (e.type.startsWith('touch') ? -90 : 52)) + 'px';
+        tooltip.style.top = (y + offset) + 'px';
+    };
+
+    camino.addEventListener('mousemove', handleCamino);
+    camino.addEventListener('touchstart', handleCamino, {passive: true});
+    camino.addEventListener('mouseleave', () => tooltip.style.display = 'none');
+}
+
+// --- SCROLLSPY ---
+const sections = document.querySelectorAll('header[id], section[id]');
+const navLinks = document.querySelectorAll('#main-nav a[href^="#"], .mobile-menu__link[href^="#"]');
+
+const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -70% 0px',
+    threshold: 0
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+                link.classList.remove('text-emerald-500');
+                link.classList.remove('mobile-menu__link--active');
+                if (link.getAttribute('href') === `#${id}`) {
+                    // Desktop
+                    if (link.closest('#main-nav')) {
+                        link.classList.add('text-emerald-500');
+                    }
+                    // Móvil
+                    if (link.classList.contains('mobile-menu__link')) {
+                        link.classList.add('mobile-menu__link--active');
+                    }
+                }
+            });
+        }
+    });
+}, observerOptions);
+
+sections.forEach(section => observer.observe(section));

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Las Pilcas | Exclusividad en San Fabián</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@200;300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav id="main-nav" class="fixed w-full z-50 px-8 py-6 transition-all duration-700 bg-black/40 backdrop-blur-md">
+        <div class="max-w-[1600px] mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3 text-white tracking-[0.4em] font-light text-[10px] uppercase">
+                <img src="./assets/img/LOGO-LAS-PILCAS.svg" alt="Las Pilcas" class="h-12 brightness-200">
+                <span class="hidden md:block"></span>
+            </div>
+            <div class="hidden md:flex items-center gap-10 text-[10px] uppercase tracking-[0.3em] font-bold">
+                <a href="#inicio" class="nav-link hover:text-emerald-500 transition">Inicio</a>
+                <a href="#proyecto" class="nav-link hover:text-emerald-500 transition">Proyecto</a>
+                <a href="#galeria" class="nav-link hover:text-emerald-500 transition">Galería</a>
+                <a href="#ubicacion" class="nav-link hover:text-emerald-500 transition">Ubicación</a>
+                <a href="#contacto" class="nav-link hover:text-emerald-500 transition">Contacto</a>
+            </div>
+            <button type="button" id="menu-btn" class="md:hidden text-white p-3 -mr-2 rounded border border-white/30 bg-black/80 z-[100] touch-manipulation" aria-label="Abrir menú">
+                <span id="menu-icon-open"><i class="fa-solid fa-bars text-xl"></i></span>
+                <span id="menu-icon-close" class="hidden"><i class="fa-solid fa-xmark text-xl"></i></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Menú móvil: pantalla completa, animación lateral desde la derecha -->
+    <div id="mobile-menu" class="mobile-menu fixed inset-0 md:hidden" aria-hidden="true">
+        <div class="mobile-menu__backdrop"></div>
+        <div class="mobile-menu__panel">
+            <button type="button" id="mobile-menu-close" class="mobile-menu__close" aria-label="Cerrar menú">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <nav class="mobile-menu__nav">
+                <a href="#inicio" class="mobile-menu__link">Inicio</a>
+                <a href="#proyecto" class="mobile-menu__link">Proyecto</a>
+                <a href="#galeria" class="mobile-menu__link">Galería</a>
+                <a href="#ubicacion" class="mobile-menu__link">Ubicación</a>
+                <a href="#contacto" class="mobile-menu__link">Contacto</a>
+                <a href="https://wa.me/56966640562" class="mobile-menu__link mobile-menu__link--wa">WhatsApp</a>
+            </nav>
+        </div>
+    </div>
+
+    <header id="inicio" class="relative h-screen w-full flex items-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="./assets/img/HERO-0.jpg" class="w-full h-full object-cover scale-105" alt="Las Pilcas">
+            <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+        </div>
+    
+        <div class="relative z-10 max-w-[1600px] mx-auto w-full px-8 md:px-20">
+            <div class="max-w-3xl">
+                <p class="text-emerald-500 tracking-[0.4em] text-[10px] md:text-[12px] uppercase font-bold mb-6">
+                    Exclusividad Precordillerana
+                </p>
+    
+                <h1 class="text-7xl md:text-9xl text-white font-light mb-6 italic leading-tight drop-shadow-2xl">
+                    Las Pilcas
+                </h1>
+    
+                <div class="max-w-md">
+                    <p class="text-gray-300 text-sm md:text-lg leading-relaxed font-light tracking-wide mb-8">
+                        Tu refugio a 6 km de San Fabián de Alico. 
+                        <span class="text-white/90 block mt-2">Parcelas con acceso al río, agua potable y luz soterrada.</span>
+                    </p>
+                </div>
+    
+                <div class="mb-10 flex flex-col gap-1">
+                    <span class="text-emerald-500/80 text-[9px] uppercase tracking-[0.3em] font-bold">Inversión desde</span>
+                    <div class="flex items-baseline gap-3">
+                        <span class="text-white text-3xl md:text-1xl font-light tracking-tighter">1.688 UF</span>
+                        <span class="text-grey-200 text-sm md:text-base font-light italic"></span>
+                    </div>
+                </div>
+    
+                <div class="flex items-center gap-8">
+                    <a href="#proyecto" class="bg-emerald-600 hover:bg-emerald-500 text-white px-10 py-4 text-[10px] uppercase tracking-[0.4em] font-bold transition-all duration-300">
+                        Explorar Proyecto
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="proyecto" class="pt-6 md:pt-10 pb-20 md:pb-32 px-0 md:px-8 max-w-[1600px] mx-auto border-b border-white/5">
+    <div class="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
+        
+        <div class="w-full lg:w-1/3 px-4 md:px-0">
+            <span class="text-emerald-500 text-[10px] uppercase tracking-[0.6em] font-bold block mb-8 text-center md:text-left">El Master Plan</span>
+            <h2 class="text-4xl md:text-6xl text-white mb-10 leading-tight font-light italic text-center md:text-left text-balance">Un espacio diseñado para trascender.</h2>
+            
+            <div class="space-y-12 mb-12 lg:mb-0">
+                <div class="flex items-baseline gap-8">
+                    <span class="number-accent font-serif italic text-5xl opacity-40">01</span>
+                    <div>
+                        <h3 class="text-white text-lg uppercase tracking-widest mb-3 font-semibold text-emerald-400">Luz Soterrada</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed font-light">Sin cables visibles para mantener la pureza del entorno.</p>
+                    </div>
+                </div>
+                <div class="flex items-baseline gap-8">
+                    <span class="number-accent font-serif italic text-5xl opacity-40">02</span>
+                    <div>
+                        <h3 class="text-white text-lg uppercase tracking-widest mb-3 font-semibold text-emerald-400">Agua Potable</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed font-light">Disponible en cada parcela, para que disfrutes de la comodidad y calidad de vida que mereces.</p>
+                    </div>
+                </div>
+                <div class="flex items-baseline gap-8">
+                    <span class="number-accent font-serif italic text-5xl opacity-40">03</span>
+                    <div>
+                        <h3 class="text-white text-lg uppercase tracking-widest mb-3 font-semibold text-emerald-400">Acceso al Río</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed font-light">Sendero exclusi hacia la ribera del Río Ñuble.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="mapa" class="w-full lg:w-2/3 min-w-0">
+            <div class="glass-container p-1 md:p-12 rounded-none md:rounded-sm shadow-3xl relative overflow-hidden bg-black/20">
+                <div class="absolute top-0 right-0 w-32 h-[1px] bg-white/10"></div>
+                <div class="absolute top-0 right-0 h-32 w-[1px] bg-white/10"></div>
+
+                <div class="flex justify-between items-center mb-8 px-4 md:px-0">
+                    <p class="text-white tracking-[0.4em] text-[10px] uppercase font-light">San Fabián de Alico, Región de Ñuble</p>
+                    <span class="text-[9px] uppercase tracking-widest text-emerald-500 font-bold">Segunda Etapa</span>
+                </div>
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 625.5 436.6" width="100%" height="auto" class="block drop-shadow-2xl">
+                    <defs>
+                        <filter id="darken">
+                            <feComponentTransfer>
+                                <feFuncR type="linear" slope="0.7" />
+                                <feFuncG type="linear" slope="0.7" />
+                                <feFuncB type="linear" slope="0.7" />
+                            </feComponentTransfer>
+                        </filter>
+                    </defs>
+
+                    <image id="satelital-bg" width="625" height="436" href="./assets/img/IMAGENES-LOTE-LAS-PILCAS.jpg" filter="url(#darken)" style="transition: filter 0.5s ease;" />
+
+                    <g id="capa-lotes">
+                        <g id="LOTE-1" class="lote vendido"><path d="M172.5,90.4l-72-54.4-3.2.9-14.5,31,68.8,45.2s8.5-12.6,20.8-22.7Z"/></g>
+                        <g id="LOTE-3" class="lote reservado"><path d="M126.2,173.1s-8.3,23.9-10.1,31.3l-80.5-29.3,14.3-30,76.3,28.9Z"/></g>
+                        <g id="LOTE-2" class="lote disponible"><path d="M150.6,115s-7.3,13.6-12.8,27.6l-70.3-39.5,14.1-33.1,69,45Z"/></g>
+                        <g id="LOTE-33" class="lote disponible"><path d="M137.4,144.8s-7.7,17.5-10.2,25.9l-76.6-29.2,16.2-35.5,70.6,38.8Z"/></g>
+                        <g id="LOTE-4" class="lote reservado"><path d="M115.3,205.5s-4.9,21.5-4.7,28.2l-89.8-25.3,13.7-31.4,80.8,28.5Z"/></g>
+                        <g id="LOTE-34" class="lote vendido"><polygon points="110.2 236.3 19.5 210.5 9.7 230.5 13.8 239.7 122.1 272.4 115.5 263.7 110.5 247.7 110.2 236.3"/></g>
+                        <g id="LOTE-5" class="lote disponible"><path d="M185.5,172.1l23.4-62.2-22.2-11.1-4.8-1.6h-6s-4,2.3-8.6,6.8-7.8,9.7-12.2,18.1-14.6,31-14.6,31l44.9,19Z"/></g>
+                        <g id="LOTE-6" class="lote disponible"><polygon points="188 173.1 227.2 191.1 252.6 134.4 211 110.9 188 173.1"/></g>
+                        <g id="LOTE-9" class="lote disponible"><path d="M226,193.3l-13.6,28.7-83.8-35.9s3-10.8,11.1-30.7l86.3,37.9Z"/></g>
+                        <g id="LOTE-7" class="lote disponible"><path d="M171.3,206.9l-43.5-18.1s-7.6,18.8-10.5,38.5c0,0-1.1,12-.3,20s9.2,20.5,9.2,20.5l19.6,9.1,25.5-70Z"/></g>
+                        <g id="LOTE-8" class="lote disponible"><polygon points="173.8 208.5 211.8 224.5 179 294.1 147.8 278 173.8 208.5"/></g>
+                        <g id="LOTE-10" class="lote disponible"><polygon points="255.1 135.8 282.8 150.2 248 227.5 219.3 214.5 255.1 135.8"/></g>
+                        <g id="LOTE-11" class="lote reservado"><polygon points="181.3 294.7 208.9 310.6 246.9 230.6 218.1 217.2 181.3 294.7"/></g>
+                        <g id="LOTE-13" class="lote reservado"><path d="M211.6,311.8s14.5,9.2,26,14.7l39.5-82.2-27.8-12.5-37.7,79.9Z"/></g>
+                        <g id="LOTE-15" class="lote disponible"><path d="M276.3,251.6l28.9,13.9-35.9,74.1s-22.4-8.1-28.7-11.9l35.8-76.1Z"/></g>
+                        <g id="LOTE-12" class="lote reservado"><path d="M285.2,151.3s20.5,10.2,28.2,16.2l-35.4,74.2-27-12.5,34.1-77.9Z"/></g>
+                        <g id="LOTE_14" class="lote reservado"><path d="M315.4,168.9s13.4,11,23.3,28.9l-32.2,65.4-29.1-14.2,38-80.2Z"/></g>
+                        <g id="LOTE-16" class="lote disponible"><path d="M340.1,199.9s6.6,8.9,9.6,18.2c3,9.4,7.4,27.9,12.3,32.9l-21.7,42.4-36.7-17.6,36.6-75.9Z"/></g>
+                        <g id="LOTE-27" class="lote disponible"><path d="M363.2,253l-21.2,41.9,53.6,27.6,21.8-44.2v-4.1s-2.8-1.8-4.8-2.3-7.1-1.6-17.2-4.1-25.5-4.6-32.2-14.8Z"/></g>
+                        <g id="LOTE-18" class="lote disponible"><path d="M341.3,297.2l53,27.2s-8.9,15.9-12.4,21.5-7.8,9.5-9.3,10.5-23.7,1.5-28.8,1-30.7-3.5-30.7-3.5l28.2-56.7Z"/></g>
+                        <g id="LOTE-17" class="lote reservado"><path d="M302.6,278.3l36.1,17.7-27.3,56.6s-19.5-2.1-39.3-11.5l30.5-62.8Z"/></g>
+                        <g id="LOTE-37" class="lote tramite"><path d="M211,319.5l-15.6,30.3s27.9,25.5,56.4,44l20.2-45.7s-48.4-19.2-61-28.5Z"/></g>
+                        <g id="LOTE-36" class="lote tramite"><path d="M274.1,349l-19.8,46.3,46.4,30.6,13.6-65.9s-21-3-40.2-11Z"/></g>
+                        <g id="LOTE-19" class="lote reservado"><path d="M316.7,360.6s16.3,3,34.5,3.1l4.2,64.3-52.8-1.5,14.2-65.8Z"/></g>
+                        <g id="LOTE-20" class="lote disponible"><path d="M353.8,364.3s8.4.4,20-1.3l48.8,67.9-64.7-2.9-4.1-63.7Z"/></g>
+                        <g id="LOTE-21" class="lote disponible"><path d="M376.4,361.6l48.8,67.5,28.8-47.3-64.3-36.5s-7.6,11.6-13.4,16.2Z"/></g>
+                        <g id="LOTE-22" class="lote reservado"><polygon points="473.4 346.7 455.4 379.3 391.6 343.8 408 310.7 473.4 346.7"/></g>
+                        <g id="LOTE-23" class="lote reservado"><polygon points="425.2 277.1 409.5 308.1 474.7 344.8 494.8 311.1 425.2 277.1"/></g>
+                        <g id="LOTE-32" class="lote disponible"><polygon points="426.5 274.4 496.3 309.1 516.3 275.8 448.9 244.4 426.5 274.4"/></g>
+                        <g id="LOTE-24" class="lote disponible"><polygon points="450.7 241.9 517.9 274 536.3 241.9 473.9 209.3 450.7 241.9"/></g>
+                        <g id="LOTE-25" class="lote disponible"><path d="M478.1,184.9s5.2,10.5-2.9,22l62.7,33.1,28.7-48.1-88.5-7Z"/></g>
+                        <g id="LOTE-26" class="lote disponible"><path d="M583.7,162.9l-16.2,26.7-89.9-7.3s-5.8-2.9-9.6-3.6-6.2-1.9-11.8-6.3-20-14.7-25.7-15.8l153.1,6.4Z"/></g>
+                        <g id="LOTE-39" class="lote tramite"><polygon points="604.1 129.2 585.6 160.4 505 157.1 505.5 127.1 604.1 129.2"/></g>
+                        <g id="LOTE-38" class="lote tramite"><path d="M502.9,127.1l-.4,25.3-89.7-2.9s-46.7-20-60.6-24.9l150.8,2.5Z"/></g>
+                        <g id="LOTE-35" class="lote tramite"><path d="M425.4,161.9l-21.9,37.5,44.8,33,18.6-24.6s5-6.1,5.7-9.2.9-10.2-.4-11.4-5.7-2.7-6.9-2.9-4.5-.4-6.8-1.8-7.8-6.1-13.8-11.2-12.4-7.9-13.8-8.6-4.5-1.7-5.5-.8Z"/></g>
+                        <g id="LOTE-28" class="lote tramite"><path d="M404,203.1l43,31.6s-10.8,15-12.8,17.7-8.2,11.2-9.8,12.8-4.7,1.9-8.3,1.4-4.6-1.5-14-3.7-14.4-3.3-19.3-4.6-11.8-5-12-6.3,13.2-21,13.2-21l17.1-27.4s.8-1.7,2.9-.4Z"/></g>
+                        <g id="LOTE-31" class="lote tramite"><polygon points="423.6 160.2 401.3 198.2 337.4 152.2 347.8 129.2 423.6 160.2"/></g>
+                        <g id="LOTE-29" class="lote tramite"><path d="M400.1,200.9l-31,49.2s-2.9-2.8-6.2-12.3c-3.3-9.5-9.2-27.9-12.6-34.3s-22.3-31.5-22.3-31.5l8.2-17.1,63.9,46Z"/></g>
+                        <g id="LOTE-30" class="lote tramite"><path d="M345.4,128.8l-19.2,41.6s-7.1-6.8-11.9-10.8-71.9-37.5-71.9-37.5l12.4-22.7s59.3,27.2,65.4,28.8,25.2.5,25.2.5Z"/></g>
+                        
+                </svg>
+
+                <div class="flex flex-wrap justify-center gap-10 mt-12 text-[8px] uppercase tracking-[0.3em] font-bold">
+                    <div class="flex items-center gap-2 text-white/70 transition"><div class="w-2 h-2 border border-white"></div> Disponoble</div>
+                    <div class="flex items-center gap-2 text-white/70 transition"><div class="w-2 h-2 border border-red-600"></div> Vendido</div>
+                    <div class="flex items-center gap-2 text-white/70 transition"><div class="w-2 h-2 border border-amber-500"></div> Reservado</div>
+                    <div class="flex items-center gap-2 text-white/70 transition"><div class="w-2 h-2 border border-cyan-500"></div> Trámite</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section id="galeria" class="py-24 px-4 md:px-8 max-w-[1600px] mx-auto border-y border-white/5">
+        <div class="mb-12 text-center md:text-left">
+            <span class="text-emerald-500 text-[10px] uppercase tracking-[0.6em] font-bold block mb-4">Galería</span>
+            <h2 class="text-3xl md:text-5xl text-white mb-4 leading-tight font-light italic">Explora el entorno de Las Pilcas.</h2>
+            <p class="text-sm text-gray-500 max-w-2xl mx-auto md:mx-0 font-light">Imágenes y videos de referencia para imaginar la experiencia de vivir en un entorno precordillerano único.</p>
+        </div>
+
+        <div class="gallery-grid grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
+            <!-- Imagen 1 -->
+            <button type="button" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
+                data-type="image"
+                data-src="./assets/img/LAS_PILCAS/1.jpg"
+                data-caption="Acceso por la Ruta N-31, en dirección a la cordillera, a tan solo 6 km de San Fabián de Alico.">
+                <img src="./assets/img/LAS_PILCAS/1.jpg" alt="Río de montaña" class="w-full h-full object-cover transition duration-700 ease-out scale-105 group-hover:scale-110 group-hover:opacity-100 opacity-80">
+                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-[9px] tracking-[0.3em] uppercase text-white text-center">Acceso por la Ruta N-31</div>
+            </button>
+
+            <!-- Imagen 2 -->
+            <button type="button" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
+                data-type="image"
+                data-src="./assets/img/LAS_PILCAS/2.jpg"
+                data-caption="Paisajes únicos rodeados de bosque nativo.">
+                <img src="./assets/img/LAS_PILCAS/2.jpg" alt="Bosque nativo" class="w-full h-full object-cover transition duration-700 ease-out scale-105 group-hover:scale-110 group-hover:opacity-100 opacity-80">
+                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-[9px] tracking-[0.3em] uppercase text-white text-center">Paisajes únicos</div>
+            </button>
+
+            <!-- Imagen 3 -->
+            <button type="button" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
+                data-type="image"
+                data-src="./assets/img/LAS_PILCAS/3.jpg"
+                data-caption="Acceso exclusivo al río Ñuble.">
+                <img src="./assets/img/LAS_PILCAS/3.jpg" alt="Cordillera" class="w-full h-full object-cover transition duration-700 ease-out scale-105 group-hover:scale-110 group-hover:opacity-100 opacity-80">
+                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-[9px] tracking-[0.3em] uppercase text-white text-center">Acceso exclusivo</div>
+            </button>
+
+            <!-- Video -->
+            <button type="button" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-emerald-500/40"
+                data-type="video"
+                data-src="https://www.youtube.com/embed/uObb7pSfYsg?autoplay=1"
+                data-caption="San fabián The New Destination.">
+                
+                <img src="./assets/img/IMAGEN PVIDEO SAN FABIAN.jpg" 
+                    alt="Video referencia" 
+                    class="w-full h-full object-cover transition duration-700 ease-out scale-105 group-hover:scale-110 group-hover:opacity-100 opacity-80">
+                
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-12 h-12 rounded-full border border-white/70 flex items-center justify-center bg-black/40 group-hover:bg-emerald-500/20 transition-all">
+                        <i class="fa-solid fa-play text-xs text-white ml-0.5"></i>
+                    </div>
+                </div>
+
+                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-[9px] tracking-[0.3em] uppercase text-emerald-400 text-center font-bold">
+                    Travel to San Fabian - The New Destination
+                </div>
+            </button>
+
+             <!-- Imagen 4 -->
+            <button type="button" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
+                data-type="image"
+                data-src="./assets/img/LAS_PILCAS/4.jpg"
+                data-caption="Vista panorámica del Lote 5 desde arriba.">
+                <img src="./assets/img/LAS_PILCAS/4.jpg" alt="Cordillera" class="w-full h-full object-cover transition duration-700 ease-out scale-105 group-hover:scale-110 group-hover:opacity-100 opacity-80">
+                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-[9px] tracking-[0.3em] uppercase text-white text-center">Vista panorámica del Lote 5</div>
+            </button>
+
+             <!-- Imagen 5 -->
+            <button type="button" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
+                data-type="image"
+                data-src="./assets/img/LAS_PILCAS/4.jpg"
+                data-caption="Vista panorámica del acceso al río Ñuble.">
+                <img src="./assets/img/LAS_PILCAS/5.jpg" alt="Cordillera" class="w-full h-full object-cover transition duration-700 ease-out scale-105 group-hover:scale-110 group-hover:opacity-100 opacity-80">
+                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-[9px] tracking-[0.3em] uppercase text-white text-center">Vista panorámica</div>
+            </button>
+
+            <!-- Imagen 6 -->
+            <button type="button" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
+                data-type="image"
+                data-src="./assets/img/LAS_PILCAS/6.jpg"
+                data-caption="Parcelas Las Pilcas en su primera etapa, con banderines que marcan la división de los lotes.">
+                <img src="./assets/img/LAS_PILCAS/6.jpg" alt="Cordillera" class="w-full h-full object-cover transition duration-700 ease-out scale-105 group-hover:scale-110 group-hover:opacity-100 opacity-80">
+                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-[9px] tracking-[0.3em] uppercase text-white text-center">Parcelas Las Pilcas en su primera etapa</div>
+            </button>
+
+            <!-- Imagen 7 -->
+            <button type="button" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
+                data-type="image"
+                data-src="./assets/img/LAS_PILCAS/7.jpg"
+                data-caption="Brazo del río Ñuble que forma una piscina natural.">
+                <img src="./assets/img/LAS_PILCAS/7.jpg" alt="Cordillera" class="w-full h-full object-cover transition duration-700 ease-out scale-105 group-hover:scale-110 group-hover:opacity-100 opacity-80">
+                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-[9px] tracking-[0.3em] uppercase text-white text-center">Parcelas Brazo del río</div>
+            </button>
+
+            <!-- Imagen 8 -->
+            <button type="button" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
+                data-type="image"
+                data-src="./assets/img/LAS_PILCAS/8.jpg"
+                data-caption="Maravillosa vista de las parcelas Las Pilcas.">
+                <img src="./assets/img/LAS_PILCAS/8.jpg" alt="Cordillera" class="w-full h-full object-cover transition duration-700 ease-out scale-105 group-hover:scale-110 group-hover:opacity-100 opacity-80">
+                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-[9px] tracking-[0.3em] uppercase text-white text-center">Maravillosa vista de las parcelas</div>
+            </button>
+
+
+        </div>
+    </section>
+
+    <!-- Lightbox Galería -->
+    <div id="gallery-lightbox" class="fixed inset-0 bg-black/95 z-[10002] hidden items-center justify-center px-4">
+        <button type="button" id="gallery-close" class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center border border-white/40 text-white text-lg bg-black/40 hover:bg-white hover:text-black transition" aria-label="Cerrar galería">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <button type="button" id="gallery-prev" class="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center border border-white/30 text-white bg-black/40 hover:bg-white hover:text-black transition" aria-label="Anterior">
+            <i class="fa-solid fa-chevron-left text-sm"></i>
+        </button>
+        <button type="button" id="gallery-next" class="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center border border-white/30 text-white bg-black/40 hover:bg-white hover:text-black transition" aria-label="Siguiente">
+            <i class="fa-solid fa-chevron-right text-sm"></i>
+        </button>
+
+        <div class="max-w-4xl w-full">
+            <div class="aspect-video bg-black/60 flex items-center justify-center mb-4 overflow-hidden">
+                <img id="lightbox-image" src="" alt="" class="max-h-full max-w-full object-contain hidden">
+                <iframe id="lightbox-video" src="" title="Video galería" class="w-full h-full hidden" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <p id="lightbox-caption" class="text-xs md:text-sm text-gray-300 text-center tracking-[0.25em] uppercase"></p>
+        </div>
+    </div>
+
+    <section id="ubicacion" class="py-24 px-8 md:px-20 max-w-[1600px] mx-auto border-t border-white/5 bg-black">
+        <div class="flex flex-col lg:flex-row-reverse gap-16 lg:gap-24 items-center">
+            
+            <div class="w-full lg:w-1/2 space-y-8 lg:text-right">
+                <span class="text-emerald-500 text-[10px] uppercase tracking-[0.6em] font-bold block">El Entorno</span>
+                <h2 class="text-3xl md:text-5xl text-white leading-tight font-light italic">Ubicación Estratégica.</h2>
+                <p class="text-sm md:text-base text-gray-400 font-light leading-relaxed max-w-xl text-balance lg:ml-auto">
+                    Situadas a solo <span class="text-emerald-400">6 km de San Fabián de Alico</span>, Las Pilcas ofrece la combinación perfecta entre la serenidad de la precordillera y la accesibilidad necesaria para tu día a día.
+                </p>
+                
+                <div class="space-y-4 text-[11px] md:text-xs uppercase tracking-[0.25em] text-white/70">
+                    <div class="flex items-center gap-3 lg:justify-end">
+                        <i class="fa-solid fa-road text-emerald-500 w-5 text-base text-center"></i>
+                        <span>Acceso directo por Ruta N-31.</span>
+                    </div>
+                    <div class="flex items-center gap-3 lg:justify-end">
+                        <i class="fa-solid fa-mountain-sun text-emerald-500 w-5 text-base text-center"></i>
+                        <span>A minutos de la Reserva Nacional Ñuble.</span>
+                    </div>
+                    <div class="flex items-center gap-3 lg:justify-end">
+                        <i class="fa-solid fa-car-side text-emerald-500 w-5 text-base text-center"></i>
+                        <span>Conectividad rápida con Chillán y alrededores.</span>
+                    </div>
+                </div>
+    
+                <div class="pt-4 lg:text-right">
+                    <a href="https://maps.app.goo.gl/rLfeLiWqCn4P3vKcA" target="_blank" rel="noopener noreferrer"
+                       class="inline-block border border-emerald-500 px-10 py-4 text-[10px] font-bold uppercase tracking-[0.5em] text-emerald-400 hover:bg-emerald-500 hover:text-black transition-all duration-500">
+                        Abrir en Google Maps
+                    </a>
+                </div>
+            </div>
+    
+            <div class="w-full lg:w-1/2">
+                <div class="glass-container p-1 border border-white/10 overflow-hidden shadow-2xl">
+                    <iframe 
+                        class="w-full h-[260px] md:h-[380px] map-dark"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3799.538661425297!2d-71.49729992344987!3d-36.59932966561442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f19.1!3m3!1m2!1s0x966ee7006f6370e5%3A0x3e69a65c3dc93d4b!2sLas%20Pilcas!5e1!3m2!1ses!2scl!4v1773237931571!5m2!1ses!2scl"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-24 px-8 max-w-[1600px] mx-auto border-t border-white/5">
+        <div class="flex flex-col lg:flex-row gap-20">
+            <!-- Columna Info -->
+            <div class="lg:w-1/3">
+                <span class="text-emerald-500 text-[10px] uppercase tracking-[0.6em] font-bold block mb-8">Contacto</span>
+                <h2 class="text-4xl md:text-6xl text-white mb-10 leading-tight font-light italic">Comience su historia en Las Pilcas.</h2>
+                <p class="text-gray-500 font-light leading-relaxed mb-12">
+                    Si estás buscando un lugar único, con exclusividad y un entorno natural incomparable, nuestro equipo en San Fabián de Alico está listo para brindarte la asesoría personalizada que necesitas para tu inversión.
+                </p>
+                
+                <div class="space-y-6 text-[10px] uppercase tracking-[0.2em] font-bold text-white/70">
+                    <div class="flex items-center gap-4">
+                        <i class="fa-solid fa-location-dot text-emerald-500 w-5"></i>
+                        <span>San Fabián de Alico, Región de Ñuble</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <i class="fa-solid fa-phone text-emerald-500 w-5"></i>
+                        <span>+56 9 6664 0562</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <i class="fa-solid fa-envelope text-emerald-500 w-5"></i>
+                        <span>contacto@laspilcas.cl</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna Formulario -->
+            <div class="lg:w-2/3">
+                <form id="contact-form" method="POST" class="space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-2">
+                            <label for="nombre" class="text-[9px] uppercase tracking-[0.3em] text-emerald-500 font-bold">Nombre Completo</label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Ej: Patricio García" required 
+                                class="w-full bg-transparent border-b border-white/10 py-4 text-white font-light focus:outline-none focus:border-emerald-500 transition placeholder:text-white/10 text-sm">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="email" class="text-[9px] uppercase tracking-[0.3em] text-emerald-500 font-bold">Correo Electrónico</label>
+                            <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required 
+                                class="w-full bg-transparent border-b border-white/10 py-4 text-white font-light focus:outline-none focus:border-emerald-500 transition placeholder:text-white/10 text-sm">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="whatsapp" class="text-[9px] uppercase tracking-[0.3em] text-emerald-500 font-bold">WhatsApp / Teléfono</label>
+                            <input type="tel" id="whatsapp" name="whatsapp" placeholder="+56 9 ..." required 
+                                class="w-full bg-transparent border-b border-white/10 py-4 text-white font-light focus:outline-none focus:border-emerald-500 transition placeholder:text-white/10 text-sm">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="asunto" class="text-[9px] uppercase tracking-[0.3em] text-emerald-500 font-bold">Interés Principal</label>
+                            <select id="asunto" name="asunto" 
+                                class="w-full bg-transparent border-b border-white/10 py-4 text-white/50 font-light focus:outline-none focus:border-emerald-500 transition text-sm appearance-none cursor-pointer">
+                                <option value="informacion" class="bg-black text-white">Información General</option>
+                                <option value="visita" class="bg-black text-white">Agendar Visita a Terreno</option>
+                                <option value="reserva" class="bg-black text-white">Reserva de Lote</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label for="mensaje" class="text-[9px] uppercase tracking-[0.3em] text-emerald-500 font-bold">Mensaje</label>
+                        <textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntenos cómo podemos ayudarle..." required 
+                            class="w-full bg-transparent border-b border-white/10 py-4 text-white font-light focus:outline-none focus:border-emerald-500 transition placeholder:text-white/10 text-sm resize-none"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full md:w-auto bg-white text-black px-16 py-5 text-[10px] font-bold uppercase tracking-[0.5em] hover:bg-emerald-500 hover:text-white transition duration-700">
+                        Enviar Consulta
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Modal de éxito formulario -->
+    <div id="contact-success-modal" class="fixed inset-0 z-[10005] hidden items-center justify-center bg-black/90 backdrop-blur-xl px-6">
+        <div class="max-w-md w-full border border-white/10 bg-black/80 px-10 py-12 text-center shadow-2xl">
+            <p class="text-xs tracking-[0.4em] uppercase text-emerald-400 mb-4">Mensaje enviado</p>
+            <h3 class="text-2xl md:text-3xl text-white font-light italic mb-6" style="font-family: 'Playfair Display', serif;">
+                Tu mensaje ha sido enviado con éxito.
+            </h3>
+            <p class="text-sm text-gray-400 font-light mb-10">
+                Nuestro equipo se pondrá en contacto contigo a la brevedad para continuar con el proceso.
+            </p>
+            <button id="contact-success-close" type="button"
+                class="inline-block border border-white/30 text-white text-[10px] tracking-[0.5em] uppercase px-10 py-3 hover:border-emerald-500 hover:text-emerald-400 transition">
+                Cerrar
+            </button>
+        </div>
+    </div>
+
+    <footer class="py-10 border-t border-white/5">
+        <div class="max-w-[1600px] mx-auto px-8 md:px-20 flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] uppercase tracking-[0.35em] text-gray-500">
+            <div class="text-center md:text-left space-y-1">
+                <p class="text-gray-400">© 2026 Las Pilcas</p>
+                <p class="text-gray-600 text-[9px]">San Fabián de Alico · Región de Ñuble</p>
+            </div>
+            <div class="flex items-center gap-5">
+                <a target="_blank" href="https://www.instagram.com/arriagada_consultores/" target="_blank" rel="noopener noreferrer"
+                   class="flex items-center gap-2 text-gray-400 hover:text-emerald-400 transition-colors">
+                    <i class="fa-brands fa-instagram text-lg"></i>
+                    <span class="hidden md:inline">Instagram</span>
+                </a>
+                <a target="_blank" href="https://www.facebook.com/profile.php?id=61568287919324" target="_blank" rel="noopener noreferrer"
+                   class="flex items-center gap-2 text-gray-400 hover:text-emerald-400 transition-colors">
+                    <i class="fa-brands fa-facebook-f text-lg"></i>
+                    <span class="hidden md:inline">Facebook</span>
+                </a>
+                <a href="#inicio" class="hidden md:inline-block text-gray-500 hover:text-emerald-400 transition-colors">
+                    VOLVER AL INICIO
+                </a>
+            </div>
+            <div class="text-center md:text-right">
+                <p class="text-[9px] uppercase tracking-[0.3em] text-gray-500 font-light">
+                    Implementada por 
+                    <a target="_blank" href="https://www.instagram.com/patgsj/" 
+                       target="_blank" 
+                       class="text-emerald-500/80 hover:text-emerald-400 transition-colors duration-300 ml-1 font-bold">
+                        Patricio Gustavo Soto Jofré
+                    </a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="lote-tooltip"></div>
+    <script src="script.js"></script>
+</body>
+</html>
