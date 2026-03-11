@@ -174,40 +174,16 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// --- ENVÍO FORMULARIO CONTACTO (Formspree + modal de éxito) ---
-if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const formData = new FormData(contactForm);
-
-        try {
-            const response = await fetch('enviar.php', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-
-            if (response.ok) {
-                const data = await response.json().catch(() => ({ success: false }));
-                if (!data.success) {
-                    console.error('Error en la respuesta del servidor');
-                    return;
-                }
-                contactForm.reset();
-                if (contactSuccessModal) {
-                    contactSuccessModal.classList.add('flex');
-                    contactSuccessModal.classList.remove('hidden');
-                }
-            } else {
-                console.error('Error al enviar el formulario');
-            }
-        } catch (error) {
-            console.error('Error de red al enviar el formulario', error);
-        }
-    });
-}
+// --- FORMULARIO CONTACTO: envío a enviar.php (redirección desde PHP) ---
+// Si se vuelve con ?envio=exito, mostrar modal "Mensaje enviado"
+(function () {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('envio') === 'exito' && contactSuccessModal) {
+        contactSuccessModal.classList.add('flex');
+        contactSuccessModal.classList.remove('hidden');
+        history.replaceState(null, '', window.location.pathname + '#contacto');
+    }
+})();
 
 if (contactSuccessClose && contactSuccessModal) {
     contactSuccessClose.addEventListener('click', () => {
