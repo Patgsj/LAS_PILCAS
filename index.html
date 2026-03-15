@@ -546,7 +546,7 @@
             </div>
 
             <div class="p-3 bg-white">
-                <a href="https://wa.me/56966640562?text=Hola!%20Vi%20la%20página%20de%20Las%20Pilcas%20y%20me%20gustaría%20recibir%20más%20información." target="_blank" rel="noopener noreferrer" class="w-full bg-[#25D366] text-white flex items-center justify-center p-3 rounded-full font-bold text-sm hover:bg-[#128C7E] transition">
+                <a id="send-whatsapp" href="https://wa.me/56966640562?text=Hola!%20Vi%20la%20página%20de%20Las%20Pilcas%20y%20me%20gustaría%20recibir%20más%20información." target="_blank" rel="noopener noreferrer" class="w-full bg-[#25D366] text-white flex items-center justify-center p-3 rounded-full font-bold text-sm hover:bg-[#128C7E] transition">
                     Abrir Chat
                 </a>
             </div>
@@ -628,23 +628,37 @@
     </script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        var whatsappBtn = document.getElementById('whatsapp-btn');
-        var chatWindow = document.getElementById('whatsapp-chat-window');
-        var closeChatBtn = document.getElementById('close-whatsapp');
+        const whatsappBtn = document.getElementById('whatsapp-btn');
+        const whatsappWidget = document.querySelector('.whatsapp-widget');
+        const chatWindow = document.getElementById('whatsapp-chat-window');
+        const closeWhatsapp = document.getElementById('close-whatsapp');
+        const sendWhatsapp = document.getElementById('send-whatsapp');
 
-        if (!whatsappBtn || !chatWindow || !closeChatBtn) return;
+        if (!whatsappBtn || !whatsappWidget || !chatWindow || !closeWhatsapp) return;
 
+        // Alternar ventana al hacer clic en el botón
         whatsappBtn.addEventListener('click', function(e) {
           e.stopPropagation();
           chatWindow.classList.toggle('hidden');
         });
 
-        closeChatBtn.addEventListener('click', function() {
+        // Cerrar con el botón X
+        closeWhatsapp.addEventListener('click', function() {
           chatWindow.classList.add('hidden');
         });
 
+        // Al hacer clic en "Abrir Chat": el enlace abre en nueva pestaña y se cierra la ventana
+        if (sendWhatsapp) {
+          sendWhatsapp.addEventListener('click', function() {
+            chatWindow.classList.add('hidden');
+          });
+        }
+
+        // Cerrar al hacer clic fuera del widget
         document.addEventListener('click', function(event) {
-          if (!chatWindow.contains(event.target) && !whatsappBtn.contains(event.target)) {
+          const isClickInside = whatsappWidget.contains(event.target);
+
+          if (!isClickInside && !chatWindow.classList.contains('hidden')) {
             chatWindow.classList.add('hidden');
           }
         });
