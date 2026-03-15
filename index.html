@@ -26,16 +26,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        .wa-float-pulse {
-            animation: wa-pulse 2s ease-in-out infinite;
-        }
-        @keyframes wa-pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
-            50% { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
-        }
         /* Ocultar marcador nativo de <summary> para usar solo el ícono del acordeón */
         details summary::-webkit-details-marker { display: none; }
         details summary::marker { display: none; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
     </style>
 </head>
 <body>
@@ -519,13 +519,40 @@
         </div>
     </div>
 
-    <!-- Botón flotante WhatsApp -->
-    <a href="https://wa.me/56966640562?text=Hola!%20Vi%20la%20página%20de%20Las%20Pilcas%20y%20me%20gustaría%20recibir%20más%20información." target="_blank" rel="noopener noreferrer"
-       class="wa-float-pulse fixed bottom-6 right-6 z-[1000] w-14 h-14 rounded-full flex items-center justify-center text-white transition-transform hover:scale-110"
-       style="background-color: #25D366;"
-       aria-label="Contactar por WhatsApp">
-        <i class="fa-brands fa-whatsapp text-2xl"></i>
-    </a>
+    <!-- Widget WhatsApp (ventana de chat simulada) -->
+    <div class="whatsapp-widget fixed bottom-6 right-6 z-[1000]">
+        <button type="button" id="whatsapp-btn" class="bg-[#25D366] text-white rounded-full p-4 shadow-xl hover:bg-[#128C7E] transition-all relative flex items-center justify-center w-14 h-14" aria-label="Abrir chat de WhatsApp">
+            <i class="fa-brands fa-whatsapp text-3xl"></i>
+            <span class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full font-bold">1</span>
+        </button>
+
+        <div id="whatsapp-chat-window" class="hidden absolute bottom-20 right-0 w-[320px] bg-white rounded-2xl shadow-2xl overflow-hidden animate-fade-in">
+            <div class="bg-[#075E54] p-4 text-white flex items-center gap-3">
+                <i class="fa-brands fa-whatsapp text-xl"></i>
+                <div>
+                    <p class="font-bold text-sm">Arriagada Consultores</p>
+                    <p class="text-xs text-white/80">Responde en menos de 1 hora</p>
+                </div>
+                <button type="button" id="close-whatsapp" class="ml-auto text-white/70 hover:text-white text-lg" aria-label="Cerrar chat">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-4 bg-[#e5ddd5] space-y-3 h-[200px] overflow-y-auto" style="background-image: url('https://user-images.githubusercontent.com/1500684/157740900-38434a17-3843-11ec-8f4d-b94d8721245e.png'); background-blend-mode: overlay;">
+                <div class="bg-white p-3 rounded-xl rounded-bl-none max-w-[85%] text-sm shadow">
+                    <p class="text-xs text-gray-400 mb-1">Ahora</p>
+                    <p>Hola 👋 ¿En qué podemos ayudarte con tu parcela hoy?</p>
+                </div>
+            </div>
+
+            <div class="p-3 bg-white">
+                <a href="https://wa.me/56966640562?text=Hola!%20Vi%20la%20página%20de%20Las%20Pilcas%20y%20me%20gustaría%20recibir%20más%20información." target="_blank" rel="noopener noreferrer" class="w-full bg-[#25D366] text-white flex items-center justify-center gap-2 p-3 rounded-full font-bold text-sm hover:bg-[#128C7E] transition">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    Abrir Chat
+                </a>
+            </div>
+        </div>
+    </div>
 
     <footer class="py-10 border-t border-white/5">
         <div class="max-w-[1600px] mx-auto px-8 md:px-20 flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] uppercase tracking-[0.35em] text-gray-500">
@@ -599,6 +626,30 @@
             });
         });
       })();
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var whatsappBtn = document.getElementById('whatsapp-btn');
+        var chatWindow = document.getElementById('whatsapp-chat-window');
+        var closeChatBtn = document.getElementById('close-whatsapp');
+
+        if (!whatsappBtn || !chatWindow || !closeChatBtn) return;
+
+        whatsappBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          chatWindow.classList.toggle('hidden');
+        });
+
+        closeChatBtn.addEventListener('click', function() {
+          chatWindow.classList.add('hidden');
+        });
+
+        document.addEventListener('click', function(event) {
+          if (!chatWindow.contains(event.target) && !whatsappBtn.contains(event.target)) {
+            chatWindow.classList.add('hidden');
+          }
+        });
+      });
     </script>
 </body>
 </html>
