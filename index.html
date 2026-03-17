@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es" class="scroll-smooth overflow-x-hidden w-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +38,7 @@
         }
     </style>
 </head>
-<body>
+<body class="overflow-x-hidden w-full">
 
     <nav id="main-nav" class="fixed w-full z-50 px-8 py-6 transition-all duration-700 bg-black/40 backdrop-blur-md">
         <div class="max-w-[1600px] mx-auto flex justify-between items-center">
@@ -216,6 +216,8 @@
                         <g id="LOTE-30" class="lote tramite"><path d="M345.4,128.8l-19.2,41.6s-7.1-6.8-11.9-10.8-71.9-37.5-71.9-37.5l12.4-22.7s59.3,27.2,65.4,28.8,25.2.5,25.2.5Z"/></g>
                         
                 </svg>
+
+                <div id="info-lote"></div>
 
                 <div class="flex flex-wrap justify-center gap-10 mt-12 text-[8px] uppercase tracking-[0.3em] font-bold">
                     <div class="flex items-center gap-2 text-white/70 transition"><div class="w-2 h-2 border border-white"></div> Disponoble</div>
@@ -586,8 +588,6 @@
             </div>
         </div>
     </footer>
-
-    <div id="lote-tooltip"></div>
     <script src="script.js"></script>
     <script>
       (function () {

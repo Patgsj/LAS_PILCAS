@@ -1,4 +1,4 @@
-const tooltip = document.getElementById('lote-tooltip');
+const tooltip = document.getElementById('info-lote');
 const lotes = document.querySelectorAll('.lote');
 const camino = document.getElementById('CAMINO');
 const menuBtn = document.getElementById('menu-btn');
@@ -19,6 +19,9 @@ let currentGalleryIndex = 0;
 const contactForm = document.getElementById('contact-form');
 const contactSuccessModal = document.getElementById('contact-success-modal');
 const contactSuccessClose = document.getElementById('contact-success-close');
+const mapaContainer = document.getElementById('mapa');
+let touchTooltipVisible = false;
+let touchTooltipScrollStart = 0;
 
 // --- MENÚ MÓVIL: toggle clase active, bloqueo de scroll y cierre en enlaces ---
 function setMobileMenuActive(active) {
@@ -199,36 +202,67 @@ if (contactSuccessClose && contactSuccessModal) {
 }
 
 // --- TOOLTIP LÓGICA ---
+function hideTooltip() {
+    if (!tooltip) return;
+    tooltip.style.opacity = '0';
+    tooltip.classList.remove('lote-tooltip--touch');
+    touchTooltipVisible = false;
+    tooltip.style.display = 'none';
+}
+
 function showTooltip(e, id, estadoText, precioHTML) {
+    if (!tooltip) return;
     const isTouch = e.type.startsWith('touch');
     tooltip.style.display = 'block';
 
     if (isTouch) {
         tooltip.classList.add('lote-tooltip--touch');
         tooltip.innerHTML = `
-            <div style="min-width:140px">
-                <div class="text-[7px] text-gray-300 mb-0.5 tracking-[0.3em]">Propiedad</div>
-                <div class="lote-tooltip__title text-white font-bold text-base mb-1">${id}</div>
-                ${estadoText}
-                ${precioHTML}
+            <div style="display:flex;align-items:center;justify-content:space-between;width:100%;gap:10px;">
+                <div style="flex:1;min-width:0;">
+                    <div class="text-[7px] text-gray-300 mb-0.5 tracking-[0.3em]">Propiedad</div>
+                    <div class="lote-tooltip__title text-white font-bold text-xs mb-1 truncate">${id}</div>
+                    ${estadoText}
+                </div>
+                <div style="flex:0 0 auto;text-align:right;">
+                    ${precioHTML}
+                </div>
             </div>`;
         tooltip.style.left = '';
         tooltip.style.top = '';
+        touchTooltipVisible = true;
+        touchTooltipScrollStart = window.scrollY || window.pageYOffset || 0;
     } else {
         tooltip.classList.remove('lote-tooltip--touch');
+        const parentRect = tooltip.parentElement ? tooltip.parentElement.getBoundingClientRect() : { left: 0, top: 0 };
         tooltip.innerHTML = `
-            <div style="min-width:180px">
-                <div class="text-[8px] text-gray-300 mb-1 tracking-[0.4em]">Propiedad</div>
-                <div class="text-white font-bold text-xl mb-3">${id}</div>
+            <div style="min-width:180px;position:relative;">
+                <button type="button" class="lote-tooltip__close" aria-label="Cerrar información de lote" style="position:absolute;top:0;right:0;font-size:11px;color:#e5e5e5;background:transparent;border:none;cursor:pointer;">✕</button>
+                <div class="text-[8px] text-gray-300 mb-1 pr-4 tracking-[0.4em]">Propiedad</div>
+                <div class="text-white font-bold text-xl mb-3 pr-4">${id}</div>
                 ${estadoText}
                 ${precioHTML}
             </div>`;
         var x = e.clientX || 0;
         var y = e.clientY || 0;
-        tooltip.style.left = (x + 52) + 'px';
-        tooltip.style.top = (y + 52) + 'px';
+        const offset = 20;
+        tooltip.style.left = (x - parentRect.left + offset) + 'px';
+        tooltip.style.top = (y - parentRect.top + offset) + 'px';
         tooltip.style.transform = '';
     }
+
+    const closeBtn = tooltip.querySelector('.lote-tooltip__close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function (ev) {
+            ev.stopPropagation();
+            hideTooltip();
+        });
+    }
+
+    // Forzar transición de opacidad
+    requestAnimationFrame(() => {
+        tooltip.style.opacity = '1';
+    });
 }
 
 // Eventos para lotes
@@ -246,19 +280,22 @@ lotes.forEach(lote => {
             estadoText = '<span class="font-bold text-[9px]" style="color:#7dd3fc;">EN TRÁMITE</span>';
         } else {
             estadoText = '<span class="font-bold text-[9px]" style="color:#a7f3d0;">ENTREGA INMEDIATA</span>';
-            precioHTML = '<div class="mt-4 text-white font-light text-2xl tracking-tighter italic border-t border-white/10 pt-2">$65.000.000</div>';
+            precioHTML = '<div class="precio-lote mt-4 text-white font-light tracking-tighter italic border-t border-white/10 pt-2">$65.000.000</div>';
         }
 
         showTooltip(e, id, estadoText, precioHTML);
     };
 
     lote.addEventListener('mousemove', handleMove);
+    lote.addEventListener('mouseenter', handleMove);
     lote.addEventListener('touchstart', (e) => {
         handleMove(e);
         // Evitar que el primer toque abra WhatsApp si solo queremos ver el tooltip
     }, {passive: true});
 
-    lote.addEventListener('mouseleave', () => tooltip.style.display = 'none');
+    lote.addEventListener('mouseleave', () => {
+        hideTooltip();
+    });
     
     lote.addEventListener('click', (e) => {
         if (!lote.classList.contains('disponible')) return;
@@ -276,6 +313,7 @@ lotes.forEach(lote => {
 // Tooltip para camino (Ruta N-31)
 if (camino) {
     const handleCamino = (e) => {
+        if (!tooltip) return;
         tooltip.style.display = 'block';
         tooltip.innerHTML = `
             <div style="min-width:180px">
@@ -294,7 +332,21 @@ if (camino) {
 
     camino.addEventListener('mousemove', handleCamino);
     camino.addEventListener('touchstart', handleCamino, {passive: true});
-    camino.addEventListener('mouseleave', () => tooltip.style.display = 'none');
+    camino.addEventListener('mouseleave', () => {
+        hideTooltip();
+    });
+}
+
+// Cerrar tooltip táctil al tocar una zona del mapa que no sea un lote
+if (mapaContainer) {
+    mapaContainer.addEventListener('click', (e) => {
+        if (!touchTooltipVisible || !tooltip) return;
+        const target = e.target;
+        const isLote = target.closest && target.closest('.lote');
+        if (!isLote) {
+            hideTooltip();
+        }
+    });
 }
 
 // --- SCROLLSPY ---
