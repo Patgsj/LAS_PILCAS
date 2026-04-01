@@ -34,15 +34,12 @@
     <!-- Preconnect externos para rendimiento -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
     <!-- Preload hero image (LCP crítico) -->
-    <link rel="preload" as="image" href="./assets/img/HERO-0.jpg">
+    <link rel="preload" as="image" href="./assets/img/HERO-0.jpg" fetchpriority="high">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-
+    <link rel="stylesheet" href="./tailwind.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@200;300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 
     <!-- Datos estructurados JSON-LD -->
@@ -76,7 +73,7 @@
           ]
         },
         {
-          "@type": "LandmarksOrHistoricalBuildings",
+          "@type": "RealEstateListing",
           "@id": "https://laspilcas.cl/#proyecto",
           "name": "Parcelas de Agrado Las Pilcas",
           "description": "Parcelas de agrado desde 65 millones de pesos en la precordillera de Ñuble, a 6 km de San Fabián de Alico con acceso al Río Ñuble.",
@@ -121,8 +118,8 @@
                 <a href="#contacto" class="nav-link hover:text-emerald-500 transition">Contacto</a>
             </div>
             <button type="button" id="menu-btn" class="md:hidden text-white p-3 -mr-2 rounded border border-white/30 bg-black/80 z-[100] touch-manipulation" aria-label="Abrir menú">
-                <span id="menu-icon-open"><i class="fa-solid fa-bars text-xl"></i></span>
-                <span id="menu-icon-close" class="hidden"><i class="fa-solid fa-xmark text-xl"></i></span>
+                <span id="menu-icon-open"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true" style="display:inline-block;width:1.25rem;height:1.25rem;vertical-align:-0.125em"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                <span id="menu-icon-close" class="hidden"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" style="display:inline-block;width:1.25rem;height:1.25rem;vertical-align:-0.125em"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg></span>
             </button>
         </div>
     </nav>
@@ -132,7 +129,7 @@
         <div class="mobile-menu__backdrop"></div>
         <div class="mobile-menu__panel">
             <button type="button" id="mobile-menu-close" class="mobile-menu__close" aria-label="Cerrar menú">
-                <i class="fa-solid fa-xmark"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" style="display:inline-block;width:1em;height:1em;vertical-align:-0.125em"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
             </button>
             <nav class="mobile-menu__nav">
                 <a href="#inicio" class="mobile-menu__link">Inicio</a>
@@ -147,7 +144,7 @@
 
     <header id="inicio" class="relative h-screen w-full flex items-center overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="./assets/img/HERO-0.jpg" class="w-full h-full object-cover scale-105" alt="Vista panorámica de las parcelas Las Pilcas en San Fabián de Alico">
+            <img src="./assets/img/HERO-0.jpg" class="w-full h-full object-cover scale-105" alt="Vista panorámica de las parcelas Las Pilcas en San Fabián de Alico" fetchpriority="high">
             <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
             <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
         </div>
@@ -184,7 +181,7 @@
                     </a>
                     <a href="https://wa.me/56966640562?text=Hola!%20Vi%20la%20p%C3%A1gina%20de%20Las%20Pilcas%20y%20me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n." target="_blank" rel="noopener noreferrer"
                        class="flex items-center gap-2 border border-white/40 text-white px-8 py-4 text-[10px] uppercase tracking-[0.3em] font-bold hover:border-emerald-500 hover:text-emerald-400 transition-all duration-300">
-                        <i class="fa-brands fa-whatsapp text-sm"></i> Consultar ahora
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true" style="display:inline-block;width:0.875rem;height:0.875rem;vertical-align:-0.125em"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg> Consultar ahora
                     </a>
                 </div>
             </div>
@@ -350,7 +347,7 @@
                 
                 <div class="absolute inset-0 flex items-center justify-center">
                     <div class="w-12 h-12 rounded-full border border-white/70 flex items-center justify-center bg-black/40 group-hover:bg-emerald-500/20 transition-all">
-                        <i class="fa-solid fa-play text-xs text-white ml-0.5"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" class="text-white ml-0.5" style="display:inline-block;width:0.75rem;height:0.75rem;vertical-align:-0.125em"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
                     </div>
                 </div>
 
@@ -410,13 +407,13 @@
     <!-- Lightbox Galería -->
     <div id="gallery-lightbox" class="fixed inset-0 bg-black/95 z-[10002] hidden items-center justify-center px-4">
         <button type="button" id="gallery-close" class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center border border-white/40 text-white text-lg bg-black/40 hover:bg-white hover:text-black transition" aria-label="Cerrar galería">
-            <i class="fa-solid fa-xmark"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" style="display:inline-block;width:1em;height:1em;vertical-align:-0.125em"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
         </button>
         <button type="button" id="gallery-prev" class="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center border border-white/30 text-white bg-black/40 hover:bg-white hover:text-black transition" aria-label="Anterior">
-            <i class="fa-solid fa-chevron-left text-sm"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" fill="currentColor" aria-hidden="true" style="display:inline-block;width:0.875rem;height:0.875rem;vertical-align:-0.125em"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
         </button>
         <button type="button" id="gallery-next" class="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center border border-white/30 text-white bg-black/40 hover:bg-white hover:text-black transition" aria-label="Siguiente">
-            <i class="fa-solid fa-chevron-right text-sm"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" fill="currentColor" aria-hidden="true" style="display:inline-block;width:0.875rem;height:0.875rem;vertical-align:-0.125em"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
         </button>
 
         <div class="max-w-4xl w-full">
@@ -489,15 +486,15 @@
                 
                 <div class="space-y-6 text-[10px] uppercase tracking-[0.2em] font-bold text-white/70">
                     <div class="flex items-center gap-4">
-                        <i class="fa-solid fa-location-dot text-emerald-500 w-5"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" class="text-emerald-500" style="display:inline-block;width:1.25rem;height:1.25rem;flex-shrink:0;vertical-align:-0.125em"><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>
                         <span>San Fabián de Alico, Región de Ñuble</span>
                     </div>
                     <div class="flex items-center gap-4">
-                        <i class="fa-solid fa-phone text-emerald-500 w-5"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true" class="text-emerald-500" style="display:inline-block;width:1.25rem;height:1.25rem;flex-shrink:0;vertical-align:-0.125em"><path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/></svg>
                         <a href="tel:+56966640562" class="hover:text-emerald-400 transition-colors">+56 9 6664 0562</a>
                     </div>
                     <div class="flex items-center gap-4">
-                        <i class="fa-solid fa-envelope text-emerald-500 w-5"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true" class="text-emerald-500" style="display:inline-block;width:1.25rem;height:1.25rem;flex-shrink:0;vertical-align:-0.125em"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
                         <a href="mailto:contacto@laspilcas.cl" class="hover:text-emerald-400 transition-colors">contacto@laspilcas.cl</a>
                     </div>
                 </div>
@@ -566,19 +563,19 @@
     <!-- Widget WhatsApp (ventana de chat simulada) -->
     <div class="whatsapp-widget fixed bottom-6 right-6 z-[1000]">
         <button type="button" id="whatsapp-btn" class="bg-[#25D366] text-white rounded-full p-4 shadow-xl hover:bg-[#128C7E] transition-all relative flex items-center justify-center w-14 h-14" aria-label="Abrir chat de WhatsApp">
-            <i class="fa-brands fa-whatsapp text-3xl"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true" style="display:inline-block;width:1.875rem;height:1.875rem;vertical-align:-0.125em"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
             <span class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full font-bold">1</span>
         </button>
 
         <div id="whatsapp-chat-window" class="hidden absolute bottom-20 right-0 w-[320px] bg-white rounded-2xl shadow-2xl overflow-hidden animate-fade-in">
             <div class="bg-[#075E54] p-4 text-white flex items-center gap-3">
-                <i class="fa-brands fa-whatsapp text-xl"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true" style="display:inline-block;width:1.25rem;height:1.25rem;vertical-align:-0.125em"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
                 <div>
                     <p class="font-bold text-sm">Arriagada Consultores</p>
                     <p class="text-xs text-white/80">Responde en menos de 1 hora</p>
                 </div>
                 <button type="button" id="close-whatsapp" class="ml-auto text-white/70 hover:text-white text-lg" aria-label="Cerrar chat">
-                    <i class="fa-solid fa-xmark"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" style="display:inline-block;width:1em;height:1em;vertical-align:-0.125em"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
                 </button>
             </div>
 
@@ -606,12 +603,12 @@
             <div class="flex items-center gap-5">
                 <a target="_blank" href="https://www.instagram.com/arriagada_consultores/" target="_blank" rel="noopener noreferrer"
                    class="flex items-center gap-2 text-gray-400 hover:text-emerald-400 transition-colors">
-                    <i class="fa-brands fa-instagram text-lg"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true" style="display:inline-block;width:1.125rem;height:1.125rem;vertical-align:-0.125em"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
                     <span class="hidden md:inline">Instagram</span>
                 </a>
                 <a target="_blank" href="https://www.facebook.com/profile.php?id=61568287919324" target="_blank" rel="noopener noreferrer"
                    class="flex items-center gap-2 text-gray-400 hover:text-emerald-400 transition-colors">
-                    <i class="fa-brands fa-facebook-f text-lg"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" fill="currentColor" aria-hidden="true" style="display:inline-block;width:1.125rem;height:1.125rem;vertical-align:-0.125em"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
                     <span class="hidden md:inline">Facebook</span>
                 </a>
                 <a href="#inicio" class="hidden md:inline-block text-gray-500 hover:text-emerald-400 transition-colors">
@@ -685,6 +682,7 @@
         });
 
         // Cerrar con el botón X
+        
         closeWhatsapp.addEventListener('click', function() {
           chatWindow.classList.add('hidden');
         });

@@ -13,6 +13,14 @@ jobs:
     - name: 🚚 Obtener código desde GitHub
       uses: actions/checkout@v3
 
+    - name: 🟢 Configurar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: 🎨 Generar CSS de Tailwind
+      run: npx --yes tailwindcss@3 -i tailwind.input.css -o tailwind.min.css --minify
+
     - name: 📂 Sincronizar vía FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
