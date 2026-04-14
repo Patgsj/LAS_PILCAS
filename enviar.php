@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $headers  = "Content-Type: text/plain; charset=UTF-8\r\n";
         $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
-        $headers .= "From: contacto@laspilcas.cl\r\n";
+        $headers .= "From: Formulario Las Pilcas <contacto@laspilcas.cl>\r\n";
         $headers .= "Reply-To: " . $email . "\r\n";
 
         $asunto_utf8 = '=?UTF-8?B?' . base64_encode($asunto) . '?=';
