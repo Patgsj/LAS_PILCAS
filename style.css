@@ -264,3 +264,26 @@ section { scroll-margin-top: 70px; }
 #contact-success-modal.flex {
     display: flex;
 }
+
+/* =========================================
+   8. PROMOCIÓN TEMPORAL — Lotes 2 y 33
+   ========================================= */
+.lote.promo {
+    stroke: rgba(251, 191, 36, 0.85) !important;
+    animation: promo-pulse 2s ease-in-out infinite;
+}
+
+.lote.promo:hover {
+    fill: rgba(251, 191, 36, 0.4) !important;
+    stroke: #fbbf24 !important;
+}
+
+@keyframes promo-pulse {
+    0%, 100% { filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.3)); }
+    50%       { filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.85)); }
+}
+
+@keyframes promo-dot {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.2; }
+}

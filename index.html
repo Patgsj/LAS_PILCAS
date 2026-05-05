@@ -307,8 +307,8 @@
                     <g id="capa-lotes">
                         <g id="LOTE-1" class="lote vendido"><path d="M172.5,90.4l-72-54.4-3.2.9-14.5,31,68.8,45.2s8.5-12.6,20.8-22.7Z"/></g>
                         <g id="LOTE-3" class="lote reservado"><path d="M126.2,173.1s-8.3,23.9-10.1,31.3l-80.5-29.3,14.3-30,76.3,28.9Z"/></g>
-                        <g id="LOTE-2" class="lote disponible"><path d="M150.6,115s-7.3,13.6-12.8,27.6l-70.3-39.5,14.1-33.1,69,45Z"/></g>
-                        <g id="LOTE-33" class="lote disponible"><path d="M137.4,144.8s-7.7,17.5-10.2,25.9l-76.6-29.2,16.2-35.5,70.6,38.8Z"/></g>
+                        <g id="LOTE-2" class="lote disponible promo"><path d="M150.6,115s-7.3,13.6-12.8,27.6l-70.3-39.5,14.1-33.1,69,45Z"/></g>
+                        <g id="LOTE-33" class="lote disponible promo"><path d="M137.4,144.8s-7.7,17.5-10.2,25.9l-76.6-29.2,16.2-35.5,70.6,38.8Z"/></g>
                         <g id="LOTE-4" class="lote reservado"><path d="M115.3,205.5s-4.9,21.5-4.7,28.2l-89.8-25.3,13.7-31.4,80.8,28.5Z"/></g>
                         <g id="LOTE-34" class="lote vendido"><polygon points="110.2 236.3 19.5 210.5 9.7 230.5 13.8 239.7 122.1 272.4 115.5 263.7 110.5 247.7 110.2 236.3"/></g>
                         <g id="LOTE-5" class="lote disponible"><path d="M185.5,172.1l23.4-62.2-22.2-11.1-4.8-1.6h-6s-4,2.3-8.6,6.8-7.8,9.7-12.2,18.1-14.6,31-14.6,31l44.9,19Z"/></g>
@@ -349,7 +349,12 @@
 
                 <div id="info-lote"></div>
 
-                <div class="flex flex-wrap justify-center gap-10 mt-12 text-[8px] uppercase tracking-[0.3em] font-bold">
+                <div class="flex items-center justify-center gap-2 mt-6 py-2.5 px-4 mx-4 md:mx-0 border border-amber-400/40 bg-amber-400/5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" style="animation:promo-dot 1.5s ease-in-out infinite"></span>
+                    <p class="text-[9px] uppercase tracking-[0.3em] text-amber-400 font-bold">Oferta por tiempo limitado · Lotes 2 y 33 — $50.000.000</p>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-10 mt-6 text-[8px] uppercase tracking-[0.3em] font-bold">
                     <div class="flex items-center gap-2 text-white/70 transition"><div class="w-2 h-2 border border-white"></div> Disponible</div>
                     <div class="flex items-center gap-2 text-white/70 transition"><div class="w-2 h-2 border border-red-600"></div> Vendido</div>
                     <div class="flex items-center gap-2 text-white/70 transition"><div class="w-2 h-2 border border-amber-500"></div> Reservado</div>
