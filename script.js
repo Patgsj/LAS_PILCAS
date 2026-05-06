@@ -280,7 +280,12 @@ lotes.forEach(lote => {
             estadoText = '<span class="font-bold text-[9px]" style="color:#7dd3fc;">EN TRÁMITE</span>';
         } else {
             estadoText = '<span class="font-bold text-[9px]" style="color:#a7f3d0;">ENTREGA INMEDIATA</span>';
-            precioHTML = '<div class="precio-lote mt-4 text-white font-light tracking-tighter italic border-t border-white/10 pt-2">$45.000.000</div>';
+            const isPromo = lote.getAttribute('id') === 'LOTE-2' || lote.getAttribute('id') === 'LOTE-33';
+            if (isPromo) {
+                precioHTML = '<div class="precio-lote mt-4 font-light tracking-tighter italic border-t border-white/10 pt-2"><span style="color:#9ca3af;text-decoration:line-through;font-size:0.8em;">$65.000.000</span><br><span style="color:#fbbf24;font-weight:700;font-size:1.1em;">$45.000.000</span>&nbsp;<span style="background:#fbbf24;color:#000;font-size:0.6em;font-weight:800;padding:1px 4px;vertical-align:middle;">OFERTA</span></div>';
+            } else {
+                precioHTML = '<div class="precio-lote mt-4 text-white font-light tracking-tighter italic border-t border-white/10 pt-2">$65.000.000</div>';
+            }
         }
 
         showTooltip(e, id, estadoText, precioHTML);
@@ -306,7 +311,8 @@ lotes.forEach(lote => {
 
         const loteId = lote.getAttribute('id');
         const id = loteId.replace('-', ' ');
-        const precio = '$45.000.000';
+        const isPromo = loteId === 'LOTE-2' || loteId === 'LOTE-33';
+        const precio = isPromo ? '$45.000.000 (oferta)' : '$65.000.000';
         const msg = `Me interesa recibir información técnica de la ${id} (Valor ${precio}) de Las Pilcas`;
         window.open(`https://wa.me/56966640562?text=${encodeURIComponent(msg)}`);
     });
