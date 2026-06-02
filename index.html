@@ -574,16 +574,32 @@
 
                 <div id="info-lote"></div>
 
-                <div class="flex items-center justify-center gap-2 mt-6 py-2.5 px-4 mx-4 md:mx-0 border border-emerald-500/30 bg-emerald-500/5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"></span>
-                    <p class="text-[9px] uppercase tracking-[0.3em] text-emerald-400 font-bold">Parcelas disponibles desde $45.000.000 · Consulta disponibilidad</p>
-                </div>
-
-                <div class="flex flex-wrap justify-center gap-10 mt-6 text-[8px] uppercase tracking-[0.3em] font-bold">
-                    <div class="flex items-center gap-2 text-white/70 transition"><div class="w-2 h-2 border border-white"></div> Disponible</div>
-                    <div class="flex items-center gap-2 text-white/70 transition"><div class="w-2 h-2 border border-red-600"></div> Vendido</div>
-                    <div class="flex items-center gap-2 text-white/70 transition"><div class="w-2 h-2 border border-amber-500"></div> Reservado</div>
-                    <div class="flex items-center gap-2 text-white/70 transition"><div class="w-2 h-2 border border-cyan-500"></div> Trámite</div>
+                <!-- Leyenda del plano -->
+                <div style="margin-top:1.5rem; padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap: 0.75rem;">
+                    <!-- Precio -->
+                    <div style="display:flex; align-items:center; gap:0.5rem;">
+                        <span style="width:6px; height:6px; border-radius:50%; background:#34d399; flex-shrink:0;"></span>
+                        <span style="font-size:10px; text-transform:uppercase; letter-spacing:0.25em; color:#34d399; font-weight:700;">Desde $45.000.000</span>
+                    </div>
+                    <!-- Estados -->
+                    <div style="display:flex; flex-wrap:wrap; gap:1.25rem; align-items:center;">
+                        <div style="display:flex; align-items:center; gap:7px;">
+                            <span style="display:inline-block; width:10px; height:10px; border:1.5px solid rgba(255,255,255,0.6); flex-shrink:0;"></span>
+                            <span style="font-size:10px; text-transform:uppercase; letter-spacing:0.2em; color:rgba(255,255,255,0.55); font-weight:600;">Disponible</span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:7px;">
+                            <span style="display:inline-block; width:10px; height:10px; background:rgba(220,38,38,0.7); flex-shrink:0;"></span>
+                            <span style="font-size:10px; text-transform:uppercase; letter-spacing:0.2em; color:rgba(255,255,255,0.55); font-weight:600;">Vendido</span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:7px;">
+                            <span style="display:inline-block; width:10px; height:10px; background:rgba(251,191,36,0.7); flex-shrink:0;"></span>
+                            <span style="font-size:10px; text-transform:uppercase; letter-spacing:0.2em; color:rgba(255,255,255,0.55); font-weight:600;">Reservado</span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:7px;">
+                            <span style="display:inline-block; width:10px; height:10px; background:rgba(6,182,212,0.7); flex-shrink:0;"></span>
+                            <span style="font-size:10px; text-transform:uppercase; letter-spacing:0.2em; color:rgba(255,255,255,0.55); font-weight:600;">Trámite</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
