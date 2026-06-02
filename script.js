@@ -385,3 +385,19 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 sections.forEach(section => observer.observe(section));
+
+// --- NAV: transparente en el tope (hero), fondo aparece al hacer scroll ---
+const mainNav = document.getElementById('main-nav');
+const NAV_SCROLL_THRESHOLD = 80;
+
+function updateNavVisibility() {
+    if (!mainNav) return;
+    if (window.scrollY <= NAV_SCROLL_THRESHOLD) {
+        mainNav.classList.remove('nav--scrolled');
+    } else {
+        mainNav.classList.add('nav--scrolled');
+    }
+}
+
+window.addEventListener('scroll', updateNavVisibility, { passive: true });
+updateNavVisibility();
