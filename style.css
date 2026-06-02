@@ -90,6 +90,7 @@ section { scroll-margin-top: 120px !important; }
 #inicio .hero-price    { animation: heroReveal 0.7s ease-out 0.75s both; }
 #inicio .hero-body     { animation: heroReveal 0.7s ease-out 0.9s both; }
 #inicio .hero-ctas     { animation: heroReveal 0.7s ease-out 1.05s both; }
+#inicio .hero-stats    { animation: heroReveal 0.8s ease-out 1.2s both; }
 
 #main-nav {
     transition: all 0.4s ease;
