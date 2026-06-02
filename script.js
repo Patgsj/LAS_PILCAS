@@ -279,13 +279,8 @@ lotes.forEach(lote => {
         } else if (lote.classList.contains('tramite')) {
             estadoText = '<span class="font-bold text-[9px]" style="color:#7dd3fc;">EN TRÁMITE</span>';
         } else {
-            estadoText = '<span class="font-bold text-[9px]" style="color:#a7f3d0;">ENTREGA INMEDIATA</span>';
-            const isPromo = lote.getAttribute('id') === 'LOTE-2' || lote.getAttribute('id') === 'LOTE-33';
-            if (isPromo) {
-                precioHTML = '<div class="precio-lote mt-4 font-light tracking-tighter italic border-t border-white/10 pt-2"><span style="color:#9ca3af;text-decoration:line-through;font-size:0.8em;">$65.000.000</span><br><span style="color:#fbbf24;font-weight:700;font-size:1.1em;">$45.000.000</span>&nbsp;<span style="background:#fbbf24;color:#000;font-size:0.6em;font-weight:800;padding:1px 4px;vertical-align:middle;">OFERTA</span></div>';
-            } else {
-                precioHTML = '<div class="precio-lote mt-4 text-white font-light tracking-tighter italic border-t border-white/10 pt-2">$65.000.000</div>';
-            }
+            estadoText = '<span class="font-bold text-[9px]" style="color:#a7f3d0;">DISPONIBLE</span>';
+            precioHTML = '<div class="precio-lote mt-4 text-white font-light tracking-tighter italic border-t border-white/10 pt-2">Desde $45.000.000</div>';
         }
 
         showTooltip(e, id, estadoText, precioHTML);
