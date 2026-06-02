@@ -32,7 +32,13 @@ body {
 h1, h2, h3 { font-family: 'Playfair Display', serif; }
 
 /* Ajuste para que el scroll se detenga antes de la sección al usar links */
-section { scroll-margin-top: 100px; }
+section { scroll-margin-top: 120px !important; }
+
+/* Padding-top para secciones — pt-32 no está en tailwind.min.css local */
+#proyecto  { padding-top: 2rem; }
+#faq       { padding-top: 7rem; padding-bottom: 7rem; }
+#contacto  { padding-top: 7rem; padding-bottom: 7rem; }
+#ubicacion { padding-top: 6rem; }
 
 .number-accent { color: #10b981; font-weight: 700; }
 
