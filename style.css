@@ -70,6 +70,11 @@ section { scroll-margin-top: 120px !important; }
     align-items: center;
 }
 
+/* Hero contenido: separación del navbar */
+#inicio > div.relative {
+    padding-top: 10rem;
+}
+
 /* Hero H1: tamaño grande garantizado sin depender de md: Tailwind */
 #inicio h1 {
     font-size: clamp(2.8rem, 6vw, 5.5rem);
