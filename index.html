@@ -46,6 +46,7 @@
 
     <link rel="stylesheet" href="./tailwind.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@200;300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
     <link rel="stylesheet" href="style.css">
 
     <!-- Google tag (gtag.js) -->
@@ -368,11 +369,12 @@
                 <img src="./assets/img/LOGO-LAS-PILCAS.svg" alt="Las Pilcas — parcelas exclusivas San Fabián de Alico, Región de Ñuble" class="h-12 brightness-200" loading="eager" decoding="async">
                 <span class="hidden md:block"></span>
             </div>
-            <div class="hidden md:flex items-center gap-10 text-[10px] uppercase tracking-[0.3em] font-bold">
+            <div class="hidden md:flex items-center gap-10 text-[11px] uppercase tracking-[0.25em] font-bold">
                 <a href="#inicio" class="nav-link hover:text-emerald-500 transition">Inicio</a>
                 <a href="#proyecto" class="nav-link hover:text-emerald-500 transition">Proyecto</a>
                 <a href="#galeria" class="nav-link hover:text-emerald-500 transition">Galería</a>
                 <a href="#ubicacion" class="nav-link hover:text-emerald-500 transition">Ubicación</a>
+                <a href="#faq" class="nav-link hover:text-emerald-500 transition">FAQ</a>
                 <a href="#contacto" class="nav-link hover:text-emerald-500 transition">Contacto</a>
             </div>
             <button type="button" id="menu-btn" class="md:hidden text-white p-3 -mr-2 rounded border border-white/30 bg-black/80 z-[100] touch-manipulation" aria-label="Abrir menú">
@@ -394,6 +396,7 @@
                 <a href="#proyecto" class="mobile-menu__link">Proyecto</a>
                 <a href="#galeria" class="mobile-menu__link">Galería</a>
                 <a href="#ubicacion" class="mobile-menu__link">Ubicación</a>
+                <a href="#faq" class="mobile-menu__link">FAQ</a>
                 <a href="#contacto" class="mobile-menu__link">Contacto</a>
                 <a href="https://wa.me/56966640562" class="mobile-menu__link mobile-menu__link--wa">WhatsApp</a>
             </nav>
@@ -408,73 +411,100 @@
         </div>
 
         <div class="relative z-10 max-w-[1600px] mx-auto w-full px-8 md:px-20 pt-28 pb-16 md:py-0">
-            <div class="max-w-3xl">
-                <p class="text-emerald-500 tracking-[0.4em] text-[10px] md:text-[12px] uppercase font-bold mb-6">
-                    Parcelas de Agrado en la Precordillera de Ñuble
+            <div class="max-w-2xl">
+                <p class="hero-eyebrow text-emerald-500 tracking-[0.35em] text-[11px] uppercase font-bold mb-6">
+                    Parcelas de Agrado · Precordillera de Ñuble
                 </p>
 
-                <h1 class="text-[2rem] md:text-7xl text-white font-light mb-5 italic leading-tight drop-shadow-2xl">
-                    Lotes 2 y 33 en oferta: $45.000.000 <span class="block not-italic font-bold text-white text-2xl md:text-2xl">Las Pilcas · San Fabián de Alico</span>
+                <h1 class="text-[2.8rem] md:text-7xl text-white font-light italic leading-none drop-shadow-2xl mb-4">
+                    Las Pilcas
                 </h1>
+                <p class="hero-location text-white/45 text-xs md:text-sm font-light tracking-[0.3em] uppercase mb-8">San Fabián de Alico · Región de Ñuble</p>
 
-                <div class="max-w-md">
-                    <p class="text-gray-300 text-sm md:text-base leading-relaxed font-light tracking-wide mb-7">
-                        5.000 m² con rol propio en San Fabián de Alico.
-                        <span class="text-white/90 block mt-2">Agua potable, luz soterrada y acceso al Río Ñuble.</span>
+                <div class="hero-price">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-6 h-px bg-emerald-500/60"></div>
+                        <span class="text-emerald-500 text-[11px] uppercase tracking-[0.35em] font-bold">Oferta lotes 2 y 33</span>
+                    </div>
+                    <p class="text-[2rem] md:text-5xl text-white font-light mb-1.5">$45.000.000</p>
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-amber-400/80 font-bold mb-7">&#9679; Precio por tiempo limitado · Cada lote</p>
+                </div>
+
+                <div class="hero-body max-w-sm mb-8">
+                    <p class="text-gray-300 text-sm leading-relaxed font-light">
+                        5.000 m² con rol propio, agua potable, luz soterrada y acceso al Río Ñuble.
                     </p>
                 </div>
 
-                <div class="mb-10 flex flex-col gap-1">
-                    <span class="text-emerald-500/80 text-[9px] uppercase tracking-[0.3em] font-bold">Oferta por tiempo limitado</span>
-                    <p class="text-amber-400/90 text-[9px] uppercase tracking-[0.3em] font-bold mt-1">&#9679; Resto de lotes a valor normal</p>
-                </div>
-
-                <div class="flex flex-wrap items-center gap-4">
-                    <a href="#proyecto" class="bg-emerald-600 hover:bg-emerald-500 text-white px-10 py-4 text-[10px] uppercase tracking-[0.4em] font-bold transition-all duration-300">
-                        Consultar oferta lotes 2 y 33
+                <div class="hero-ctas flex flex-wrap items-center gap-4">
+                    <a href="#proyecto" class="bg-emerald-600 hover:bg-emerald-500 text-white px-10 py-4 text-[11px] uppercase tracking-[0.35em] font-bold transition-all duration-300">
+                        Ver lotes disponibles
                     </a>
                     <a href="https://wa.me/56966640562?text=Hola!%20Vi%20la%20p%C3%A1gina%20de%20Las%20Pilcas%20y%20me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n." target="_blank" rel="noopener noreferrer"
-                       class="flex items-center gap-2 border border-white/40 text-white px-8 py-4 text-[10px] uppercase tracking-[0.3em] font-bold hover:border-emerald-500 hover:text-emerald-400 transition-all duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true" style="display:inline-block;width:0.875rem;height:0.875rem;vertical-align:-0.125em"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg> Consultar por WhatsApp
+                       class="flex items-center gap-2 border border-white/30 text-white px-8 py-4 text-[11px] uppercase tracking-[0.25em] font-bold hover:border-emerald-500 hover:text-emerald-400 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true" style="display:inline-block;width:0.875rem;height:0.875rem;vertical-align:-0.125em"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+                        Consultar por WhatsApp
                     </a>
                 </div>
             </div>
         </div>
     </header>
 
-    <section id="proyecto" class="scroll-mt-20 pt-4 md:pt-6 pb-20 md:pb-32 px-0 md:px-8 max-w-[1600px] mx-auto border-b border-white/5">
+    <!-- Trust bar -->
+    <div class="border-y border-white/5 py-8 px-8 bg-white/[0.01]">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div data-aos="fade-up" data-aos-delay="0">
+                <span class="block text-2xl md:text-3xl text-white font-light tracking-tight">39</span>
+                <span class="block text-[10px] uppercase tracking-[0.3em] text-gray-400 mt-1.5">Lotes en proyecto</span>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="80">
+                <span class="block text-2xl md:text-3xl text-white font-light tracking-tight">5.000 m²</span>
+                <span class="block text-[10px] uppercase tracking-[0.3em] text-gray-400 mt-1.5">Por lote</span>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="160">
+                <span class="block text-2xl md:text-3xl text-white font-light tracking-tight">Rol propio</span>
+                <span class="block text-[10px] uppercase tracking-[0.3em] text-gray-400 mt-1.5">SII independiente</span>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="240">
+                <span class="block text-2xl md:text-3xl text-white font-light tracking-tight">Río Ñuble</span>
+                <span class="block text-[10px] uppercase tracking-[0.3em] text-gray-400 mt-1.5">Acceso desde el terreno</span>
+            </div>
+        </div>
+    </div>
+
+    <section id="proyecto" class="scroll-mt-20 pt-4 md:pt-6 pb-20 md:pb-32 px-0 md:px-8 max-w-[1600px] mx-auto border-b border-white/5" style="min-height:90vh;">
     <div class="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
         
         <div class="w-full lg:w-1/3 px-4 md:px-0">
-            <span class="text-emerald-500 text-[10px] uppercase tracking-[0.6em] font-bold block mb-8 text-center md:text-left">Nuestro proyecto</span>
-            <h2 class="text-3xl md:text-4xl text-white mb-8 leading-tight font-light italic text-center md:text-left text-balance">Parcelas con rol propio en la precordillera de Ñuble.</h2>
-            
+            <span data-aos="fade-right" class="text-emerald-500 text-[11px] uppercase tracking-[0.4em] font-bold block mb-8 text-center md:text-left">Nuestro proyecto</span>
+            <h2 data-aos="fade-right" data-aos-delay="100" class="text-3xl md:text-4xl text-white mb-8 leading-tight font-light italic text-center md:text-left text-balance">Parcelas con rol propio en la precordillera de Ñuble.</h2>
+
             <div class="space-y-12 mb-12 lg:mb-0">
-                <div class="flex items-baseline gap-8">
-                    <span class="number-accent font-serif italic text-5xl opacity-40">01</span>
+                <div data-aos="fade-right" data-aos-delay="200" class="flex items-baseline gap-8">
+                    <span class="number-accent font-serif italic text-5xl opacity-50">01</span>
                     <div>
                         <h3 class="text-base md:text-lg uppercase tracking-[0.18em] mb-2 font-semibold text-emerald-400">Precio de oportunidad</h3>
-                        <p class="text-sm text-gray-500 leading-relaxed font-light">Lotes 2 y 33 a $45.000.000.</p>
+                        <p class="text-sm text-gray-400 leading-relaxed font-light">Lotes 2 y 33 a $45.000.000.</p>
                     </div>
                 </div>
-                <div class="flex items-baseline gap-8">
-                    <span class="number-accent font-serif italic text-5xl opacity-40">02</span>
+                <div data-aos="fade-right" data-aos-delay="300" class="flex items-baseline gap-8">
+                    <span class="number-accent font-serif italic text-5xl opacity-50">02</span>
                     <div>
                         <h3 class="text-base md:text-lg uppercase tracking-[0.18em] mb-2 font-semibold text-emerald-400">Rol propio + urbanización</h3>
-                        <p class="text-sm text-gray-500 leading-relaxed font-light">Rol propio, agua potable y luz soterrada.</p>
+                        <p class="text-sm text-gray-400 leading-relaxed font-light">Rol propio, agua potable y luz soterrada.</p>
                     </div>
                 </div>
-                <div class="flex items-baseline gap-8">
-                    <span class="number-accent font-serif italic text-5xl opacity-40">03</span>
+                <div data-aos="fade-right" data-aos-delay="400" class="flex items-baseline gap-8">
+                    <span class="number-accent font-serif italic text-5xl opacity-50">03</span>
                     <div>
                         <h3 class="text-base md:text-lg uppercase tracking-[0.18em] mb-2 font-semibold text-emerald-400">Ubicación de proyección</h3>
-                        <p class="text-sm text-gray-500 leading-relaxed font-light">A 6 km de San Fabián y acceso al Río Ñuble.</p>
+                        <p class="text-sm text-gray-400 leading-relaxed font-light">A 6 km de San Fabián y acceso al Río Ñuble.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="mapa" class="w-full lg:w-2/3 min-w-0">
+        <div data-aos="fade-left" id="mapa" class="w-full lg:w-2/3 min-w-0">
             <div class="glass-container p-1 md:p-12 rounded-none md:rounded-sm shadow-3xl relative overflow-hidden bg-black/20">
                 <div class="absolute top-0 right-0 w-32 h-[1px] bg-white/10"></div>
                 <div class="absolute top-0 right-0 h-32 w-[1px] bg-white/10"></div>
@@ -558,85 +588,16 @@
     </div>
 </section>
 
-    <!-- Sección oferta: contenido SEO "parcelas en venta San Fabián de Alico" -->
-    <section class="py-16 px-8 max-w-[1600px] mx-auto border-b border-white/5" itemscope itemtype="https://schema.org/Product">
-        <div class="flex flex-col lg:flex-row gap-12 items-start">
-            <div class="lg:w-3/5">
-                <span class="text-emerald-500 text-[10px] uppercase tracking-[0.6em] font-bold block mb-6">Oferta por tiempo limitado</span>
-                <h2 class="text-3xl md:text-4xl text-white mb-6 leading-tight font-light italic text-balance">Parcelas en venta en San Fabián de Alico: lotes 2 y 33 disponibles.</h2>
-                <p class="text-gray-400 text-sm leading-relaxed mb-5 font-light">
-                    Los <strong class="text-white">lotes 2 y 33</strong> de Las Pilcas están disponibles a precio especial de <strong class="text-emerald-400">$45.000.000 CLP</strong> por tiempo limitado.
-                    Son dos de las mejores parcelas del proyecto: <strong class="text-white">5.000 m² cada una</strong>, con rol propio independiente inscrito en el SII,
-                    acceso habilitado, agua potable de red, luz soterrada y a pocos metros del Río Ñuble.
-                </p>
-                <p class="text-gray-400 text-sm leading-relaxed mb-8 font-light">
-                    Si estás buscando <strong class="text-white">terrenos en venta en Ñuble</strong> con urbanización completa y posibilidad de construir de inmediato,
-                    esta es una oportunidad única. El proyecto se ubica a solo <strong class="text-white">6 km de San Fabián de Alico</strong>,
-                    con acceso directo por la Ruta N-31, a 1h30 de Chillán y 2h30 de Santiago.
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="https://wa.me/56966640562?text=Hola!%20Quiero%20informaci%C3%B3n%20sobre%20los%20lotes%202%20y%2033%20en%20oferta%20en%20Las%20Pilcas."
-                       target="_blank" rel="noopener noreferrer"
-                       onclick="return gtagSendEvent('https://wa.me/56966640562?text=Hola!%20Quiero%20informaci%C3%B3n%20sobre%20los%20lotes%202%20y%2033%20en%20oferta%20en%20Las%20Pilcas.');"
-                       class="bg-emerald-600 hover:bg-emerald-500 text-white px-10 py-4 text-[10px] uppercase tracking-[0.4em] font-bold transition-all duration-300 inline-flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true" style="display:inline-block;width:0.875rem;height:0.875rem"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
-                        Consultar disponibilidad
-                    </a>
-                    <a href="#contacto"
-                       class="border border-white/30 text-white px-10 py-4 text-[10px] uppercase tracking-[0.4em] font-bold hover:border-emerald-500 hover:text-emerald-400 transition-all duration-300">
-                        Formulario de contacto
-                    </a>
-                </div>
-            </div>
-            <div class="lg:w-2/5">
-                <div class="border border-emerald-500/30 p-8 bg-emerald-950/10">
-                    <h3 class="text-emerald-400 text-[10px] uppercase tracking-[0.4em] font-bold mb-6">Características de los lotes en oferta</h3>
-                    <ul class="space-y-4 text-sm text-gray-300 font-light">
-                        <li class="flex items-start gap-3">
-                            <span class="text-emerald-500 mt-0.5 shrink-0">—</span>
-                            <span><strong class="text-white">5.000 m²</strong> por lote (media hectárea)</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-emerald-500 mt-0.5 shrink-0">—</span>
-                            <span><strong class="text-white">Rol propio</strong> SII independiente</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-emerald-500 mt-0.5 shrink-0">—</span>
-                            <span><strong class="text-white">Agua potable</strong> de red</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-emerald-500 mt-0.5 shrink-0">—</span>
-                            <span><strong class="text-white">Luz soterrada</strong> con empalme individual</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-emerald-500 mt-0.5 shrink-0">—</span>
-                            <span>Acceso al <strong class="text-white">Río Ñuble</strong> a metros del terreno</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-emerald-500 mt-0.5 shrink-0">—</span>
-                            <span><strong class="text-white">Construcción inmediata</strong> tras escritura</span>
-                        </li>
-                    </ul>
-                    <div class="mt-8 pt-6 border-t border-white/10">
-                        <p class="text-[9px] uppercase tracking-[0.3em] text-amber-400 font-bold mb-2">Precio oferta · Tiempo limitado</p>
-                        <p class="text-4xl text-white font-light">$45.000.000</p>
-                        <p class="text-[9px] uppercase tracking-[0.25em] text-gray-500 mt-1">CLP · Cada lote · Lotes 2 y 33</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section id="galeria" class="py-10 px-4 md:px-8 max-w-[1600px] mx-auto border-y border-white/5">
-        <div class="mb-12 text-center md:text-left">
-            <span class="text-emerald-500 text-[10px] uppercase tracking-[0.6em] font-bold block mb-4">Galería</span>
+        <div data-aos="fade-up" class="mb-12 text-center md:text-left">
+            <span class="text-emerald-500 text-[11px] uppercase tracking-[0.4em] font-bold block mb-4">Galería</span>
             <h2 class="text-3xl md:text-5xl text-white mb-4 leading-tight font-light italic">Galería: Río Ñuble, precordillera y San Fabián de Alico en Las Pilcas.</h2>
             <p class="text-sm text-gray-500 max-w-2xl mx-auto md:mx-0 font-light">Imágenes y videos de referencia para imaginar la experiencia de vivir en un entorno precordillerano único.</p>
         </div>
 
         <div class="gallery-grid grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
             <!-- Imagen 1 -->
-            <button type="button" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
+            <button type="button" data-aos="fade" data-aos-delay="0" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
                 data-type="image"
                 data-src="./assets/img/LAS_PILCAS/1.jpg"
                 data-caption="Acceso por la Ruta N-31, en dirección a la cordillera, a tan solo 6 km de San Fabián de Alico.">
@@ -645,7 +606,7 @@
             </button>
 
             <!-- Imagen 2 -->
-            <button type="button" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
+            <button type="button" data-aos="fade" data-aos-delay="80" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
                 data-type="image"
                 data-src="./assets/img/LAS_PILCAS/2.jpg"
                 data-caption="Paisajes únicos rodeados de bosque nativo.">
@@ -654,7 +615,7 @@
             </button>
 
             <!-- Imagen 3 -->
-            <button type="button" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
+            <button type="button" data-aos="fade" data-aos-delay="160" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
                 data-type="image"
                 data-src="./assets/img/LAS_PILCAS/3.jpg"
                 data-caption="Acceso exclusivo al río Ñuble.">
@@ -663,7 +624,7 @@
             </button>
 
             <!-- Video 1 -->
-            <button type="button" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-emerald-500/40"
+            <button type="button" data-aos="fade" data-aos-delay="240" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-emerald-500/40"
                 data-type="video"
                 data-src="https://www.youtube.com/embed/uObb7pSfYsg?autoplay=1"
                 data-caption="San Fabián: The New Destination.">
@@ -686,7 +647,7 @@
             </button>
 
              <!-- Imagen 4 -->
-            <button type="button" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
+            <button type="button" data-aos="fade" data-aos-delay="0" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
                 data-type="image"
                 data-src="./assets/img/LAS_PILCAS/4.jpg"
                 data-caption="Vista panorámica del Lote 5 desde arriba.">
@@ -695,7 +656,7 @@
             </button>
 
              <!-- Imagen 5 -->
-            <button type="button" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
+            <button type="button" data-aos="fade" data-aos-delay="80" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
                 data-type="image"
                 data-src="./assets/img/LAS_PILCAS/5.jpg"
                 data-caption="Vista panorámica del acceso al río Ñuble.">
@@ -704,7 +665,7 @@
             </button>
 
             <!-- Imagen 6 -->
-            <button type="button" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
+            <button type="button" data-aos="fade" data-aos-delay="160" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
                 data-type="image"
                 data-src="./assets/img/LAS_PILCAS/6.jpg"
                 data-caption="Parcelas Las Pilcas en su primera etapa, con banderines que marcan la división de los lotes.">
@@ -713,7 +674,7 @@
             </button>
 
             <!-- Imagen 7 -->
-            <button type="button" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
+            <button type="button" data-aos="fade" data-aos-delay="240" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
                 data-type="image"
                 data-src="./assets/img/LAS_PILCAS/7.jpg"
                 data-caption="Brazo del río Ñuble que forma una piscina natural.">
@@ -722,7 +683,7 @@
             </button>
 
             <!-- Imagen 9 -->
-            <button type="button" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
+            <button type="button" data-aos="fade" data-aos-delay="320" class="gallery-item group relative overflow-hidden aspect-[4/3] bg-black/40 border border-white/10"
                 data-type="image"
                 data-src="./assets/img/LAS_PILCAS/9.jpg"
                 data-caption="Construcción de empalmes eléctricos para red de energía soterrada en cada parcela.">
@@ -754,11 +715,11 @@
         </div>
     </div>
 
-    <section id="ubicacion" class="scroll-mt-20 min-h-[80vh] pt-8 pb-40 px-8 md:px-20 max-w-[1600px] mx-auto border-t border-white/5 bg-black flex items-center">
+    <section id="ubicacion" class="scroll-mt-20 min-h-[80vh] pt-24 pb-40 px-8 md:px-20 max-w-[1600px] mx-auto border-t border-white/5 bg-black flex items-center">
         <div class="w-full max-w-[1600px] mx-auto flex flex-col lg:flex-row-reverse gap-12 items-center">
             
             <div class="w-full lg:w-[35%] space-y-8 lg:text-right">
-                <span class="text-emerald-500 text-[10px] uppercase tracking-[0.6em] font-bold block">El Entorno</span>
+                <span class="text-emerald-500 text-[11px] uppercase tracking-[0.4em] font-bold block">El Entorno</span>
                 <h2 class="text-3xl md:text-5xl text-white leading-tight font-light italic">Ubicación en San Fabián de Alico y la Región de Ñuble.</h2>
                 <p class="text-sm md:text-base text-gray-400 font-light leading-relaxed max-w-xl text-balance lg:ml-auto">
                     Situadas a solo <span class="text-emerald-400">6 km de San Fabián de Alico</span>, Las Pilcas ofrece la combinación perfecta entre la serenidad de la precordillera y la accesibilidad necesaria para tu día a día.
@@ -802,13 +763,13 @@
         </div>
     </section>
 
-    <section id="faq" class="scroll-mt-20 py-20 px-8 max-w-[1600px] mx-auto border-t border-white/5">
+    <section id="faq" class="scroll-mt-20 py-32 px-8 max-w-[1600px] mx-auto border-t border-white/5" style="min-height:90vh;">
         <div class="flex flex-col lg:flex-row gap-16 lg:gap-24">
-            <div class="lg:w-1/3 shrink-0">
-                <span class="text-emerald-500 text-[10px] uppercase tracking-[0.6em] font-bold block mb-8">Preguntas frecuentes</span>
+            <div data-aos="fade-right" class="lg:w-1/3 shrink-0">
+                <span class="text-emerald-500 text-[11px] uppercase tracking-[0.4em] font-bold block mb-8">Preguntas frecuentes</span>
                 <h2 class="text-3xl md:text-4xl text-white leading-tight font-light italic text-balance">Todo lo que necesitas saber antes de comprar tu parcela.</h2>
             </div>
-            <div class="lg:w-2/3 divide-y divide-white/10">
+            <div data-aos="fade-left" class="lg:w-2/3 divide-y divide-white/10">
 
                 <details class="group py-6">
                     <summary class="flex items-center justify-between gap-4 cursor-pointer text-white text-sm font-light tracking-wide list-none">
@@ -894,18 +855,18 @@
         </div>
     </section>
 
-    <section id="contacto" class="scroll-mt-20 pt-8 pb-24 px-8 max-w-[1600px] mx-auto border-t border-white/5">
+    <section id="contacto" class="scroll-mt-20 pt-32 pb-32 px-8 max-w-[1600px] mx-auto border-t border-white/5" style="min-height:90vh;">
         <div class="flex flex-col lg:flex-row gap-20">
             
             <!-- Columna Info -->
             <div class="lg:w-1/3">
-                <span class="text-emerald-500 text-[10px] uppercase tracking-[0.6em] font-bold block mb-8">Contacto</span>
+                <span class="text-emerald-500 text-[11px] uppercase tracking-[0.4em] font-bold block mb-8">Contacto</span>
                 <h2 class="text-4xl md:text-6xl text-white mb-10 leading-tight font-light italic">Reserve su parcela en Las Pilcas, San Fabián de Alico.</h2>
-                <p class="text-gray-500 font-light leading-relaxed mb-12">
+                <p class="text-gray-400 font-light leading-relaxed mb-12">
                     Si estás buscando un lugar único, con exclusividad y un entorno natural incomparable, nuestro equipo en San Fabián de Alico está listo para brindarte la asesoría personalizada que necesitas para tu inversión.
                 </p>
                 
-                <div class="space-y-6 text-[10px] uppercase tracking-[0.2em] font-bold text-white/70">
+                <div class="space-y-6 text-[12px] tracking-[0.05em] font-medium text-white/70">
                     <div class="flex items-center gap-4">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" class="text-emerald-500" style="display:inline-block;width:1.25rem;height:1.25rem;flex-shrink:0;vertical-align:-0.125em"><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>
                         <span>San Fabián de Alico, Región de Ñuble</span>
@@ -926,22 +887,22 @@
                 <form id="contact-form" method="POST" action="enviar.php" class="space-y-8">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div class="space-y-2">
-                            <label for="nombre" class="text-[9px] uppercase tracking-[0.3em] text-emerald-500 font-bold">Nombre Completo</label>
+                            <label for="nombre" class="text-[11px] uppercase tracking-[0.25em] text-emerald-500 font-bold">Nombre Completo</label>
                             <input type="text" id="nombre" name="nombre" placeholder="Ej: Patricio García" required 
                                 class="w-full bg-transparent border-b border-white/10 py-4 text-white font-light focus:outline-none focus:border-emerald-500 transition placeholder:text-white/10 text-sm">
                         </div>
                         <div class="space-y-2">
-                            <label for="email" class="text-[9px] uppercase tracking-[0.3em] text-emerald-500 font-bold">Correo Electrónico</label>
+                            <label for="email" class="text-[11px] uppercase tracking-[0.25em] text-emerald-500 font-bold">Correo Electrónico</label>
                             <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required 
                                 class="w-full bg-transparent border-b border-white/10 py-4 text-white font-light focus:outline-none focus:border-emerald-500 transition placeholder:text-white/10 text-sm">
                         </div>
                         <div class="space-y-2">
-                            <label for="whatsapp" class="text-[9px] uppercase tracking-[0.3em] text-emerald-500 font-bold">WhatsApp / Teléfono</label>
+                            <label for="whatsapp" class="text-[11px] uppercase tracking-[0.25em] text-emerald-500 font-bold">WhatsApp / Teléfono</label>
                             <input type="tel" id="whatsapp" name="whatsapp" placeholder="+56 9 ..." required 
                                 class="w-full bg-transparent border-b border-white/10 py-4 text-white font-light focus:outline-none focus:border-emerald-500 transition placeholder:text-white/10 text-sm">
                         </div>
                         <div class="space-y-2">
-                            <label for="asunto" class="text-[9px] uppercase tracking-[0.3em] text-emerald-500 font-bold">Interés Principal</label>
+                            <label for="asunto" class="text-[11px] uppercase tracking-[0.25em] text-emerald-500 font-bold">Interés Principal</label>
                             <select id="asunto" name="asunto" 
                                 class="w-full bg-transparent border-b border-white/10 py-4 text-white/50 font-light focus:outline-none focus:border-emerald-500 transition text-sm appearance-none cursor-pointer">
                                 <option value="informacion" class="bg-black text-white">Información General</option>
@@ -951,12 +912,12 @@
                         </div>
                     </div>
                     <div class="space-y-2">
-                        <label for="mensaje" class="text-[9px] uppercase tracking-[0.3em] text-emerald-500 font-bold">Mensaje</label>
+                        <label for="mensaje" class="text-[11px] uppercase tracking-[0.25em] text-emerald-500 font-bold">Mensaje</label>
                         <textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntenos cómo podemos ayudarle..." required 
                             class="w-full bg-transparent border-b border-white/10 py-4 text-white font-light focus:outline-none focus:border-emerald-500 transition placeholder:text-white/10 text-sm resize-none"></textarea>
                     </div>
                     
-                    <button type="submit" id="contact-submit-btn" class="w-full md:w-auto bg-white text-black px-16 py-5 text-[10px] font-bold uppercase tracking-[0.5em] hover:bg-emerald-500 hover:text-white transition duration-700">
+                    <button type="submit" id="contact-submit-btn" class="w-full md:w-auto bg-emerald-600 hover:bg-emerald-500 text-white px-16 py-5 text-[11px] font-bold uppercase tracking-[0.35em] transition duration-300">
                         Enviar Consulta
                     </button>
                 </form>
@@ -1048,6 +1009,27 @@
             </div>
         </div>
     </footer>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+
+      // Contacto: animaciones de entrada
+      var contactForm = document.getElementById('contact-form');
+      if (contactForm) {
+        contactForm.dataset.aos = 'fade-left';
+        contactForm.dataset.aosDelay = '150';
+      }
+      var contactInfo = document.querySelector('#contacto .lg\\:w-1\\/3');
+      if (contactInfo) {
+        contactInfo.dataset.aos = 'fade-right';
+      }
+
+      AOS.init({
+        duration: 750,
+        easing: 'ease-out',
+        once: true,
+        offset: 120
+      });
+    </script>
     <script src="script.js" defer></script>
     <script>
       (function () {

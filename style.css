@@ -1,3 +1,10 @@
+:root {
+    --bg: #0a0a0a;
+    --text: #e8e4de;
+    --accent: #059669;
+    --border: rgba(255,255,255,0.07);
+}
+
 *,
 *::before,
 *::after {
@@ -13,24 +20,71 @@ svg {
 /* =========================================
    1. CONFIGURACIÓN BASE Y TIPOGRAFÍA
    ========================================= */
-body { 
-    font-family: 'Inter', sans-serif; 
-    background-color: #000000; 
-    color: #e5e5e5; 
-    overflow-x: hidden; 
-    letter-spacing: 0.02em; 
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    letter-spacing: 0.02em;
+    font-feature-settings: "liga" 1, "kern" 1;
 }
 
 h1, h2, h3 { font-family: 'Playfair Display', serif; }
 
 /* Ajuste para que el scroll se detenga antes de la sección al usar links */
-section { scroll-margin-top: 70px; } 
+section { scroll-margin-top: 100px; }
 
 .number-accent { color: #10b981; font-weight: 700; }
 
 /* =========================================
    2. NAVBAR Y CONTENEDORES
    ========================================= */
+/* FAQ: fija el tamaño del chevron (w-3 h-3 no está en tailwind.min.css local) */
+#faq details summary svg {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    transition: transform 0.35s ease;
+}
+
+/* FAQ accordion: animación fluida al abrir */
+#faq details p {
+    overflow: hidden;
+    animation: faqSlideIn 0.35s ease forwards;
+}
+
+@keyframes faqSlideIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero: garantiza altura completa y centrado vertical */
+#inicio {
+    min-height: 100vh;
+    align-items: center;
+}
+
+/* Hero H1: tamaño grande garantizado sin depender de md: Tailwind */
+#inicio h1 {
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    line-height: 1;
+}
+
+/* =========================================
+   HERO — Animaciones de entrada al cargar
+   ========================================= */
+@keyframes heroReveal {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+#inicio .hero-eyebrow  { animation: heroReveal 0.7s ease-out 0.2s both; }
+#inicio h1             { animation: heroReveal 0.8s ease-out 0.4s both; }
+#inicio .hero-location { animation: heroReveal 0.7s ease-out 0.6s both; }
+#inicio .hero-price    { animation: heroReveal 0.7s ease-out 0.75s both; }
+#inicio .hero-body     { animation: heroReveal 0.7s ease-out 0.9s both; }
+#inicio .hero-ctas     { animation: heroReveal 0.7s ease-out 1.05s both; }
+
 #main-nav {
     transition: all 0.4s ease;
     z-index: 100;
@@ -106,10 +160,10 @@ section { scroll-margin-top: 70px; }
 #info-lote {
     position: absolute;
     display: none;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(10, 10, 10, 0.92);
     color: #f9fafb;
     padding: 20px 24px;
-    border-radius: 0px;
+    border-radius: 4px;
     font-size: 13px;
     z-index: 50;
     pointer-events: auto;
@@ -193,7 +247,7 @@ section { scroll-margin-top: 70px; }
     bottom: 0;
     width: 100%;
     max-width: 400px;
-    background-color: #000000;
+    background-color: var(--bg);
     display: flex;
     flex-direction: column;
     padding: 100px 40px;
