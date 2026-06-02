@@ -1,9 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://laspilcas.cl/</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://laspilcas.cl/assets/img/HERO-0.jpg</image:loc>
+      <image:title>Parcelas Las Pilcas — precordillera de Ñuble, San Fabián de Alico</image:title>
+      <image:geo_location>San Fabián de Alico, Región de Ñuble, Chile</image:geo_location>
+    </image:image>
+    <image:image>
+      <image:loc>https://laspilcas.cl/assets/img/LAS_PILCAS/1.jpg</image:loc>
+      <image:title>Acceso por Ruta N-31 hacia parcelas Las Pilcas</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://laspilcas.cl/assets/img/LAS_PILCAS/2.jpg</image:loc>
+      <image:title>Bosque nativo y cordillera en Las Pilcas, San Fabián de Alico</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://laspilcas.cl/assets/img/LAS_PILCAS/3.jpg</image:loc>
+      <image:title>Acceso exclusivo al Río Ñuble desde parcelas Las Pilcas</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://laspilcas.cl/assets/img/LAS_PILCAS/5.jpg</image:loc>
+      <image:title>Vista panorámica del Río Ñuble y precordillera desde Las Pilcas</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://laspilcas.cl/assets/img/LAS_PILCAS/7.jpg</image:loc>
+      <image:title>Pozón natural del Río Ñuble junto a parcelas Las Pilcas</image:title>
+    </image:image>
   </url>
 </urlset>
