@@ -1015,14 +1015,14 @@
     <script>
 
       // Contacto: animaciones de entrada
-      var contactForm = document.getElementById('contact-form');
-      if (contactForm) {
-        contactForm.dataset.aos = 'fade-left';
-        contactForm.dataset.aosDelay = '150';
+      var _cForm = document.getElementById('contact-form');
+      if (_cForm) {
+        _cForm.dataset.aos = 'fade-left';
+        _cForm.dataset.aosDelay = '150';
       }
-      var contactInfo = document.querySelector('#contacto .lg\\:w-1\\/3');
-      if (contactInfo) {
-        contactInfo.dataset.aos = 'fade-right';
+      var _cInfo = document.querySelector('#contacto .lg\\:w-1\\/3');
+      if (_cInfo) {
+        _cInfo.dataset.aos = 'fade-right';
       }
 
       AOS.init({
