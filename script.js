@@ -401,3 +401,14 @@ function updateNavVisibility() {
 
 window.addEventListener('scroll', updateNavVisibility, { passive: true });
 updateNavVisibility();
+
+// --- FAQ: apertura/cierre fluido con CSS grid-template-rows (sin reflow por frame) ---
+// La estructura (details[open] + .faq-answer) está en el HTML; el JS solo togglea la clase.
+document.querySelectorAll('#faq details.faq-item').forEach(function (detail) {
+    const summary = detail.querySelector('summary');
+    if (!summary) return;
+    summary.addEventListener('click', function (e) {
+        e.preventDefault();
+        detail.classList.toggle('faq-open');
+    });
+});
