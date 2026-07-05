@@ -81,8 +81,7 @@ if (mobileMenu) {
 }
 
 // --- GALERÍA / LIGHTBOX ---
-function openGalleryItem(index) {
-    if (!galleryLightbox) return;
+function renderGalleryItem(index) {
     const items = Array.from(galleryItems);
     const item = items[index];
     if (!item) return;
@@ -112,27 +111,58 @@ function openGalleryItem(index) {
     if (lightboxCaption) {
         lightboxCaption.textContent = caption;
     }
+}
+
+function openGalleryItem(index) {
+    if (!galleryLightbox) return;
+    renderGalleryItem(index);
 
     galleryLightbox.classList.remove('hidden');
     galleryLightbox.classList.add('flex');
     document.body.style.overflow = 'hidden';
+
+    // Doble rAF: asegura que el navegador aplique display:flex antes de animar la opacidad.
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            galleryLightbox.classList.add('lightbox-visible');
+        });
+    });
+}
+
+// Cambia de imagen/video con un fundido leve en vez de un corte brusco.
+function transitionToGalleryItem(index) {
+    if (!galleryLightbox) return;
+    lightboxImage.classList.add('lightbox-fading');
+    if (lightboxVideo) lightboxVideo.classList.add('lightbox-fading');
+
+    setTimeout(() => {
+        renderGalleryItem(index);
+        requestAnimationFrame(() => {
+            lightboxImage.classList.remove('lightbox-fading');
+            if (lightboxVideo) lightboxVideo.classList.remove('lightbox-fading');
+        });
+    }, 180);
 }
 
 function closeGallery() {
     if (!galleryLightbox) return;
-    galleryLightbox.classList.add('hidden');
-    galleryLightbox.classList.remove('flex');
+    galleryLightbox.classList.remove('lightbox-visible');
     document.body.style.overflow = '';
-    if (lightboxVideo) {
-        lightboxVideo.src = '';
-    }
+
+    setTimeout(() => {
+        galleryLightbox.classList.add('hidden');
+        galleryLightbox.classList.remove('flex');
+        if (lightboxVideo) {
+            lightboxVideo.src = '';
+        }
+    }, 300);
 }
 
 function showNextGalleryItem(direction) {
     const items = Array.from(galleryItems);
     if (!items.length) return;
-    currentGalleryIndex = (currentGalleryIndex + direction + items.length) % items.length;
-    openGalleryItem(currentGalleryIndex);
+    const nextIndex = (currentGalleryIndex + direction + items.length) % items.length;
+    transitionToGalleryItem(nextIndex);
 }
 
 if (galleryItems && galleryItems.length) {
