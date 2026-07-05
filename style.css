@@ -17,6 +17,25 @@ svg {
     max-width: 100%;
 }
 
+#lightbox-image,
+#lightbox-video {
+    transition: opacity 0.28s ease;
+}
+
+#lightbox-image.lightbox-fading,
+#lightbox-video.lightbox-fading {
+    opacity: 0;
+}
+
+#gallery-lightbox {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#gallery-lightbox.lightbox-visible {
+    opacity: 1;
+}
+
 /* =========================================
    1. CONFIGURACIÓN BASE Y TIPOGRAFÍA
    ========================================= */
