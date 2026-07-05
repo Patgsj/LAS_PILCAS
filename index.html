@@ -978,6 +978,11 @@
             <!-- Columna Formulario -->
             <div class="lg:w-2/3">
                 <form id="contact-form" method="POST" action="enviar.php" class="space-y-8">
+                    <input type="hidden" id="form_ts" name="form_ts" value="">
+                    <div aria-hidden="true" style="position:absolute; left:-9999px; top:-9999px; height:0; overflow:hidden;">
+                        <label for="sitio_web">No completar este campo</label>
+                        <input type="text" id="sitio_web" name="sitio_web" tabindex="-1" autocomplete="off">
+                    </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div class="space-y-2">
                             <label for="nombre" class="text-[11px] uppercase tracking-[0.25em] text-emerald-500 font-bold">Nombre Completo</label>
@@ -1132,6 +1137,9 @@
         var btnText = 'Enviar Consulta';
 
         if (!form || !modal || !btn) return;
+
+        var tsField = document.getElementById('form_ts');
+        if (tsField) tsField.value = Math.floor(Date.now() / 1000);
 
         form.addEventListener('submit', function (e) {
           e.preventDefault();
