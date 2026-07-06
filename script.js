@@ -212,6 +212,9 @@ document.addEventListener('keydown', (e) => {
 (function () {
     const params = new URLSearchParams(window.location.search);
     if (params.get('envio') === 'exito' && contactSuccessModal) {
+        if (typeof gtag === 'function') {
+            gtag('event', 'ads_conversion_Contacto_1');
+        }
         contactSuccessModal.classList.add('flex');
         contactSuccessModal.classList.remove('hidden');
         history.replaceState(null, '', window.location.pathname + '#contacto');
