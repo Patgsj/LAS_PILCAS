@@ -141,7 +141,7 @@ function transitionToGalleryItem(index) {
             lightboxImage.classList.remove('lightbox-fading');
             if (lightboxVideo) lightboxVideo.classList.remove('lightbox-fading');
         });
-    }, 180);
+    }, 280); // debe coincidir con la duración del transition en CSS (0.28s), si no la foto anterior alcanza a reaparecer a medio fundido
 }
 
 function closeGallery() {
