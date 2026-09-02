@@ -347,12 +347,42 @@
 <body class="overflow-x-hidden w-full">
 
     <nav id="main-nav" class="fixed w-full z-50 py-6 transition-all duration-700">
-        <div class="max-w-[1600px] mx-auto px-8 md:px-20 flex justify-center items-center">
+        <div class="max-w-[1600px] mx-auto px-8 md:px-20 flex justify-between items-center">
             <a href="#inicio" class="flex items-center gap-3 text-white tracking-[0.4em] font-light text-[10px] uppercase" aria-label="Ir al inicio">
                 <img src="./assets/img/LOGO-LAS-PILCAS.svg" alt="Las Pilcas — parcelas exclusivas San Fabián de Alico, Región de Ñuble" class="h-12 brightness-200" loading="eager" decoding="async">
+                <span class="hidden md:block"></span>
             </a>
+            <div class="hidden md:flex items-center gap-10 text-[11px] uppercase tracking-[0.25em] font-bold">
+                <a href="#proyecto" class="nav-link hover:text-emerald-500 transition">Proyecto</a>
+                <a href="#galeria" class="nav-link hover:text-emerald-500 transition">Galería</a>
+                <a href="#ubicacion" class="nav-link hover:text-emerald-500 transition">Ubicación</a>
+                <a href="#faq" class="nav-link hover:text-emerald-500 transition">FAQ</a>
+                <a href="#contacto" class="nav-link hover:text-emerald-500 transition">Contacto</a>
+            </div>
+            <button type="button" id="menu-btn" class="md:hidden text-white p-3 -mr-2 rounded border border-white/30 bg-black/80 z-[100] touch-manipulation" aria-label="Abrir menú">
+                <span id="menu-icon-open"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true" style="display:inline-block;width:1.25rem;height:1.25rem;vertical-align:-0.125em"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                <span id="menu-icon-close" class="hidden"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" style="display:inline-block;width:1.25rem;height:1.25rem;vertical-align:-0.125em"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg></span>
+            </button>
         </div>
     </nav>
+
+    <!-- Menú móvil: pantalla completa, animación lateral desde la derecha -->
+    <div id="mobile-menu" class="mobile-menu fixed inset-0 md:hidden" aria-hidden="true">
+        <div class="mobile-menu__backdrop"></div>
+        <div class="mobile-menu__panel">
+            <button type="button" id="mobile-menu-close" class="mobile-menu__close" aria-label="Cerrar menú">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true" style="display:inline-block;width:1em;height:1em;vertical-align:-0.125em"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+            </button>
+            <nav class="mobile-menu__nav">
+                <a href="#proyecto" class="mobile-menu__link">Proyecto</a>
+                <a href="#galeria" class="mobile-menu__link">Galería</a>
+                <a href="#ubicacion" class="mobile-menu__link">Ubicación</a>
+                <a href="#faq" class="mobile-menu__link">FAQ</a>
+                <a href="#contacto" class="mobile-menu__link">Contacto</a>
+                <a href="https://wa.me/56966640562" onclick="gtag('event','ads_conversion_Contacto_1');" class="mobile-menu__link mobile-menu__link--wa">WhatsApp</a>
+            </nav>
+        </div>
+    </div>
 
     <header id="inicio" class="relative min-h-screen w-full flex items-center">
         <div class="absolute inset-0 z-0 overflow-hidden">
