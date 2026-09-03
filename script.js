@@ -202,14 +202,6 @@ if (galleryNext) {
     galleryNext.addEventListener('click', () => showNextGalleryItem(1));
 }
 
-if (galleryLightbox) {
-    galleryLightbox.addEventListener('click', (e) => {
-        if (e.target === galleryLightbox) {
-            closeGallery();
-        }
-    });
-}
-
 // Navegación con teclado dentro de la galería (solo cuando el lightbox está visible)
 document.addEventListener('keydown', (e) => {
     if (!galleryLightbox || galleryLightbox.classList.contains('hidden')) return;
