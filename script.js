@@ -85,7 +85,6 @@ function renderGalleryItem(index) {
     const items = Array.from(galleryItems);
     const item = items[index];
     if (!item) return;
-    currentGalleryIndex = index;
 
     const type = item.getAttribute('data-type');
     const src = item.getAttribute('data-src');
@@ -115,6 +114,11 @@ function renderGalleryItem(index) {
 
 function openGalleryItem(index) {
     if (!galleryLightbox) return;
+    if (galleryTransitionTimeout) {
+        clearTimeout(galleryTransitionTimeout);
+        galleryTransitionTimeout = null;
+    }
+    currentGalleryIndex = index;
     renderGalleryItem(index);
 
     galleryLightbox.classList.remove('hidden');
@@ -130,22 +134,37 @@ function openGalleryItem(index) {
 }
 
 // Cambia de imagen/video con un fundido leve en vez de un corte brusco.
+let galleryTransitionTimeout = null;
+
 function transitionToGalleryItem(index) {
     if (!galleryLightbox) return;
+
+    // Actualiza el índice de inmediato (no al terminar el fundido): si el usuario
+    // hace varios clics seguidos en siguiente/anterior antes de que termine la
+    // transición anterior, cada clic debe avanzar desde el destino ya solicitado,
+    // no desde el último índice renderizado, o los clics rápidos se pierden.
+    currentGalleryIndex = index;
+
     lightboxImage.classList.add('lightbox-fading');
     if (lightboxVideo) lightboxVideo.classList.add('lightbox-fading');
 
-    setTimeout(() => {
+    if (galleryTransitionTimeout) clearTimeout(galleryTransitionTimeout);
+    galleryTransitionTimeout = setTimeout(() => {
         renderGalleryItem(index);
         requestAnimationFrame(() => {
             lightboxImage.classList.remove('lightbox-fading');
             if (lightboxVideo) lightboxVideo.classList.remove('lightbox-fading');
         });
+        galleryTransitionTimeout = null;
     }, 280); // debe coincidir con la duración del transition en CSS (0.28s), si no la foto anterior alcanza a reaparecer a medio fundido
 }
 
 function closeGallery() {
     if (!galleryLightbox) return;
+    if (galleryTransitionTimeout) {
+        clearTimeout(galleryTransitionTimeout);
+        galleryTransitionTimeout = null;
+    }
     galleryLightbox.classList.remove('lightbox-visible');
     document.body.style.overflow = '';
 
