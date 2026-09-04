@@ -309,6 +309,31 @@ function showTooltip(e, id, estadoText, precioHTML) {
     });
 }
 
+// Precio de las parcelas. Única fuente de verdad de este archivo: antes el tooltip
+// decía "Desde $45.000.000" para todas y el mensaje de WhatsApp cobraba $65.000.000 a
+// todas salvo la 2 y la 33 — dos cifras distintas y ninguna correcta.
+// Valores confirmados por el dueño el 04-09-2026: las parcelas disponibles valen
+// $45.000.000, salvo las parcelas 5 a 10, que valen $55.000.000. Las que no están
+// disponibles no llevan precio porque no están a la venta.
+const PARCELAS_55_MILLONES = [5, 6, 7, 8, 9, 10];
+const formatoCLP = new Intl.NumberFormat('es-CL', {
+    style: 'currency',
+    currency: 'CLP',
+    maximumFractionDigits: 0
+});
+
+// Los ids del SVG son "LOTE-2" y también "LOTE_14": se toma el número, no el separador.
+function numeroDeParcela(lote) {
+    const match = (lote.getAttribute('id') || '').match(/(\d+)/);
+    return match ? Number(match[1]) : null;
+}
+
+function precioDeParcela(lote) {
+    if (!lote.classList.contains('disponible')) return null;
+    const numero = numeroDeParcela(lote);
+    return PARCELAS_55_MILLONES.includes(numero) ? 55000000 : 45000000;
+}
+
 // Eventos para lotes
 lotes.forEach(lote => {
     const handleMove = (e) => {
@@ -324,7 +349,7 @@ lotes.forEach(lote => {
             estadoText = '<span class="font-bold text-[9px]" style="color:#7dd3fc;">EN TRÁMITE</span>';
         } else {
             estadoText = '<span class="font-bold text-[9px]" style="color:#a7f3d0;">DISPONIBLE</span>';
-            precioHTML = '<div class="precio-lote mt-4 text-white font-light tracking-tighter italic border-t border-white/10 pt-2">Desde $45.000.000</div>';
+            precioHTML = '<div class="precio-lote mt-4 text-white font-light tracking-tighter italic border-t border-white/10 pt-2">' + formatoCLP.format(precioDeParcela(lote)) + '</div>';
         }
 
         showTooltip(e, id, estadoText, precioHTML);
@@ -348,11 +373,11 @@ lotes.forEach(lote => {
         const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
         if (isTouchDevice) return;
 
-        const loteId = lote.getAttribute('id');
-        const id = loteId.replace('-', ' ');
-        const isPromo = loteId === 'LOTE-2' || loteId === 'LOTE-33';
-        const precio = isPromo ? '$45.000.000 (oferta)' : '$65.000.000';
-        const msg = `Me interesa recibir información técnica de la ${id} (Valor ${precio}) de Las Pilcas`;
+        // El mensaje dice de dónde viene: este WhatsApp es el mismo de Topo Ñuble, así
+        // que sin eso quien lo recibe no sabe de qué sitio es el interesado.
+        const numero = numeroDeParcela(lote);
+        const precio = formatoCLP.format(precioDeParcela(lote));
+        const msg = `Hola, escribo desde la página de Las Pilcas (laspilcas.cl). Me interesa recibir información técnica de la parcela N° ${numero} (valor ${precio}).`;
         window.open(`https://wa.me/56966640562?text=${encodeURIComponent(msg)}`);
     });
 });
