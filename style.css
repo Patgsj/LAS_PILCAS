@@ -467,3 +467,17 @@ section { scroll-margin-top: 120px !important; }
     0%, 100% { opacity: 1; }
     50%       { opacity: 0.2; }
 }
+/* =========================================
+   FOOTER — espacio para el botón del asistente
+   ========================================= */
+/* El botón flotante del asistente (widget IA) se ancla abajo a la derecha, contra el
+   mismo borde del contenedor al que se alinea el crédito "Implementada por", así que
+   lo tapaba. Se le reserva abajo la banda que ocupa el botón (60px de alto + su
+   separación del borde), medida en 84px: el footer sube y el botón queda flotando en
+   el espacio libre, sin cubrir nada. */
+/* Va con !important porque la clase `py-10` de Tailwind que trae el <footer> gana
+   por especificidad sobre un selector de elemento. Mismo patrón que ya usa la regla
+   de `scroll-margin-top` de las secciones, más arriba en este archivo. */
+footer {
+    padding-bottom: 6rem !important;
+}
