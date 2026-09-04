@@ -479,5 +479,5 @@ section { scroll-margin-top: 120px !important; }
    por especificidad sobre un selector de elemento. Mismo patrón que ya usa la regla
    de `scroll-margin-top` de las secciones, más arriba en este archivo. */
 footer {
-    padding-bottom: 6rem !important;
+    padding-bottom: 8rem !important;
 }
