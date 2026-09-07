@@ -319,6 +319,38 @@ section { scroll-margin-top: 120px !important; }
     font-size: 1.2rem;
 }
 
+/* Acción del tooltip del mapa de lotes.
+   En escritorio es solo una pista: el tooltip sigue al cursor y un botón ahí sería
+   inalcanzable. En táctil sí es un botón, porque el tap no abre WhatsApp. */
+.lote-tooltip__pista {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: #9ca3af;
+}
+
+.lote-tooltip__cta {
+    display: block;
+    margin-top: 12px;
+    padding: 11px 14px;
+    background: #16a34a;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+.lote-tooltip__cta:hover,
+.lote-tooltip__cta:focus-visible {
+    background: #15803d;
+}
+
 @media (max-width: 768px) {
     /* En móvil, el panel va en flujo bajo el mapa */
     #info-lote {
@@ -336,6 +368,12 @@ section { scroll-margin-top: 120px !important; }
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    #info-lote.lote-tooltip--touch .lote-tooltip__cta {
+        flex: 1 1 100%;
+        margin-top: 10px;
     }
 
     #info-lote.lote-tooltip--touch .precio-lote {
@@ -485,4 +523,62 @@ section { scroll-margin-top: 120px !important; }
    de `scroll-margin-top` de las secciones, más arriba en este archivo. */
 footer {
     padding-bottom: 8rem !important;
+}
+
+/* =========================================
+   CTA FIJO EN MÓVIL
+   ========================================= */
+/* Solo móvil. El asistente flota en la esquina inferior derecha (bottom 44px,
+   botón de 60px), así que la barra deja libre ese ancho y ambos conviven. */
+#cta-movil {
+    display: none;
+    position: fixed;
+    left: 16px;
+    /* El botón del asistente mide 60px y su contenedor reserva 2rem a la derecha:
+       la barra termina antes de esa zona para dejarles ~20px de aire. */
+    right: 112px;
+    bottom: 22px;
+    z-index: 60;
+    padding: 13px 14px;
+    background: #16a34a;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 999px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+#cta-movil.cta-movil--visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+    #cta-movil { display: block; }
+}
+
+/* En pantallas muy angostas el texto no cabía y se recortaba con puntos suspensivos. */
+@media (max-width: 360px) {
+    #cta-movil {
+        right: 104px;
+        padding: 13px 12px;
+        font-size: 9px;
+        letter-spacing: 0.06em;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #cta-movil { transition: none; }
 }

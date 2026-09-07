@@ -30,6 +30,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $telefono = isset($_POST["whatsapp"]) ? trim($_POST["whatsapp"]) : '';
     $mensaje  = isset($_POST["mensaje"])  ? trim($_POST["mensaje"])  : '';
 
+    // El formulario pregunta el interés principal (información / agendar visita /
+    // reserva de lote) y hasta ahora se descartaba: es justo el dato que dice qué
+    // tan avanzado viene el interesado.
+    $intereses = array(
+        'informacion' => 'Información general',
+        'visita'      => 'Agendar visita a terreno',
+        'reserva'     => 'Reserva de lote',
+    );
+    $interes_id = isset($_POST["asunto"]) ? trim($_POST["asunto"]) : '';
+    $interes = isset($intereses[$interes_id]) ? $intereses[$interes_id] : 'No indicado';
+
     $ok = ($nombre !== '' && $email !== '' && $telefono !== '' && $mensaje !== '');
     if ($ok && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $ok = false;
@@ -58,13 +69,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($ok) {
         $para = 'contacto@laspilcas.cl';
-        $asunto = 'Nuevo mensaje desde el sitio Las Pilcas';
+        $asunto = 'Las Pilcas: ' . $interes . ' - ' . $nombre;
 
         $cuerpo  = "Nuevo mensaje desde el formulario de contacto\n";
         $cuerpo .= "------------------------------------------\n\n";
         $cuerpo .= "Nombre:   " . $nombre   . "\n";
         $cuerpo .= "Email:    " . $email    . "\n";
-        $cuerpo .= "Teléfono: " . $telefono . "\n\n";
+        $cuerpo .= "Teléfono: " . $telefono . "\n";
+        $cuerpo .= "Interés:  " . $interes  . "\n\n";
         $cuerpo .= "Mensaje:\n" . $mensaje . "\n";
 
         $headers  = "Content-Type: text/plain; charset=UTF-8\r\n";
