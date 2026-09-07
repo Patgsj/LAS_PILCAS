@@ -218,20 +218,6 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// --- FORMULARIO CONTACTO: envío a enviar.php (redirección desde PHP) ---
-// Si se vuelve con ?envio=exito, mostrar modal "Mensaje enviado"
-(function () {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('envio') === 'exito' && contactSuccessModal) {
-        if (typeof gtag === 'function') {
-            gtag('event', 'ads_conversion_Contacto_1');
-        }
-        contactSuccessModal.classList.add('flex');
-        contactSuccessModal.classList.remove('hidden');
-        history.replaceState(null, '', window.location.pathname + '#contacto');
-    }
-})();
-
 if (contactSuccessClose && contactSuccessModal) {
     contactSuccessClose.addEventListener('click', () => {
         contactSuccessModal.classList.add('hidden');
@@ -254,7 +240,8 @@ function hideTooltip() {
     tooltip.style.display = 'none';
 }
 
-function showTooltip(e, id, estadoText, precioHTML) {
+function showTooltip(e, id, estadoText, precioHTML, accionHTML) {
+    accionHTML = accionHTML || '';
     if (!tooltip) return;
     const isTouch = e.type.startsWith('touch');
     tooltip.style.display = 'block';
@@ -271,7 +258,8 @@ function showTooltip(e, id, estadoText, precioHTML) {
                 <div style="flex:0 0 auto;text-align:right;">
                     ${precioHTML}
                 </div>
-            </div>`;
+            </div>
+            ${accionHTML}`;
         tooltip.style.left = '';
         tooltip.style.top = '';
         touchTooltipVisible = true;
@@ -286,6 +274,7 @@ function showTooltip(e, id, estadoText, precioHTML) {
                 <div class="text-white font-bold text-xl mb-3 pr-4">${id}</div>
                 ${estadoText}
                 ${precioHTML}
+                ${accionHTML}
             </div>`;
         var x = e.clientX || 0;
         var y = e.clientY || 0;
@@ -334,6 +323,53 @@ function precioDeParcela(lote) {
     return PARCELAS_55_MILLONES.includes(numero) ? 55000000 : 45000000;
 }
 
+// Mensajes de WhatsApp del mapa. Dicen de dónde vienen: este número es el mismo de
+// Topo Ñuble, así que sin eso quien lo recibe no sabe de qué sitio es el interesado.
+const ORIGEN_WSP = 'Hola, escribo desde la página de Las Pilcas (laspilcas.cl).';
+
+function enlaceParcela(lote) {
+    const numero = numeroDeParcela(lote);
+    if (lote.classList.contains('disponible')) {
+        const precio = formatoCLP.format(precioDeParcela(lote));
+        return {
+            texto: 'Consultar esta parcela',
+            pista: 'Clic para consultar esta parcela',
+            mensaje: `${ORIGEN_WSP} Me interesa recibir información técnica de la parcela N° ${numero} (valor ${precio}).`
+        };
+    }
+    // Reservadas y en trámite todavía se pueden liberar: antes no ofrecían ninguna
+    // acción y el interesado se quedaba sin nada que hacer.
+    if (lote.classList.contains('reservado') || lote.classList.contains('tramite')) {
+        return {
+            texto: 'Avísame si se libera',
+            pista: 'Clic para pedir aviso si se libera',
+            mensaje: `${ORIGEN_WSP} La parcela N° ${numero} aparece tomada. ¿Me pueden avisar si se libera?`
+        };
+    }
+    return null;
+}
+
+// Antes la única forma de consultar por una parcela era hacer clic en el polígono,
+// y ese clic estaba desactivado en dispositivos táctiles: en móvil el mapa no
+// llevaba a ningún contacto.
+//
+// En táctil se pinta un botón real dentro del tooltip. En escritorio no sirve un
+// botón: el tooltip persigue al cursor (se reposiciona en cada mousemove), así que
+// nunca se podría alcanzar. Ahí va una pista, y el clic sobre la parcela hace el
+// trabajo.
+function accionDeParcela(lote, esTactil) {
+    const accion = enlaceParcela(lote);
+    if (!accion) return '';
+
+    if (!esTactil) {
+        return '<div class="lote-tooltip__pista">' + accion.pista + '</div>';
+    }
+
+    const url = 'https://wa.me/56966640562?text=' + encodeURIComponent(accion.mensaje);
+    return '<a class="lote-tooltip__cta" href="' + url + '" target="_blank" rel="noopener noreferrer">'
+         + accion.texto + '</a>';
+}
+
 // Eventos para lotes
 lotes.forEach(lote => {
     const handleMove = (e) => {
@@ -352,7 +388,7 @@ lotes.forEach(lote => {
             precioHTML = '<div class="precio-lote mt-4 text-white font-light tracking-tighter italic border-t border-white/10 pt-2">' + formatoCLP.format(precioDeParcela(lote)) + '</div>';
         }
 
-        showTooltip(e, id, estadoText, precioHTML);
+        showTooltip(e, id, estadoText, precioHTML, accionDeParcela(lote, e.type.startsWith('touch')));
     };
 
     lote.addEventListener('mousemove', handleMove);
@@ -367,18 +403,20 @@ lotes.forEach(lote => {
     });
     
     lote.addEventListener('click', (e) => {
-        if (!lote.classList.contains('disponible')) return;
-
-        // En dispositivos táctiles (móvil/tablet), no abrir WhatsApp al hacer tap
+        // En táctiles el tap solo muestra el tooltip; ahí está el botón de consulta.
         const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
         if (isTouchDevice) return;
 
-        // El mensaje dice de dónde viene: este WhatsApp es el mismo de Topo Ñuble, así
-        // que sin eso quien lo recibe no sabe de qué sitio es el interesado.
-        const numero = numeroDeParcela(lote);
-        const precio = formatoCLP.format(precioDeParcela(lote));
-        const msg = `Hola, escribo desde la página de Las Pilcas (laspilcas.cl). Me interesa recibir información técnica de la parcela N° ${numero} (valor ${precio}).`;
-        window.open(`https://wa.me/56966640562?text=${encodeURIComponent(msg)}`);
+        const accion = enlaceParcela(lote);
+        if (!accion) return;
+
+        if (window.registrarLead) {
+            window.registrarLead('contacto_whatsapp', {
+                seccion: 'mapa-lotes',
+                cta: 'parcela-' + numeroDeParcela(lote)
+            });
+        }
+        window.open('https://wa.me/56966640562?text=' + encodeURIComponent(accion.mensaje));
     });
 });
 
@@ -481,3 +519,20 @@ document.querySelectorAll('#faq details.faq-item').forEach(function (detail) {
         detail.classList.toggle('faq-open');
     });
 });
+
+// --- CTA FIJO EN MÓVIL ---
+// Se muestra recién al salir del hero: ahí arriba ya hay dos CTA visibles y taparlos
+// con una barra sería redundante.
+(function () {
+    const barra = document.getElementById('cta-movil');
+    const hero = document.getElementById('inicio');
+    if (!barra || !hero) return;
+
+    const observador = new IntersectionObserver((entradas) => {
+        entradas.forEach((entrada) => {
+            barra.classList.toggle('cta-movil--visible', !entrada.isIntersecting);
+        });
+    }, { threshold: 0 });
+
+    observador.observe(hero);
+})();
