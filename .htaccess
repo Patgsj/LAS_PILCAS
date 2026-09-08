@@ -13,3 +13,18 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^ %{REQUEST_URI}.html [L]
+
+# Caché. Este sitio no tenía ninguna cabecera: sin Cache-Control el navegador aplica
+# su heurística y se puede quedar días con un script.js viejo. Se vio en vivo el
+# 07-09-2026, con el plano todavía abriendo WhatsApp después del despliegue.
+# Mismo bloque que arriagadaconsultores.cl y toponuble.cl.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(jpg|jpeg|png|webp|svg|woff2|mp4|JPG)$">
+    Header set Cache-Control "public, max-age=31536000"
+  </FilesMatch>
+  # CSS, JS y HTML se revalidan siempre: el deploy por FTP no cambia el nombre del
+  # archivo, así que la única forma de que el navegador vea un cambio es que pregunte.
+  <FilesMatch "\.(css|js|html)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
