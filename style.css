@@ -195,11 +195,19 @@ section { scroll-margin-top: 120px !important; }
 
 #inicio .hero-eyebrow  { animation: heroReveal 0.7s ease-out 0.2s both; }
 #inicio h1             { animation: heroReveal 0.8s ease-out 0.4s both; }
-#inicio .hero-location { animation: heroReveal 0.7s ease-out 0.6s both; }
-#inicio .hero-price    { animation: heroReveal 0.7s ease-out 0.75s both; }
-#inicio .hero-body     { animation: heroReveal 0.7s ease-out 0.9s both; }
-#inicio .hero-ctas     { animation: heroReveal 0.7s ease-out 1.05s both; }
-#inicio .hero-stats    { animation: heroReveal 0.8s ease-out 1.2s both; }
+#inicio .hero-price    { animation: heroReveal 0.7s ease-out 0.6s both; }
+#inicio .hero-ctas     { animation: heroReveal 0.7s ease-out 0.75s both; }
+#inicio .hero-stats    { animation: heroReveal 0.8s ease-out 0.9s both; }
+
+/* Peso y separación del bloque de precio.
+   Van acá y no con utilidades de Tailwind porque `tailwind.min.css` es un archivo
+   precompilado, sin script de build: solo trae las clases que ya se usaban. No
+   incluye `font-medium` ni `mb-7`, así que ponerlas en el HTML no hace nada
+   (el `mb-7` que había no separaba el precio de los botones: quedaban pegados). */
+#inicio .hero-price__cifra { font-weight: 500; }
+/* Al quedar el hero en título + precio + botones, el `mb-4` del h1 dejaba el precio
+   pegado al título. El aire lo pone el bloque, no el h1. */
+#inicio .hero-price        { margin-top: 1.75rem; margin-bottom: 2.25rem; }
 
 #main-nav {
     transition: background-color 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
