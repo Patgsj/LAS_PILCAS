@@ -323,30 +323,34 @@ function precioDeParcela(lote) {
     return PARCELAS_55_MILLONES.includes(numero) ? 55000000 : 45000000;
 }
 
-// Mensajes de WhatsApp del mapa. Dicen de dónde vienen: este número es el mismo de
-// Topo Ñuble, así que sin eso quien lo recibe no sabe de qué sitio es el interesado.
-const ORIGEN_WSP = 'Hola, escribo desde la página de Las Pilcas (laspilcas.cl).';
-
-function enlaceParcela(lote) {
-    const numero = numeroDeParcela(lote);
+// El plano ya no salta a WhatsApp: abre el asistente, que responde al instante con la
+// ficha de esa parcela (valor, estado, fase 2 y descarga en Word) y recién al final
+// deriva a un humano, ya con el interesado precalificado.
+function accionParcela(lote) {
     if (lote.classList.contains('disponible')) {
-        const precio = formatoCLP.format(precioDeParcela(lote));
-        return {
-            texto: 'Consultar esta parcela',
-            pista: 'Clic para consultar esta parcela',
-            mensaje: `${ORIGEN_WSP} Me interesa recibir información técnica de la parcela N° ${numero} (valor ${precio}).`
-        };
+        return { texto: 'Consultar esta parcela', pista: 'Clic para consultar esta parcela' };
     }
-    // Reservadas y en trámite todavía se pueden liberar: antes no ofrecían ninguna
-    // acción y el interesado se quedaba sin nada que hacer.
+    // Reservadas y en trámite todavía se pueden liberar: si no ofrecen ninguna acción,
+    // el interesado se queda sin nada que hacer.
     if (lote.classList.contains('reservado') || lote.classList.contains('tramite')) {
-        return {
-            texto: 'Avísame si se libera',
-            pista: 'Clic para pedir aviso si se libera',
-            mensaje: `${ORIGEN_WSP} La parcela N° ${numero} aparece tomada. ¿Me pueden avisar si se libera?`
-        };
+        return { texto: 'Ver esta parcela', pista: 'Clic para consultar esta parcela' };
     }
     return null;
+}
+
+// El widget expone window.chatAsistente al cargar. Si todavía no está (script defer
+// que no llegó, o worker caído), el clic no queda muerto: cae al formulario. Sin este
+// respaldo, quitar los botones de WhatsApp dejaría la página sin ningún canal.
+function abrirAsistente(opciones, medicion) {
+    if (window.chatAsistente && window.chatAsistente.abrir) {
+        window.chatAsistente.abrir(opciones);
+        if (window.registrarLead && medicion) {
+            window.registrarLead('asistente_abierto', medicion);
+        }
+        return true;
+    }
+    window.location.hash = 'contacto';
+    return false;
 }
 
 // Antes la única forma de consultar por una parcela era hacer clic en el polígono,
@@ -358,16 +362,15 @@ function enlaceParcela(lote) {
 // nunca se podría alcanzar. Ahí va una pista, y el clic sobre la parcela hace el
 // trabajo.
 function accionDeParcela(lote, esTactil) {
-    const accion = enlaceParcela(lote);
+    const accion = accionParcela(lote);
     if (!accion) return '';
 
     if (!esTactil) {
         return '<div class="lote-tooltip__pista">' + accion.pista + '</div>';
     }
 
-    const url = 'https://wa.me/56966640562?text=' + encodeURIComponent(accion.mensaje);
-    return '<a class="lote-tooltip__cta" href="' + url + '" target="_blank" rel="noopener noreferrer">'
-         + accion.texto + '</a>';
+    return '<button type="button" class="lote-tooltip__cta" data-parcela="' + numeroDeParcela(lote) + '">'
+         + accion.texto + '</button>';
 }
 
 // Eventos para lotes
@@ -407,16 +410,10 @@ lotes.forEach(lote => {
         const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
         if (isTouchDevice) return;
 
-        const accion = enlaceParcela(lote);
-        if (!accion) return;
+        if (!accionParcela(lote)) return;
 
-        if (window.registrarLead) {
-            window.registrarLead('contacto_whatsapp', {
-                seccion: 'mapa-lotes',
-                cta: 'parcela-' + numeroDeParcela(lote)
-            });
-        }
-        window.open('https://wa.me/56966640562?text=' + encodeURIComponent(accion.mensaje));
+        const numero = numeroDeParcela(lote);
+        abrirAsistente({ parcela: numero }, { seccion: 'mapa-lotes', cta: 'parcela-' + numero });
     });
 });
 
@@ -520,19 +517,29 @@ document.querySelectorAll('#faq details.faq-item').forEach(function (detail) {
     });
 });
 
-// --- CTA FIJO EN MÓVIL ---
-// Se muestra recién al salir del hero: ahí arriba ya hay dos CTA visibles y taparlos
-// con una barra sería redundante.
-(function () {
-    const barra = document.getElementById('cta-movil');
-    const hero = document.getElementById('inicio');
-    if (!barra || !hero) return;
+// --- CTA QUE ABREN EL ASISTENTE ---
+// Mismo patrón que arriagadaconsultores.cl: un atributo en el markup y un handler
+// delegado, así los botones que arma el JS (el del tooltip del plano) también quedan
+// cubiertos sin instrumentarlos uno por uno.
+document.addEventListener('click', (e) => {
+    if (!e.target.closest) return;
 
-    const observador = new IntersectionObserver((entradas) => {
-        entradas.forEach((entrada) => {
-            barra.classList.toggle('cta-movil--visible', !entrada.isIntersecting);
-        });
-    }, { threshold: 0 });
+    const botonParcela = e.target.closest('[data-parcela]');
+    if (botonParcela) {
+        e.preventDefault();
+        const numero = Number(botonParcela.getAttribute('data-parcela'));
+        abrirAsistente({ parcela: numero }, { seccion: 'mapa-lotes', cta: 'parcela-' + numero });
+        hideTooltip();
+        return;
+    }
 
-    observador.observe(hero);
-})();
+    const boton = e.target.closest('[data-abrir-asistente]');
+    if (!boton) return;
+
+    e.preventDefault();
+    const seccion = boton.closest('header, nav, section[id], #mobile-menu');
+    abrirAsistente(null, {
+        seccion: (seccion && (seccion.id || seccion.tagName.toLowerCase())) || 'sin-seccion',
+        cta: (boton.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60)
+    });
+});
