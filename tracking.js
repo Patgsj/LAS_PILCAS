@@ -93,4 +93,19 @@
     const tipo = (e.detail && e.detail.lead) || 'consulta';
     registrar('chatbot_lead', { seccion: 'asistente', cta: tipo });
   });
+
+  // ------------------------------------------
+  // Salto a WhatsApp desde dentro del asistente
+  // ------------------------------------------
+  // La página ya no tiene botones de WhatsApp: la derivación ocurre en la tarjeta de
+  // parcela del chat, que vive en un iframe de otro origen donde la delegación de más
+  // arriba no llega. Sin esto, `contacto_whatsapp` caería a cero en GA4 y parecería
+  // que el cambio mató las conversiones, cuando solo se mudaron de lugar.
+  document.addEventListener('chatbot:whatsapp', (e) => {
+    const lote = e.detail && e.detail.lote;
+    registrar('contacto_whatsapp', {
+      seccion: 'asistente',
+      cta: lote ? 'parcela-' + lote : 'asistente'
+    });
+  });
 }());

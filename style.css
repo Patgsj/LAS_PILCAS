@@ -321,7 +321,8 @@ section { scroll-margin-top: 120px !important; }
 
 /* Acción del tooltip del mapa de lotes.
    En escritorio es solo una pista: el tooltip sigue al cursor y un botón ahí sería
-   inalcanzable. En táctil sí es un botón, porque el tap no abre WhatsApp. */
+   inalcanzable. En táctil sí es un botón, porque el tap no navega a otra parte:
+   abre el asistente con la ficha de esa parcela. */
 .lote-tooltip__pista {
     margin-top: 12px;
     padding-top: 10px;
@@ -333,22 +334,29 @@ section { scroll-margin-top: 120px !important; }
 
 .lote-tooltip__cta {
     display: block;
+    width: 100%;
     margin-top: 12px;
     padding: 11px 14px;
-    background: #16a34a;
+    /* Esmeralda del sitio y del asistente, no el verde de WhatsApp: este botón abre
+       el chat, no una conversación de WhatsApp. */
+    background: #059669;
     color: #ffffff;
+    font-family: inherit;
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.15em;
     text-align: center;
     text-decoration: none;
+    text-transform: uppercase;
+    border: none;
     border-radius: 4px;
+    cursor: pointer;
     transition: background 0.2s ease;
 }
 
 .lote-tooltip__cta:hover,
 .lote-tooltip__cta:focus-visible {
-    background: #15803d;
+    background: #047857;
 }
 
 @media (max-width: 768px) {
@@ -455,6 +463,15 @@ section { scroll-margin-top: 120px !important; }
     max-width: 260px;
 }
 
+/* El ítem del asistente es un <button>, no un <a>: sin este reset traería el fondo,
+   el borde y la tipografía por defecto del navegador y desentonaría con el resto. */
+button.mobile-menu__link {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: inherit;
+}
+
 .mobile-menu__link--active {
     color: #10b981;
 }
@@ -525,60 +542,3 @@ footer {
     padding-bottom: 8rem !important;
 }
 
-/* =========================================
-   CTA FIJO EN MÓVIL
-   ========================================= */
-/* Solo móvil. El asistente flota en la esquina inferior derecha (bottom 44px,
-   botón de 60px), así que la barra deja libre ese ancho y ambos conviven. */
-#cta-movil {
-    display: none;
-    position: fixed;
-    left: 16px;
-    /* El botón del asistente mide 60px y su contenedor reserva 2rem a la derecha:
-       la barra termina antes de esa zona para dejarles ~20px de aire. */
-    right: 112px;
-    bottom: 22px;
-    z-index: 60;
-    padding: 13px 14px;
-    background: #16a34a;
-    color: #ffffff;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-transform: uppercase;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 999px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-    opacity: 0;
-    transform: translateY(12px);
-    pointer-events: none;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-#cta-movil.cta-movil--visible {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-
-@media (max-width: 768px) {
-    #cta-movil { display: block; }
-}
-
-/* En pantallas muy angostas el texto no cabía y se recortaba con puntos suspensivos. */
-@media (max-width: 360px) {
-    #cta-movil {
-        right: 104px;
-        padding: 13px 12px;
-        font-size: 9px;
-        letter-spacing: 0.06em;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    #cta-movil { transition: none; }
-}
