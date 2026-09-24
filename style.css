@@ -55,6 +55,13 @@ section { scroll-margin-top: 120px !important; }
 
 /* Padding-top para secciones — pt-32 no está en tailwind.min.css local */
 #proyecto  { padding-top: 2rem; }
+/* Escritorio: el botón flotante del asistente tapaba los lotes reservados de abajo a la
+   derecha del plano. Se sube el contenido ~70px pasando espacio de arriba hacia abajo,
+   sin cambiar el alto total de la sección (así no asoma la galería que sigue). */
+@media (min-width: 1024px) {
+    #proyecto { scroll-margin-top: 96px !important; padding-top: .5rem; padding-bottom: calc(8rem + 1.5rem); }
+    #mapa .glass-container { padding-top: 1.75rem; padding-bottom: calc(3rem + 1.25rem); }
+}
 #faq       { padding-top: 7rem; padding-bottom: 7rem; }
 #contacto  { padding-top: 7rem; padding-bottom: 7rem; }
 #ubicacion { padding-top: 6rem; }
