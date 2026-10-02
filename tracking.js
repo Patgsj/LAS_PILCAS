@@ -95,6 +95,16 @@
   });
 
   // ------------------------------------------
+  // Asistente abierto desde la píldora flotante
+  // ------------------------------------------
+  // La píldora es del widget, no del sitio: los CTA con data-abrir-asistente miden
+  // por su cuenta y esta apertura quedaba invisible. El widget la avisa con
+  // `chatbot:abierto`.
+  document.addEventListener('chatbot:abierto', () => {
+    registrar('asistente_abierto', { seccion: 'boton-flotante', cta: 'pildora' });
+  });
+
+  // ------------------------------------------
   // Salto a WhatsApp desde dentro del asistente
   // ------------------------------------------
   // La página ya no tiene botones de WhatsApp: la derivación ocurre en la tarjeta de
