@@ -146,25 +146,14 @@
         }, { rootMargin: '900px 0px' });
         cerca.observe(contenedor);
 
-        // El vuelo parte cada vez que el plano vuelve a entrar en pantalla. Al salir por
-        // completo, el mapa vuelve a la vista de partida: así al regresar ya se ve de
-        // lejos y la animación corre entera, sin saltos.
-        let fuera = true;
+        // El vuelo corre una sola vez, la primera que el plano entra en pantalla. Al volver
+        // a la sección el mapa ya está en el encuadre final: repetirlo en cada visita
+        // resultaba molesto.
         const enPantalla = new IntersectionObserver((entradas) => {
-            entradas.forEach((e) => {
-                if (e.intersectionRatio === 0) { fuera = true; alInicio(); return; }
-                if (fuera && e.intersectionRatio >= 0.4) { fuera = false; volar(); }
-            });
-        }, { threshold: [0, 0.4] });
+            if (entradas.some((e) => e.intersectionRatio >= 0.4)) { enPantalla.disconnect(); volar(); }
+        }, { threshold: 0.4 });
         enPantalla.observe(contenedor);
     } else {
         montar().then(volar).catch(() => {});
     }
-
-    // Al pinchar "Proyecto" con la sección ya en pantalla, el vuelo se repite desde el inicio.
-    document.addEventListener('click', (e) => {
-        const enlace = e.target.closest && e.target.closest('a[href="#proyecto"]');
-        if (!enlace) return;
-        setTimeout(() => { if (estado === 'cerca') volar(); }, 650);
-    });
 })();
