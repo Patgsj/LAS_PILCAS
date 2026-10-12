@@ -16,7 +16,9 @@
   // ------------------------------------------
   // gtag
   // ------------------------------------------
-  const medidores = [GA4, ADS].filter(Boolean);
+  // En local no se mide: las pruebas no deben ensuciar GA4 ni Ads.
+  const enLocal = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) || location.protocol === 'file:';
+  const medidores = enLocal ? [] : [GA4, ADS].filter(Boolean);
 
   window.dataLayer = window.dataLayer || [];
   function gtag() { window.dataLayer.push(arguments); }

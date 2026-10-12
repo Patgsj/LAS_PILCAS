@@ -461,7 +461,10 @@
                     <span class="text-[9px] uppercase tracking-widest text-emerald-500 font-bold">Segunda Etapa</span>
                 </div>
                 
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 625.5 436.6" width="100%" class="block drop-shadow-2xl" style="height:auto;" role="img" aria-label="Plano del proyecto Las Pilcas con la distribución de los 39 lotes en San Fabián de Alico">
+                <!-- El plano va sobre un mapa satelital real (mapa-proyecto.js). Sin JS o sin
+                     Leaflet queda como antes: el SVG con la foto de fondo. -->
+                <div id="mapa-lotes" class="mapa-lotes">
+                <svg id="plano-lotes" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 625.5 436.6" width="100%" class="block drop-shadow-2xl" style="height:auto;" role="img" aria-label="Plano del proyecto Las Pilcas con la distribución de los 39 lotes en San Fabián de Alico">
                     <defs>
                         <filter id="darken">
                             <feComponentTransfer>
@@ -516,6 +519,7 @@
                         <g id="LOTE-30" class="lote tramite"><path d="M345.4,128.8l-19.2,41.6s-7.1-6.8-11.9-10.8-71.9-37.5-71.9-37.5l12.4-22.7s59.3,27.2,65.4,28.8,25.2.5,25.2.5Z"/></g>
                         
                 </svg>
+                </div>
 
                 <div id="info-lote"></div>
 
@@ -1022,6 +1026,7 @@
       });
     </script>
     <script src="script.js" defer></script>
+    <script src="mapa-proyecto.js" defer></script>
     <script>
       (function () {
         var form = document.getElementById('contact-form');

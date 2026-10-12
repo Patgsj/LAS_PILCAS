@@ -36,6 +36,10 @@ The property map in `#proyecto` is an SVG embedded in `index.html`. Each lot (`<
 
 When adding or updating lots, both the SVG element and the lot data object in `script.js` must be updated.
 
+The SVG sits on top of a real satellite map (`mapa-proyecto.js`): Leaflet is loaded lazily from unpkg when the section gets close, with Esri World Imagery tiles and all map interaction disabled, inside the same box the old photo used. The lots are still the SVG — the map only replaces the background, so the tooltip/click logic in `script.js` is untouched. The SVG viewBox is georeferenced by the `LIMITES` constant; if the SVG is redrawn, those bounds must be refitted. Each time the map re-enters the viewport it flies in from a regional view and the lots fade in on arrival. Without JS or if Leaflet fails to load, the section falls back to the SVG with `IMAGENES-LOTE-LAS-PILCAS.jpg` as background, so keep that `<image>` in the markup.
+
+`tracking.js` does not load GA4/Ads on `localhost`, `127.0.0.1` or `file:`.
+
 ## Gallery
 
 Images and videos live in `assets/img/`. The lightbox in `script.js` handles keyboard navigation (arrow keys, Esc). The `browser-image-compression` npm package (`package.json`) is available for image optimization utilities but is not part of the build — import it manually if needed.
