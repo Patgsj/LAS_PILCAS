@@ -119,7 +119,38 @@
         });
     }
 
-    // Vuelo completo: desde la vista de partida hasta el loteo. Las parcelas aparecen al llegar.
+    // Al llegar, las líneas de las parcelas se dibujan en vez de aparecer de golpe: cada
+    // contorno se traza de punta a punta, una parcela tras otra. Al terminar se quitan los
+    // estilos en línea, para que vuelvan a mandar los de style.css (segmentado de las
+    // parcelas en trámite, hover).
+    function dibujarParcelas() {
+        const figuras = Array.from(plano.querySelectorAll('.lote path, .lote polygon'));
+        contenedor.classList.add('mapa-lotes--dibujando');
+        figuras.forEach((f) => {
+            const largo = f.getTotalLength();
+            f.style.transition = 'none';
+            f.style.strokeDasharray = largo + ' ' + largo;
+            f.style.strokeDashoffset = largo;
+        });
+        contenedor.classList.remove('mapa-lotes--volando');
+        plano.getBoundingClientRect(); // fija el estado inicial antes de animar
+        const duracion = 1100;
+        const paso = 22;
+        figuras.forEach((f, i) => {
+            f.style.transition = 'stroke-dashoffset ' + duracion + 'ms ease-out ' + (i * paso) + 'ms';
+            f.style.strokeDashoffset = '0';
+        });
+        setTimeout(() => {
+            figuras.forEach((f) => {
+                f.style.transition = '';
+                f.style.strokeDasharray = '';
+                f.style.strokeDashoffset = '';
+            });
+            contenedor.classList.remove('mapa-lotes--dibujando');
+        }, duracion + figuras.length * paso + 120);
+    }
+
+    // Vuelo completo: desde la vista de partida hasta el loteo. Las parcelas se dibujan al llegar.
     function volar() {
         if (estado === 'volando') return;
         montar().then(() => {
@@ -132,7 +163,7 @@
                 mapa.once('moveend', () => {
                     if (este !== vuelo) return;
                     estado = 'cerca';
-                    contenedor.classList.remove('mapa-lotes--volando');
+                    dibujarParcelas();
                 });
                 mapa.flyToBounds(LIMITES, { duration: 3.5, easeLinearity: 0.18 });
             });

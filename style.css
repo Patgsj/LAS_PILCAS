@@ -581,3 +581,6 @@ footer {
 .mapa-lotes .lote { stroke-width: 1; }
 .mapa-lotes .lote:hover { stroke-width: 2; }
 .mapa-lotes .lote.tramite { stroke-dasharray: 4 2.5; }
+/* Mientras las líneas se dibujan, el plano se muestra de inmediato (sin fundido) y las
+   parcelas todavía no responden al mouse. */
+.mapa-lotes--dibujando #plano-lotes { transition: none; pointer-events: none; }
