@@ -570,7 +570,7 @@ footer {
     -webkit-mask-image: radial-gradient(ellipse at center, black 45%, transparent 98%);
 }
 #mapa-lotes .leaflet-container { background: transparent; font: inherit; }
-.mapa-lotes--vivo #plano-lotes { position: relative; z-index: 2; transition: opacity 1.1s ease; }
+.mapa-lotes--vivo #plano-lotes { position: relative; z-index: 2; transition: opacity 0.7s ease; }
 /* Las parcelas aparecen al terminar el vuelo. */
 .mapa-lotes--volando #plano-lotes { opacity: 0; pointer-events: none; }
 #mapa-lotes .leaflet-control-attribution {

@@ -134,7 +134,7 @@
                     estado = 'cerca';
                     contenedor.classList.remove('mapa-lotes--volando');
                 });
-                mapa.flyToBounds(LIMITES, { duration: 6, easeLinearity: 0.18 });
+                mapa.flyToBounds(LIMITES, { duration: 3.5, easeLinearity: 0.18 });
             });
         }).catch(() => { /* sin Leaflet: queda el plano con la foto */ });
     }
