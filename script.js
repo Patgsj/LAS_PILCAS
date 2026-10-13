@@ -557,6 +557,31 @@ function updateNavVisibility() {
 window.addEventListener('scroll', updateNavVisibility, { passive: true });
 updateNavVisibility();
 
+// --- HERO: video de fondo en bucle ---
+// La imagen del hero carga primero y es el LCP; el video se pide después, sin audio, y
+// se funde encima cuando ya está reproduciendo. No se carga con "reducir movimiento" ni
+// con ahorro de datos, y se pausa cuando el hero sale de pantalla.
+// El .mp4 se cachea un año (.htaccess): si se cambia el video, cambiar el "v1" del nombre.
+(function () {
+    const video = document.getElementById('hero-video');
+    if (!video) return;
+    const conexion = navigator.connection;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (conexion && (conexion.saveData || /(^|-)2g$/.test(conexion.effectiveType || ''))) return;
+
+    const ancho = window.innerWidth < 768 ? 854 : 1280;
+    video.addEventListener('playing', () => video.classList.add('hero-video--visible'), { once: true });
+    video.src = './assets/video/hero-bucle-v1-' + ancho + '.mp4';
+    video.play().catch(() => {}); // si el navegador bloquea el autoplay, queda la imagen
+
+    if ('IntersectionObserver' in window) {
+        new IntersectionObserver((entradas) => {
+            if (entradas[0].isIntersecting) video.play().catch(() => {});
+            else video.pause();
+        }).observe(video);
+    }
+})();
+
 // --- FAQ: apertura/cierre fluido con CSS grid-template-rows (sin reflow por frame) ---
 // La estructura (details[open] + .faq-answer) está en el HTML; el JS solo togglea la clase.
 document.querySelectorAll('#faq details.faq-item').forEach(function (detail) {
