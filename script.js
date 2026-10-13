@@ -561,7 +561,7 @@ updateNavVisibility();
 // La imagen del hero carga primero y es el LCP; el video se pide después, sin audio, y
 // se funde encima cuando ya está reproduciendo. No se carga con "reducir movimiento" ni
 // con ahorro de datos, y se pausa cuando el hero sale de pantalla.
-// El .mp4 se cachea un año (.htaccess): si se cambia el video, cambiar el "v1" del nombre.
+// El .mp4 se cachea un año (.htaccess): si se cambia el video, subir la versión del nombre ("v2" → "v3").
 (function () {
     const video = document.getElementById('hero-video');
     if (!video) return;
@@ -571,7 +571,7 @@ updateNavVisibility();
 
     const ancho = window.innerWidth < 768 ? 854 : 1280;
     video.addEventListener('playing', () => video.classList.add('hero-video--visible'), { once: true });
-    video.src = './assets/video/hero-bucle-v1-' + ancho + '.mp4';
+    video.src = './assets/video/hero-bucle-v2-' + ancho + '.mp4';
     video.play().catch(() => {}); // si el navegador bloquea el autoplay, queda la imagen
 
     if ('IntersectionObserver' in window) {
