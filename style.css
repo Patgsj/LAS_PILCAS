@@ -234,6 +234,21 @@ section { scroll-margin-top: 120px !important; }
 #inicio .hero-ctas     { animation: heroReveal 0.7s ease-out 0.75s both; }
 #inicio .hero-stats    { animation: heroReveal 0.8s ease-out 0.9s both; }
 
+/* Cifras del hero: en celular, cuatro columnas iguales y centradas. En escritorio la
+   primera y la última quedan a ras de los bordes del menú (logo y «Contacto») y las
+   del medio se reparten con el mismo espacio entre todas. */
+#inicio .hero-stats { margin-top: 9rem; }
+#inicio .hero-stat { flex: 1; text-align: center; }
+@media (min-width: 768px) {
+    /* La fila sube 4rem + 4rem para que el botón flotante del asistente no tape
+       «Río Ñuble»: menos separación arriba y un colchón abajo; el título no se mueve. */
+    #inicio .hero-contenido { padding-bottom: 4rem; }
+    #inicio .hero-stats { justify-content: space-between; margin-top: 5rem; }
+    #inicio .hero-stat { flex: none; }
+    #inicio .hero-stat:first-child { text-align: left; }
+    #inicio .hero-stat:last-child { text-align: right; }
+}
+
 /* Peso y separación del bloque de precio.
    Van acá y no con utilidades de Tailwind porque `tailwind.min.css` es un archivo
    precompilado, sin script de build: solo trae las clases que ya se usaban. No
