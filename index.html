@@ -43,7 +43,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- Preload hero image (LCP crítico) -->
-    <link rel="preload" as="image" href="./assets/img/optim/hero-1600.jpg" imagesrcset="./assets/img/optim/hero-640.webp 640w, ./assets/img/optim/hero-1024.webp 1024w, ./assets/img/optim/hero-1600.webp 1600w, ./assets/img/optim/hero-1920.webp 1920w" imagesizes="100vw" fetchpriority="high">
+    <link rel="preload" as="image" href="./assets/img/optim/hero-v2-1600.jpg" imagesrcset="./assets/img/optim/hero-v2-640.webp 640w, ./assets/img/optim/hero-v2-1024.webp 1024w, ./assets/img/optim/hero-v2-1600.webp 1600w, ./assets/img/optim/hero-v2-1920.webp 1920w" imagesizes="100vw" fetchpriority="high">
 
     <link rel="stylesheet" href="./tailwind.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@200;300;400;600&display=swap" rel="stylesheet">
@@ -356,8 +356,8 @@
     <header id="inicio" class="relative min-h-screen w-full flex items-center">
         <div class="absolute inset-0 z-0 overflow-hidden">
             <picture>
-                <source type="image/webp" srcset="./assets/img/optim/hero-640.webp 640w, ./assets/img/optim/hero-1024.webp 1024w, ./assets/img/optim/hero-1600.webp 1600w, ./assets/img/optim/hero-1920.webp 1920w" sizes="100vw">
-                <img src="./assets/img/optim/hero-1920.jpg" srcset="./assets/img/optim/hero-640.jpg 640w, ./assets/img/optim/hero-1024.jpg 1024w, ./assets/img/optim/hero-1600.jpg 1600w, ./assets/img/optim/hero-1920.jpg 1920w" sizes="100vw" class="w-full h-full object-cover scale-105" alt="Parcelas Las Pilcas en la precordillera de Ñuble con el Río Ñuble y bosque nativo cerca de San Fabián de Alico" fetchpriority="high" loading="eager" decoding="async">
+                <source type="image/webp" srcset="./assets/img/optim/hero-v2-640.webp 640w, ./assets/img/optim/hero-v2-1024.webp 1024w, ./assets/img/optim/hero-v2-1600.webp 1600w, ./assets/img/optim/hero-v2-1920.webp 1920w" sizes="100vw">
+                <img src="./assets/img/optim/hero-v2-1920.jpg" srcset="./assets/img/optim/hero-v2-640.jpg 640w, ./assets/img/optim/hero-v2-1024.jpg 1024w, ./assets/img/optim/hero-v2-1600.jpg 1600w, ./assets/img/optim/hero-v2-1920.jpg 1920w" sizes="100vw" class="w-full h-full object-cover scale-105" alt="Vista aérea del bosque nativo y la cordillera en Parcelas Las Pilcas, precordillera de Ñuble, cerca de San Fabián de Alico" fetchpriority="high" loading="eager" decoding="async">
             </picture>
             <!-- Video de fondo: la imagen de arriba se ve al instante (y sigue siendo el LCP);
                  script.js le pone el src a este video y lo funde encima cuando ya está reproduciendo. -->

@@ -181,6 +181,10 @@ section { scroll-margin-top: 120px !important; }
     align-items: center;
 }
 
+/* Hero: la foto se encuadra un poco hacia arriba para que en pantallas anchas
+   no se corte la cumbre de la cordillera. */
+#inicio picture img { object-position: 50% 22%; }
+
 /* Hero: video de fondo. Parte invisible sobre la imagen y aparece con un fundido
    cuando ya está reproduciendo (clase que pone script.js). Mismo `scale` que la imagen. */
 .hero-video {
