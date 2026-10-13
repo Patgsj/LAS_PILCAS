@@ -62,7 +62,10 @@ section { scroll-margin-top: 120px !important; }
     #proyecto { scroll-margin-top: 96px !important; padding-top: 1.25rem; padding-bottom: calc(8rem + .75rem); }
     #mapa .glass-container { padding-top: 1.75rem; padding-bottom: calc(3rem + 1.25rem); }
 }
-#faq       { padding-top: 7rem; padding-bottom: 7rem; }
+/* FAQ parte pegada al borde de arriba: con el margen de 120px asomaba bajo el menú
+   el botón «Ver lotes disponibles» con que termina Ubicación. Su propio padding de
+   arriba deja el contenido libre del menú. */
+#faq       { scroll-margin-top: 0 !important; padding-top: 8.5rem; padding-bottom: 7rem; }
 #contacto  { padding-top: 7rem; padding-bottom: 7rem; }
 #ubicacion { padding-top: 6rem; }
 
@@ -627,3 +630,8 @@ footer {
 /* Mientras las líneas se dibujan, el plano se muestra de inmediato (sin fundido) y las
    parcelas todavía no responden al mouse. */
 .mapa-lotes--dibujando #plano-lotes { transition: none; pointer-events: none; }
+
+/* Contacto en escritorio: título más chico para que la columna de datos calce con el formulario. */
+@media (min-width: 1024px) {
+    #contacto h2 { font-size: 2.5rem; margin-bottom: 2rem; }
+}
