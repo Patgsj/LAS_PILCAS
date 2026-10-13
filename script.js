@@ -571,7 +571,7 @@ updateNavVisibility();
 
     const ancho = window.innerWidth < 768 ? 854 : 1280;
     video.addEventListener('playing', () => video.classList.add('hero-video--visible'), { once: true });
-    video.src = './assets/video/hero-bucle-v6-' + ancho + '.mp4';
+    video.src = './assets/video/hero-bucle-v7-' + ancho + '.mp4';
     video.play().catch(() => {}); // si el navegador bloquea el autoplay, queda la imagen
 
     if ('IntersectionObserver' in window) {
