@@ -81,13 +81,13 @@ if (mobileMenu) {
 }
 
 // --- GALERÍA / LIGHTBOX ---
-function renderGalleryItem(index) {
+function renderGalleryItem(index, imageSrc) {
     const items = Array.from(galleryItems);
     const item = items[index];
     if (!item) return;
 
     const type = item.getAttribute('data-type');
-    const src = item.getAttribute('data-src');
+    const src = imageSrc || item.getAttribute('data-src');
     const caption = item.getAttribute('data-caption') || '';
 
     if (type === 'video') {
@@ -117,17 +117,21 @@ function renderGalleryItem(index) {
 // mostrando la anterior: reaparece un instante y después salta a la nueva. Por eso cada
 // foto se descarga y decodifica aparte antes de mostrarla, y las vecinas se adelantan.
 const galleryPreloads = new Map();
+const galleryLoaded = new Map();
 let galleryToken = 0;
 
 function preloadGalleryImage(src) {
     if (galleryPreloads.has(src)) return galleryPreloads.get(src);
     const ready = new Promise((resolve) => {
         const img = new Image();
+        // se guarda la referencia para que el navegador no suelte la foto ya decodificada
+        const done = () => { galleryLoaded.set(src, img); resolve(); };
         img.onload = () => {
-            if (img.decode) img.decode().catch(() => {}).then(resolve);
-            else resolve();
+            if (img.decode) img.decode().catch(() => {}).then(done);
+            else done();
         };
         img.onerror = resolve;
+        img.fetchPriority = 'high';
         img.src = src;
     });
     galleryPreloads.set(src, ready);
@@ -145,6 +149,36 @@ function preloadGalleryNeighbours(index) {
     [-1, 1].forEach((step) => galleryItemReady((index + step + total) % total));
 }
 
+// Con conexión lenta la foto grande puede tardar varios segundos y el lightbox quedaba
+// en negro. Mientras baja se muestra la miniatura de la grilla, que ya está cargada,
+// y se cambia por la grande cuando está lista.
+function galleryThumbSrc(item) {
+    if (item.getAttribute('data-type') === 'video') return '';
+    if (galleryLoaded.has(item.getAttribute('data-src'))) return '';
+    const thumb = item.querySelector('img');
+    return thumb && thumb.complete && thumb.naturalWidth ? (thumb.currentSrc || thumb.src) : '';
+}
+
+function showGalleryItem(index, token) {
+    const item = galleryItems[index];
+    if (!item) return;
+    const reveal = () => requestAnimationFrame(() => {
+        lightboxImage.classList.remove('lightbox-fading');
+        if (lightboxVideo) lightboxVideo.classList.remove('lightbox-fading');
+    });
+    const thumb = galleryThumbSrc(item);
+    if (thumb) {
+        renderGalleryItem(index, thumb);
+        reveal();
+    }
+    galleryItemReady(index).then(() => {
+        if (token !== galleryToken) return;
+        renderGalleryItem(index);
+        if (!thumb) reveal();
+        preloadGalleryNeighbours(index);
+    });
+}
+
 function openGalleryItem(index) {
     if (!galleryLightbox) return;
     if (galleryTransitionTimeout) {
@@ -157,12 +191,7 @@ function openGalleryItem(index) {
     // que se pidió está lista.
     lightboxImage.classList.add('lightbox-fading');
     if (lightboxVideo) lightboxVideo.classList.remove('lightbox-fading');
-    galleryItemReady(index).then(() => {
-        if (token !== galleryToken) return;
-        renderGalleryItem(index);
-        requestAnimationFrame(() => lightboxImage.classList.remove('lightbox-fading'));
-        preloadGalleryNeighbours(index);
-    });
+    showGalleryItem(index, token);
 
     galleryLightbox.classList.remove('hidden');
     galleryLightbox.classList.add('flex');
@@ -196,16 +225,12 @@ function transitionToGalleryItem(index) {
     // debe coincidir con la duración del transition en CSS (0.28s), si no la foto anterior alcanza a reaparecer a medio fundido
     const fadedOut = new Promise((resolve) => { galleryTransitionTimeout = setTimeout(resolve, 280); });
 
-    // La nueva entra cuando terminó el fundido de salida y además ya está descargada.
-    Promise.all([fadedOut, galleryItemReady(index)]).then(() => {
+    // La nueva entra cuando terminó el fundido de salida.
+    galleryItemReady(index);
+    fadedOut.then(() => {
         if (token !== galleryToken) return;
         galleryTransitionTimeout = null;
-        renderGalleryItem(index);
-        requestAnimationFrame(() => {
-            lightboxImage.classList.remove('lightbox-fading');
-            if (lightboxVideo) lightboxVideo.classList.remove('lightbox-fading');
-        });
-        preloadGalleryNeighbours(index);
+        showGalleryItem(index, token);
     });
 }
 
