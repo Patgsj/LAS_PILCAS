@@ -386,6 +386,22 @@ section { scroll-margin-top: 120px !important; }
     font-size: 1.2rem;
 }
 
+/* Tarjeta de escritorio más compacta: en las parcelas de abajo no alcanzaba a verse entera. */
+#info-lote:not(.lote-tooltip--touch) {
+    padding: 12px 16px;
+    font-size: 12px;
+    pointer-events: none; /* solo informa: el clic lo recibe la parcela de abajo */
+}
+#info-lote:not(.lote-tooltip--touch) .precio-lote {
+    font-size: 1rem;
+    margin-top: 8px;
+    padding-top: 6px;
+}
+#info-lote:not(.lote-tooltip--touch) .lote-tooltip__pista {
+    margin-top: 8px;
+    padding-top: 6px;
+}
+
 /* Acción del tooltip del mapa de lotes.
    En escritorio es solo una pista: el tooltip sigue al cursor y un botón ahí sería
    inalcanzable. En táctil sí es un botón, porque el tap no navega a otra parte:

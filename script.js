@@ -344,28 +344,27 @@ function showTooltip(e, id, estadoText, precioHTML, accionHTML) {
         tooltip.classList.remove('lote-tooltip--touch');
         const parentRect = tooltip.parentElement ? tooltip.parentElement.getBoundingClientRect() : { left: 0, top: 0 };
         tooltip.innerHTML = `
-            <div style="min-width:180px;position:relative;">
-                <button type="button" class="lote-tooltip__close" aria-label="Cerrar información de lote" style="position:absolute;top:0;right:0;font-size:11px;color:#e5e5e5;background:transparent;border:none;cursor:pointer;">✕</button>
-                <div class="text-[8px] text-gray-300 mb-1 pr-4 tracking-[0.4em]">Propiedad</div>
-                <div class="text-white font-bold text-xl mb-3 pr-4">${id}</div>
+            <div style="min-width:150px;">
+                <div class="text-[8px] text-gray-300 mb-1 tracking-[0.4em]">Propiedad</div>
+                <div class="text-white font-bold text-lg mb-1">${id}</div>
                 ${estadoText}
                 ${precioHTML}
                 ${accionHTML}
             </div>`;
         var x = e.clientX || 0;
         var y = e.clientY || 0;
-        const offset = 20;
-        tooltip.style.left = (x - parentRect.left + offset) + 'px';
-        tooltip.style.top = (y - parentRect.top + offset) + 'px';
+        const offset = 16;
+        // Si abajo o a la derecha del cursor no cabe en pantalla, la tarjeta se da vuelta:
+        // en las parcelas del borde inferior quedaba cortada y no se alcanzaba a leer.
+        const ancho = tooltip.offsetWidth;
+        const alto = tooltip.offsetHeight;
+        const izquierda = (x + offset + ancho > window.innerWidth) ? x - offset - ancho : x + offset;
+        const mapa = document.getElementById('mapa-lotes');
+        const limiteAbajo = Math.min(window.innerHeight, mapa ? mapa.getBoundingClientRect().bottom : Infinity);
+        const arriba = (y + offset + alto > limiteAbajo) ? y - offset - alto : y + offset;
+        tooltip.style.left = (izquierda - parentRect.left) + 'px';
+        tooltip.style.top = (arriba - parentRect.top) + 'px';
         tooltip.style.transform = '';
-    }
-
-    const closeBtn = tooltip.querySelector('.lote-tooltip__close');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', function (ev) {
-            ev.stopPropagation();
-            hideTooltip();
-        });
     }
 
     // Forzar transición de opacidad
