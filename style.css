@@ -191,9 +191,8 @@ section { scroll-margin-top: 120px !important; }
     align-items: center;
 }
 
-/* Hero: la foto se encuadra un poco hacia arriba para que en pantallas anchas
-   no se corte la cumbre de la cordillera. */
-#inicio picture img { object-position: 50% 22%; }
+/* Primer cuadro del video: mismo encuadre que el video para que el paso sea invisible. */
+#inicio picture img { object-position: 50% 50%; }
 
 /* Hero: video de fondo. Parte invisible sobre la imagen y aparece con un fundido
    cuando ya está reproduciendo (clase que pone script.js). Mismo `scale` que la imagen. */
