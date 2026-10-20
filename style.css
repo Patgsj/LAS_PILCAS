@@ -266,7 +266,24 @@ section { scroll-margin-top: 120px !important; }
 #inicio .hero-price__cifra { font-weight: 500; }
 /* Al quedar el hero en título + precio + botones, el `mb-4` del h1 dejaba el precio
    pegado al título. El aire lo pone el bloque, no el h1. */
-#inicio .hero-price        { margin-top: 1.75rem; margin-bottom: 2.25rem; }
+#inicio .hero-price        { margin-top: 2.25rem; margin-bottom: 2.25rem; }
+
+/* Bajada del h1: lleva «San Fabián de Alico» dentro del título principal, que es
+   lo que la gente busca en Google. Estilos acá por el mismo motivo de arriba. */
+#inicio .hero-location {
+    margin-top: 1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 300;
+    line-height: 1.5;
+    font-style: normal;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.6);
+}
+@media (min-width: 768px) {
+    #inicio .hero-location { font-size: 0.875rem; }
+}
 
 #main-nav {
     transition: background-color 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
