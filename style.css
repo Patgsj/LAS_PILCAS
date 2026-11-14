@@ -403,6 +403,39 @@ section { scroll-margin-top: 120px !important; }
     font-size: 1.2rem;
 }
 
+/* Comprador en las parcelas vendidas: foto redonda y nombre bajo el estado. */
+.lote-tooltip__propietario {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.lote-tooltip__propietario img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(220, 38, 38, 0.7);
+    flex: 0 0 auto;
+}
+.lote-tooltip__propietario-rol {
+    font-size: 8px;
+    letter-spacing: 0.3em;
+    color: #d1d5db;
+}
+.lote-tooltip__propietario-nombre {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #fff;
+    margin-top: 2px;
+}
+#info-lote.lote-tooltip--touch .lote-tooltip__propietario img { width: 40px; height: 40px; }
+#info-lote.lote-tooltip--touch .lote-tooltip__propietario { margin-bottom: 6px; padding-bottom: 6px; gap: 8px; }
+#info-lote.lote-tooltip--touch .lote-tooltip__propietario-nombre { font-size: 11px; }
+
 /* Tarjeta de escritorio más compacta: en las parcelas de abajo no alcanzaba a verse entera. */
 #info-lote:not(.lote-tooltip--touch) {
     padding: 12px 16px;

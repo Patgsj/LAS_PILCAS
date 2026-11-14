@@ -316,8 +316,9 @@ function hideTooltip() {
     tooltip.style.display = 'none';
 }
 
-function showTooltip(e, id, estadoText, precioHTML, accionHTML) {
+function showTooltip(e, id, estadoText, precioHTML, accionHTML, encabezadoHTML) {
     accionHTML = accionHTML || '';
+    encabezadoHTML = encabezadoHTML || '';
     if (!tooltip) return;
     const isTouch = e.type.startsWith('touch');
     tooltip.style.display = 'block';
@@ -325,6 +326,7 @@ function showTooltip(e, id, estadoText, precioHTML, accionHTML) {
     if (isTouch) {
         tooltip.classList.add('lote-tooltip--touch');
         tooltip.innerHTML = `
+            ${encabezadoHTML}
             <div style="display:flex;align-items:center;justify-content:space-between;width:100%;gap:10px;">
                 <div style="flex:1;min-width:0;">
                     <div class="text-[7px] text-gray-300 mb-0.5 tracking-[0.3em]">Propiedad</div>
@@ -345,6 +347,7 @@ function showTooltip(e, id, estadoText, precioHTML, accionHTML) {
         const parentRect = tooltip.parentElement ? tooltip.parentElement.getBoundingClientRect() : { left: 0, top: 0 };
         tooltip.innerHTML = `
             <div style="min-width:150px;">
+                ${encabezadoHTML}
                 <div class="text-[8px] text-gray-300 mb-1 tracking-[0.4em]">Propiedad</div>
                 <div class="text-white font-bold text-lg mb-1">${id}</div>
                 ${estadoText}
@@ -448,15 +451,34 @@ function accionDeParcela(lote, esTactil) {
          + accion.texto + '</button>';
 }
 
+// Compradores de las parcelas vendidas, con su autorización. La foto y el nombre son los mismos
+// que ya se publican en arriagadaconsultores.cl/parcelacion-las-pilcas. Clave = número de parcela.
+const PROPIETARIOS = {
+    1:  { nombre: 'Hector Gallegos',   foto: './assets/img/propietarios/lote-1-hector-gallegos.webp' },
+    34: { nombre: 'Claudio Rodriguez', foto: './assets/img/propietarios/lote-34-claudio-rodriguez.webp' }
+};
+
+function propietarioHTML(lote) {
+    const propietario = PROPIETARIOS[numeroDeParcela(lote)];
+    if (!propietario) return '';
+    return '<div class="lote-tooltip__propietario">'
+         + '<img src="' + propietario.foto + '" alt="Propietario ' + propietario.nombre + '" width="56" height="56">'
+         + '<div><div class="lote-tooltip__propietario-rol">Nuevo propietario</div>'
+         + '<div class="lote-tooltip__propietario-nombre">' + propietario.nombre + '</div></div>'
+         + '</div>';
+}
+
 // Eventos para lotes
 lotes.forEach(lote => {
     const handleMove = (e) => {
         const id = lote.getAttribute('id').replace('-', ' ');
         let estadoText = "";
         let precioHTML = "";
+        let encabezadoHTML = "";
 
         if (lote.classList.contains('vendido')) {
             estadoText = '<span class="font-bold text-[9px]" style="color:#fca5a5;">VENDIDA</span>';
+            encabezadoHTML = propietarioHTML(lote);
         } else if (lote.classList.contains('reservado')) {
             estadoText = '<span class="font-bold text-[9px]" style="color:#fbbf77;">RESERVADA</span>';
         } else if (lote.classList.contains('tramite')) {
@@ -466,7 +488,7 @@ lotes.forEach(lote => {
             precioHTML = '<div class="precio-lote mt-4 text-white font-light tracking-tighter italic border-t border-white/10 pt-2">' + formatoCLP.format(precioDeParcela(lote)) + '</div>';
         }
 
-        showTooltip(e, id, estadoText, precioHTML, accionDeParcela(lote, e.type.startsWith('touch')));
+        showTooltip(e, id, estadoText, precioHTML, accionDeParcela(lote, e.type.startsWith('touch')), encabezadoHTML);
     };
 
     lote.addEventListener('mousemove', handleMove);
