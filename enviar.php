@@ -41,7 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $interes_id = isset($_POST["asunto"]) ? trim($_POST["asunto"]) : '';
     $interes = isset($intereses[$interes_id]) ? $intereses[$interes_id] : 'No indicado';
 
-    $ok = ($nombre !== '' && $email !== '' && $telefono !== '' && $mensaje !== '');
+    // El mensaje es opcional: nombre, correo y teléfono bastan para responderle.
+    $ok = ($nombre !== '' && $email !== '' && $telefono !== '');
     if ($ok && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $ok = false;
     }
@@ -77,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $cuerpo .= "Email:    " . $email    . "\n";
         $cuerpo .= "Teléfono: " . $telefono . "\n";
         $cuerpo .= "Interés:  " . $interes  . "\n\n";
-        $cuerpo .= "Mensaje:\n" . $mensaje . "\n";
+        $cuerpo .= "Mensaje:\n" . ($mensaje !== '' ? $mensaje : '(sin mensaje)') . "\n";
 
         $headers  = "Content-Type: text/plain; charset=UTF-8\r\n";
         $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";

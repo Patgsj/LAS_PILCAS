@@ -107,6 +107,27 @@
   });
 
   // ------------------------------------------
+  // Recorrido por la página
+  // ------------------------------------------
+  // `seccion_vista` se registra una vez por sección y visita, cuando cruza la franja
+  // central de la pantalla. Sirve para ver en qué parte se cae la gente antes de
+  // llegar a contactar (el informe de GA4 solo cuenta scroll al 90 %).
+  if (medidores.length && 'IntersectionObserver' in window) {
+    const vistas = new IntersectionObserver((entradas) => {
+      entradas.forEach((entrada) => {
+        if (!entrada.isIntersecting) return;
+        vistas.unobserve(entrada.target);
+        registrar('seccion_vista', { seccion: entrada.target.id });
+      });
+    }, { rootMargin: '-35% 0px -35% 0px' });
+
+    ['inicio', 'proyecto', 'galeria', 'ubicacion', 'contacto'].forEach((id) => {
+      const seccion = document.getElementById(id);
+      if (seccion) vistas.observe(seccion);
+    });
+  }
+
+  // ------------------------------------------
   // Salto a WhatsApp desde dentro del asistente
   // ------------------------------------------
   // La página ya no tiene botones de WhatsApp: la derivación ocurre en la tarjeta de
