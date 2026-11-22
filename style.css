@@ -319,14 +319,17 @@ a.border-emerald-500:hover, #inicio button[data-abrir-asistente]:hover { border-
 #faq details.faq-item:hover { border-color: var(--color-muted); }
 #faq details.faq-item summary { padding: var(--space-md) 0; font-family: var(--font-display); font-size: var(--text-lg); line-height: 1.25; color: var(--color-ink); cursor: pointer; }
 #faq details summary svg { width: 12px; height: 12px; flex-shrink: 0; transition: transform var(--dur-long) var(--ease-out); }
-#faq details.faq-item.faq-open summary svg { transform: rotate(180deg); }
+#faq details.faq-item.faq-activa summary svg { transform: rotate(180deg); }
 #faq details.faq-item summary .faq-chevron { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--color-muted); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background-color var(--dur-short), border-color var(--dur-short); }
-#faq details.faq-item.faq-open summary .faq-chevron { background: var(--color-accent); border-color: var(--color-accent); }
-#faq details.faq-item.faq-open summary .faq-chevron svg { color: var(--color-accent-ink); }
+#faq details.faq-item.faq-activa summary .faq-chevron { background: var(--color-accent); border-color: var(--color-accent); }
+#faq details.faq-item.faq-activa summary .faq-chevron svg { color: var(--color-accent-ink); }
 #faq details.faq-item { contain: layout paint; }
-#faq .faq-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--dur-long) var(--ease-in-out); }
+#faq, #faq * { overflow-anchor: none; }   /* si no, el navegador corre el scroll cuando el diseño cambia de golpe */
+/* La respuesta abre y cierra con el diseño ya resuelto: script.js solo anima capas (recorte, transformación y opacidad),
+   así el navegador no recalcula el diseño de la lista en cada cuadro. */
+#faq .faq-answer { display: grid; grid-template-rows: 0fr; }
 #faq details.faq-item.faq-open .faq-answer { grid-template-rows: 1fr; }
-#faq .faq-answer > p { overflow: hidden; min-height: 0; margin: 0; opacity: 0; transition: opacity var(--dur-short); max-width: 62ch; }
+#faq .faq-answer > p { overflow: hidden; min-height: 0; margin: 0; opacity: 0; max-width: 62ch; }
 #faq details.faq-item.faq-open .faq-answer > p { opacity: 1; padding-bottom: var(--space-lg); }
 /* Alto reservado de la lista (lo calcula script.js): la lista no cambia de alto al abrir una respuesta,
    así la columna no se recentra ni la sección crece mientras corre la animación. */

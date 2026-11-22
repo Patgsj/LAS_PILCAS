@@ -664,18 +664,63 @@ function medirListaFaq() {
     medirListaFaq();
 })();
 
-document.querySelectorAll('#faq details.faq-item').forEach(function (detail) {
-    const summary = detail.querySelector('summary');
-    if (!summary) return;
-    summary.addEventListener('click', function (e) {
-        e.preventDefault();
-        const raiz = document.documentElement;
-        raiz.classList.add('sin-snap');
-        clearTimeout(window.__faqSnapTimer);
-        window.__faqSnapTimer = setTimeout(function () { raiz.classList.remove('sin-snap'); }, 600);
-        detail.classList.toggle('faq-open');
+// Abrir y cerrar una respuesta: el diseño se resuelve UNA vez y la animación solo mueve capas
+// (recorte de la respuesta + desplazamiento de las preguntas de abajo + opacidad). Sin recalcular el diseño en cada cuadro.
+(function () {
+    const lista = document.querySelector('#faq .faq-lista');
+    if (!lista) return;
+    const items = Array.from(lista.querySelectorAll('details.faq-item'));
+    const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const DURACION = 520;
+    const CURVA = 'cubic-bezier(0.4, 0, 0.2, 1)';
+    let terminarPendiente = null;   // cierra al instante la animación en curso, si la hay
+
+    items.forEach(function (detail) {
+        const summary = detail.querySelector('summary');
+        if (!summary) return;
+        summary.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (terminarPendiente) terminarPendiente();
+
+            const raiz = document.documentElement;
+            raiz.classList.add('sin-snap');
+            clearTimeout(window.__faqSnapTimer);
+            window.__faqSnapTimer = setTimeout(function () { raiz.classList.remove('sin-snap'); }, DURACION + 250);
+
+            const abre = !detail.classList.contains('faq-open');
+            detail.classList.toggle('faq-activa', abre);          // chevron y color: de inmediato
+            if (sinMovimiento.matches || !detail.animate) { detail.classList.toggle('faq-open', abre); return; }
+
+            const respuesta = detail.querySelector('.faq-answer');
+            const parrafo = respuesta.querySelector('p');
+            if (abre) detail.classList.add('faq-open');            // al abrir, el diseño final queda resuelto desde el primer cuadro
+            const alto = respuesta.getBoundingClientRect().height;  // alto de la respuesta abierta
+            const debajo = items.slice(items.indexOf(detail) + 1);
+            const opciones = { duration: DURACION, easing: CURVA, fill: 'both' };
+            const animaciones = [];
+
+            animaciones.push(respuesta.animate(
+                [{ clipPath: abre ? 'inset(0 0 100% 0)' : 'inset(0 0 0 0)' }, { clipPath: abre ? 'inset(0 0 0 0)' : 'inset(0 0 100% 0)' }], opciones));
+            animaciones.push(parrafo.animate(
+                abre ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 1 }, { opacity: 0 }],
+                { duration: Math.round(DURACION * 0.7), delay: abre ? Math.round(DURACION * 0.2) : 0, easing: 'ease', fill: 'both' }));
+            debajo.forEach(function (it) {
+                animaciones.push(it.animate(
+                    abre ? [{ transform: 'translateY(' + (-alto) + 'px)' }, { transform: 'translateY(0)' }]
+                         : [{ transform: 'translateY(0)' }, { transform: 'translateY(' + (-alto) + 'px)' }], opciones));
+            });
+
+            const terminar = function () {
+                if (terminarPendiente !== terminar) return;
+                terminarPendiente = null;
+                animaciones.forEach(function (a) { a.cancel(); });
+                if (!abre) detail.classList.remove('faq-open');    // al cerrar, el diseño final se confirma al terminar
+            };
+            terminarPendiente = terminar;
+            Promise.all(animaciones.map(function (a) { return a.finished; })).then(terminar).catch(function () {});
+        });
     });
-});
+})();
 
 // --- CTA QUE ABREN EL ASISTENTE ---
 // Mismo patrón que arriagadaconsultores.cl: un atributo en el markup y un handler
