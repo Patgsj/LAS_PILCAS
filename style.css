@@ -1,709 +1,431 @@
-:root {
-    --bg: #0a0a0a;
-    --text: #e8e4de;
-    --accent: #059669;
-    --border: rgba(255,255,255,0.07);
-}
+/* Hallmark · shape: kept (one page, five sections) · genre: editorial · theme: brand · redesign: full
+ * paper: oklch(14.5% 0.006 165) · accent: oklch(69.6% 0.149 162.5) · display: Prata · body: Manrope · hero: Banner, the aerial loop with the name set left · nav: wordmark left, links right · footer: kept · signature: the satellite lot plan, flown into on arrival
+ * axes: dark/high-contrast-serif/chromatic-green · posture: drenched · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P3 H4 E4 S4 R4 V3 · weakest: P, the page argues little beyond the offer; kept the owner's words and let the plan and the river carry the argument */
+/* Hallmark · waive 26b · the controls here are links, summaries and form fields with hover, focus and disabled covered, and the lot paths take hover · a pressed state on a page of anchors would add nothing */
+/* Hallmark · waive 38iii · the location line sits inside the h1 on purpose, San Fabián de Alico is the search term the owner wants in the heading, set as a second line at a smaller size in the same colour · the second line is not an accented word */
+/* Hallmark · dropped https://unpkg.com/aos@2.3.4/dist/aos.js, the AOS stylesheet and its init script · AOS hid every section until scripting ran, which the floor forbids, and the page now shows its content by default */
+@import url("./tokens.css");
+@import url("./base.css");
 
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
+/* ===== Remapa de las utilidades de color de Tailwind a los tokens ===== */
+.text-white { color: var(--color-ink); }
+.text-white\/70, .text-white\/50, .text-white\/10 { color: var(--color-ink-2); }
+.text-black { color: var(--color-accent-ink); }
+.text-gray-300, .text-gray-400 { color: var(--color-ink-2); }
+.text-gray-500, .text-gray-600 { color: var(--color-muted); }
+.text-emerald-400, .text-emerald-500, .text-emerald-500\/80 { color: var(--color-accent); }
+.hover\:text-emerald-400:hover, .hover\:text-emerald-300:hover, .hover\:text-emerald-500:hover { color: var(--color-accent-2); }
+.bg-black, .bg-black\/40, .bg-black\/20, .bg-black\/60 { background-color: var(--color-paper-2); }
+.bg-black\/80, .bg-black\/90, .bg-black\/95 { background-color: var(--color-scrim); }
+.bg-white { background-color: var(--color-ink); }
+.bg-white\/10 { background-color: var(--color-paper-3); }
+.bg-emerald-500 { background-color: var(--color-accent); }
+.bg-emerald-600 { background-color: var(--color-accent); }
+.border-white\/5, .border-white\/10 { border-color: var(--color-rule); }
+.border-white\/30, .border-white\/40 { border-color: var(--color-muted); }
+.border-emerald-500, .border-emerald-500\/30 { border-color: var(--color-accent); }
+.hover\:border-emerald-500:hover { border-color: var(--color-accent); }
+.hover\:bg-emerald-500:hover { background-color: var(--color-accent-2); }
+.hover\:bg-white:hover { background-color: var(--color-ink); }
+.hover\:text-black:hover { color: var(--color-accent-ink); }
+.text-red-400 { color: var(--color-error); }
 
-img,
-video,
-svg {
-    max-width: 100%;
-}
-
-#lightbox-image,
-#lightbox-video {
-    transition: opacity 0.28s ease;
-}
-
-/* Ocupa todo el marco (con object-contain): así la miniatura que se muestra mientras
-   baja la foto grande queda del mismo tamaño que la definitiva. */
-#lightbox-image {
-    width: 100%;
-    height: 100%;
-}
-
-#lightbox-image.lightbox-fading,
-#lightbox-video.lightbox-fading {
-    opacity: 0;
-}
-
-#gallery-lightbox {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-#gallery-lightbox.lightbox-visible {
-    opacity: 1;
-}
-
-/* =========================================
-   1. CONFIGURACIÓN BASE Y TIPOGRAFÍA
-   ========================================= */
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
-    overflow-x: hidden;
-    letter-spacing: 0.02em;
-    font-feature-settings: "liga" 1, "kern" 1;
-}
-
-h1, h2, h3 { font-family: 'Playfair Display', serif; }
-
-/* Ajuste para que el scroll se detenga antes de la sección al usar links */
-section { scroll-margin-top: 120px !important; }
-
-/* Padding-top para secciones — pt-32 no está en tailwind.min.css local */
-#proyecto  { padding-top: 2rem; }
-/* Escritorio: el botón flotante del asistente tapaba los lotes reservados de abajo a la
-   derecha del plano. Se sube el contenido ~70px pasando espacio de arriba hacia abajo,
-   sin cambiar el alto total de la sección (así no asoma la galería que sigue). */
-@media (min-width: 1024px) {
-    #proyecto { scroll-margin-top: 96px !important; padding-top: 1.25rem; padding-bottom: calc(8rem + .75rem); }
-    #mapa .glass-container { padding-top: 1.75rem; padding-bottom: calc(3rem + 1.25rem); }
-}
-/* FAQ parte pegada al borde de arriba: con el margen de 120px asomaba bajo el menú
-   el botón «Ver lotes disponibles» con que termina Ubicación. Su propio padding de
-   arriba deja el contenido libre del menú. */
-#faq       { scroll-margin-top: 0 !important; padding-top: 8.5rem; padding-bottom: 7rem; }
-#contacto  { padding-top: 7rem; padding-bottom: 7rem; }
-#ubicacion { padding-top: 6rem; }
-
-.number-accent { color: #10b981; font-weight: 700; }
-
-/* =========================================
-   2. NAVBAR Y CONTENEDORES
-   ========================================= */
-/* =========================================
-   GALERÍA — animación CSS sin bloquear pointer-events
-   ========================================= */
-@keyframes galleryFadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-.gallery-item { opacity: 0; animation: galleryFadeIn 0.6s ease forwards; }
-.gi-1 { animation-delay: 0s; }
-.gi-2 { animation-delay: 0.07s; }
-.gi-3 { animation-delay: 0.14s; }
-.gi-4 { animation-delay: 0.21s; }
-.gi-5 { animation-delay: 0.28s; }
-
-/* Mapa y secciones: reveal sin bloquear eventos */
-.section-reveal { animation: galleryFadeIn 0.8s ease 0.2s both; }
-
-/* =========================================
-   FAQ — tarjetas
-   ========================================= */
-/* Centrar verticalmente la columna de texto respecto al acordeón (desktop) */
-@media (min-width: 1024px) {
-    #faq > .flex {
-        align-items: center;
-    }
-}
-
-#faq details.faq-item {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    padding: 0 1.5rem;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
-}
-
-#faq details.faq-item:hover {
-    border-color: rgba(16, 185, 129, 0.35);
-    background: rgba(255, 255, 255, 0.035);
-}
-
-#faq details.faq-item.faq-open {
-    border-color: rgba(16, 185, 129, 0.45);
-    background: rgba(16, 185, 129, 0.05);
-}
-
-#faq details.faq-item summary {
-    padding: 1.35rem 0;
-}
-
-/* Chevron: dentro de un círculo, con giro fluido */
-#faq details summary svg {
-    width: 12px;
-    height: 12px;
-    flex-shrink: 0;
-    transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-#faq details.faq-item.faq-open summary svg {
-    transform: rotate(180deg);
-}
-
-#faq details.faq-item summary .faq-chevron {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 1px solid rgba(16, 185, 129, 0.4);
+/* ===== Secciones: contenedor, ritmo y bandas ===== */
+body section[id] {
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    padding-block: var(--space-xl);
+    min-height: calc(100svh - var(--space-3xl));
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    flex-shrink: 0;
-    transition: background-color 0.38s ease, border-color 0.38s ease;
+    border: 0;
+    scroll-margin-top: 0;
+    scroll-snap-align: start;
 }
-
-#faq details.faq-item.faq-open summary .faq-chevron {
-    background: rgba(16, 185, 129, 0.18);
-    border-color: rgba(16, 185, 129, 0.6);
+body section#ubicacion, body section#faq {
+    position: relative;
+    isolation: isolate;
+    color: var(--color-ink);
 }
-
-/* La respuesta — colapso/expansión fluido con grid-template-rows */
-#faq .faq-answer {
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 0.42s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-#faq details.faq-item.faq-open .faq-answer {
-    grid-template-rows: 1fr;
-}
-
-#faq .faq-answer > p {
-    overflow: hidden;
-    min-height: 0;
-    margin-top: 0;
-    padding-bottom: 0;
-    transition: padding-bottom 0.42s ease, opacity 0.3s ease;
-    opacity: 0;
-}
-
-#faq details.faq-item.faq-open .faq-answer > p {
-    padding-bottom: 1.35rem;
-    opacity: 1;
-}
-
-/* Hero: garantiza altura completa y centrado vertical */
-#inicio {
-    min-height: 100vh;
-    align-items: center;
-}
-
-/* Primer cuadro del video: mismo encuadre que el video para que el paso sea invisible. */
-#inicio picture img { object-position: 50% 50%; }
-
-/* Hero: video de fondo. Parte invisible sobre la imagen y aparece con un fundido
-   cuando ya está reproduciendo (clase que pone script.js). Mismo `scale` que la imagen. */
-.hero-video {
+body section#ubicacion::before, body section#faq::before {
+    content: "";
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scale(1.05);
-    opacity: 0;
-    transition: opacity 0.9s ease;
-    pointer-events: none;
+    inset: 0 calc(50% - 50vw);
+    background: var(--color-paper-2);
+    z-index: -1;
 }
-.hero-video.hero-video--visible { opacity: 1; }
-/* Sombra en la franja del menú: el video tiene tomas claras arriba (piedras, cielo)
-   y sin esto el logo y los links, que van en blanco, se pierden. */
-.hero-sombra-nav {
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: 11rem;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent);
-    pointer-events: none;
-}
+h1[class], h2[class] { font-size: var(--text-section); line-height: 1.08; max-width: 24ch; }
+#inicio h1[class] { font-size: var(--text-display); max-width: 14ch; line-height: 1; }
+#contacto h2[class] { font-size: var(--text-section); margin-bottom: var(--space-lg); }
+h3[class] { font-size: var(--text-title); font-family: var(--font-display); line-height: 1.2; }
+section p[class], footer p[class], section li, section dd { font-size: var(--text-md); line-height: 1.6; }
+.text-sm, .text-xs { font-size: var(--text-md); }
+section strong, section b { font-weight: 700; color: var(--color-ink); }
+strong.text-white { font-weight: 700; }
+a.underline { text-decoration-color: var(--color-accent); }
 
-/* Hero contenido: separación del navbar */
-#inicio > div.relative {
-    padding-top: 10rem;
-}
-
-/* Hero H1: tamaño grande garantizado sin depender de md: Tailwind */
-#inicio h1 {
-    font-size: clamp(2.8rem, 6vw, 5.5rem);
-    line-height: 1;
-}
-
-/* =========================================
-   HERO — Animaciones de entrada al cargar
-   ========================================= */
-@keyframes heroReveal {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-#inicio .hero-eyebrow  { animation: heroReveal 0.7s ease-out 0.2s both; }
-#inicio h1             { animation: heroReveal 0.8s ease-out 0.4s both; }
-#inicio .hero-price    { animation: heroReveal 0.7s ease-out 0.6s both; }
-#inicio .hero-ctas     { animation: heroReveal 0.7s ease-out 0.75s both; }
-#inicio .hero-stats    { animation: heroReveal 0.8s ease-out 0.9s both; }
-
-/* Cifras del hero: en celular, cuatro columnas iguales y centradas. En escritorio la
-   primera y la última quedan a ras de los bordes del menú (logo y «Contacto») y las
-   del medio se reparten con el mismo espacio entre todas. */
-#inicio .hero-stats { margin-top: 9rem; }
-#inicio .hero-stat { flex: 1; text-align: center; }
-@media (min-width: 768px) {
-    /* La fila sube 4rem + 4rem para que el botón flotante del asistente no tape
-       «Río Ñuble»: menos separación arriba y un colchón abajo; el título no se mueve. */
-    #inicio .hero-contenido { padding-bottom: 4rem; }
-    #inicio .hero-stats { justify-content: space-between; margin-top: 5rem; }
-    #inicio .hero-stat { flex: none; }
-    #inicio .hero-stat:first-child { text-align: left; }
-    #inicio .hero-stat:last-child { text-align: right; }
-}
-
-/* Peso y separación del bloque de precio.
-   Van acá y no con utilidades de Tailwind porque `tailwind.min.css` es un archivo
-   precompilado, sin script de build: solo trae las clases que ya se usaban. No
-   incluye `font-medium` ni `mb-7`, así que ponerlas en el HTML no hace nada
-   (el `mb-7` que había no separaba el precio de los botones: quedaban pegados). */
-#inicio .hero-price__cifra { font-weight: 500; }
-/* Al quedar el hero en título + precio + botones, el `mb-4` del h1 dejaba el precio
-   pegado al título. El aire lo pone el bloque, no el h1. */
-#inicio .hero-price        { margin-top: 2.25rem; margin-bottom: 2.25rem; }
-
-/* Bajada del h1: lleva «San Fabián de Alico» dentro del título principal, que es
-   lo que la gente busca en Google. Estilos acá por el mismo motivo de arriba. */
-#inicio .hero-location {
-    margin-top: 1rem;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 300;
-    line-height: 1.5;
-    font-style: normal;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: rgb(255 255 255 / 0.6);
-}
-@media (min-width: 768px) {
-    #inicio .hero-location { font-size: 0.875rem; }
-}
-
+/* ===== Navegación ===== */
 #main-nav {
-    transition: background-color 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
-    z-index: 100;
-    background-color: transparent;
-}
-
-/* En el tope (hero): solo logo y links visibles, sin barra de fondo.
-   Al hacer scroll aparece el fondo oscuro con blur. */
-#main-nav.nav--scrolled {
-    background-color: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-.glass-container {
-    background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
-    border: 1px solid rgba(255,255,255,0.05);
-    overflow: visible !important; 
-}
-
-.map-dark {
-    filter: contrast(1.08) saturate(1.05);
-}
-
-/* =========================================
-   3. PLANO INTERACTIVO (Lotes y Caminos)
-   ========================================= */
-.lote { 
-    transition: all 0.4s ease; 
-    cursor: pointer; 
-    fill: transparent !important; 
-    stroke-width: 0.5;
-}
-
-/* Colores de las líneas iniciales (Wireframe) */
-.lote.disponible { stroke: rgba(255, 255, 255, 0.55); }
-.lote.vendido { stroke: rgba(220, 38, 38, 0.7); }
-.lote.reservado { stroke: rgba(251, 191, 36, 0.7); }
-/* Las en trámite van con línea segmentada: el deslinde todavía no está cerrado,
-   y así se distinguen del resto sin cambiarles el color. */
-.lote.tramite { stroke: rgba(6, 182, 212, 0.7); stroke-dasharray: 3 2; }
-
-/* Estilo especial para el Camino */
-.camino-interactivo { 
-    fill: rgba(255, 255, 255, 0.05) !important; 
-    stroke: rgba(255, 255, 255, 0.2); 
-    pointer-events: auto;
-    transition: all 0.4s ease;
-}
-
-/* EFECTOS HOVER: Relleno con transparencia (0.75) */
-.lote:hover { 
-    stroke-width: 1.5;
-    stroke: #ffffff !important;
-    /* Al pasar por encima la parcela se rellena: ahí el contorno va continuo, que es
-       lo que marca cuál está seleccionada. */
-    stroke-dasharray: none;
-    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
-    z-index: 50;
-}
-
-.lote.disponible:hover { fill: rgba(255, 255, 255, 0.75) !important; }
-.lote.vendido:hover { fill: rgba(220, 38, 38, 0.75) !important; stroke: #ff4d4d !important; }
-.lote.reservado:hover { fill: rgba(251, 191, 36, 0.75) !important; stroke: #fbbf24 !important; }
-.lote.tramite:hover { fill: rgba(6, 182, 212, 0.75) !important; stroke: #22d3ee !important; }
-
-.camino-interactivo:hover {
-    fill: rgba(255, 255, 255, 0.12) !important;
-    stroke: rgba(255, 255, 255, 0.4);
-}
-
-/* =========================================
-   4. IMAGEN SATELITAL (Fondo sutilmente más claro)
-   ========================================= */
-#satelital-bg {
-    /* Difuminado de bordes */
-    mask-image: radial-gradient(circle, black 40%, transparent 95%);
-    -webkit-mask-image: radial-gradient(circle, black 40%, transparent 95%);
-    /* Opacidad y Brillo ajustados ligeramente al alza */
-    opacity: 0.55; 
-    filter: brightness(0.7) contrast(1.1);
-}
-
-/* =========================================
-   5. TOOLTIP PREMIUM (Tarjeta informativa)
-   ========================================= */
-#info-lote {
-    position: absolute;
-    display: none;
-    background: rgba(10, 10, 10, 0.92);
-    color: #f9fafb;
-    padding: 20px 24px;
-    border-radius: 4px;
-    font-size: 13px;
-    z-index: 50;
-    pointer-events: auto;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.7);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-#info-lote.lote-tooltip--touch {
-    padding: 10px 14px;
-    font-size: 10px;
-    min-width: 160px;
-    max-width: 100vw;
-}
-
-/* Estilo precio (desktop por defecto) */
-.precio-lote {
-    font-size: 1.2rem;
-}
-
-/* Comprador en las parcelas vendidas: foto redonda y nombre bajo el estado. */
-.lote-tooltip__propietario {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-.lote-tooltip__propietario img {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid rgba(220, 38, 38, 0.7);
-    flex: 0 0 auto;
-}
-.lote-tooltip__propietario-rol {
-    font-size: 8px;
-    letter-spacing: 0.3em;
-    color: #d1d5db;
-}
-.lote-tooltip__propietario-nombre {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: #fff;
-    margin-top: 2px;
-}
-#info-lote.lote-tooltip--touch .lote-tooltip__propietario img { width: 40px; height: 40px; }
-#info-lote.lote-tooltip--touch .lote-tooltip__propietario { margin-bottom: 6px; padding-bottom: 6px; gap: 8px; }
-#info-lote.lote-tooltip--touch .lote-tooltip__propietario-nombre { font-size: 11px; }
-
-/* Tarjeta de escritorio más compacta: en las parcelas de abajo no alcanzaba a verse entera. */
-#info-lote:not(.lote-tooltip--touch) {
-    padding: 12px 16px;
-    font-size: 12px;
-    pointer-events: none; /* solo informa: el clic lo recibe la parcela de abajo */
-}
-#info-lote:not(.lote-tooltip--touch) .precio-lote {
-    font-size: 1rem;
-    margin-top: 8px;
-    padding-top: 6px;
-}
-#info-lote:not(.lote-tooltip--touch) .lote-tooltip__pista {
-    margin-top: 8px;
-    padding-top: 6px;
-}
-
-/* Acción del tooltip del mapa de lotes.
-   En escritorio es solo una pista: el tooltip sigue al cursor y un botón ahí sería
-   inalcanzable. En táctil sí es un botón, porque el tap no navega a otra parte:
-   abre el asistente con la ficha de esa parcela. */
-.lote-tooltip__pista {
-    margin-top: 12px;
-    padding-top: 10px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    color: #9ca3af;
-}
-
-.lote-tooltip__cta {
-    display: block;
-    width: 100%;
-    margin-top: 12px;
-    padding: 11px 14px;
-    /* Esmeralda del sitio y del asistente, no el verde de WhatsApp: este botón abre
-       el chat, no una conversación de WhatsApp. */
-    background: #059669;
-    color: #ffffff;
-    font-family: inherit;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
-
-.lote-tooltip__cta:hover,
-.lote-tooltip__cta:focus-visible {
-    background: #047857;
-}
-
-@media (max-width: 768px) {
-    /* En móvil, el panel va en flujo bajo el mapa */
-    #info-lote {
-        position: static;
-        left: auto;
-        top: auto;
-        transform: none;
-        width: 100%;
-        min-height: 100px;
-        margin-top: 8px;
-        border-radius: 8px;
-    }
-
-    #info-lote.lote-tooltip--touch {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-    }
-
-    #info-lote.lote-tooltip--touch .lote-tooltip__cta {
-        flex: 1 1 100%;
-        margin-top: 10px;
-    }
-
-    #info-lote.lote-tooltip--touch .precio-lote {
-        font-size: 0.8rem;
-    }
-}
-
-/* =========================================
-   6. MENÚ MÓVIL (Full Screen)
-   ========================================= */
-.mobile-menu {
-    position: fixed;
-    inset: 0;
-    z-index: 10001;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-.mobile-menu.active {
-    visibility: visible;
-    pointer-events: auto;
-}
-
-.mobile-menu__backdrop {
-    position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.95);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.mobile-menu.active .mobile-menu__backdrop {
-    opacity: 1;
-}
-
-.mobile-menu__panel {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    max-width: 400px;
-    background-color: var(--bg);
-    display: flex;
-    flex-direction: column;
-    padding: 100px 40px;
-    transform: translateX(100%);
-    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5);
-}
-
-.mobile-menu.active .mobile-menu__panel {
-    transform: translateX(0);
-}
-
-.mobile-menu__nav {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    height: 100%;
-}
-
-.mobile-menu__link {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    color: #ffffff;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-    display: block;
-    padding: 8px 0;
-    margin: 0;
-    text-align: center;
-    border-bottom: none;
-    transition: color 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
-    width: 100%;
-    max-width: 260px;
-}
-
-/* El ítem del asistente es un <button>, no un <a>: sin este reset traería el fondo,
-   el borde y la tipografía por defecto del navegador y desentonaría con el resto. */
-button.mobile-menu__link {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-weight: inherit;
-}
-
-.mobile-menu__link--active {
-    color: #10b981;
-}
-
-.mobile-menu__link:hover {
-    color: #10b981;
-}
-
-.mobile-menu__close {
-    position: absolute;
-    top: 30px;
-    right: 30px;
+    z-index: var(--z-sticky-nav);
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    width: 45px;
-    height: 45px;
-    cursor: pointer;
+    transition: background-color var(--dur-long) var(--ease-out);
+}
+#main-nav.nav--scrolled {
+    background: var(--color-paper);
+    box-shadow: 0 1px 0 var(--color-rule);
+}
+#main-nav a.nav-link {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-ink);
+    padding-block: var(--space-xs);
+    border-bottom: 1px solid transparent;
+    transition: color var(--dur-short), border-color var(--dur-short);
+}
+#main-nav a.nav-link:hover { color: var(--color-accent-2); border-bottom-color: var(--color-accent); }
+#menu-btn { background: var(--color-scrim); border-color: var(--color-muted); border-radius: var(--radius-pill); }
+
+/* ===== Controles ===== */
+a.bg-emerald-600, button.bg-emerald-600, #contact-submit-btn {
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-pill);
+    font-weight: 700;
+    font-size: var(--text-md);
+    padding: var(--space-sm) var(--space-xl);
+    text-decoration: none;
+    transition: background-color var(--dur-short), border-color var(--dur-short);
+}
+a.bg-emerald-600:hover, button.bg-emerald-600:hover, #contact-submit-btn:hover { background: var(--color-accent-2); border-color: var(--color-accent-2); }
+#contact-submit-btn:disabled { background: var(--color-paper-3); border-color: var(--color-paper-3); color: var(--color-muted); cursor: not-allowed; }
+a.border-emerald-500, #inicio button[data-abrir-asistente] {
+    background: transparent;
+    border: 1px solid var(--color-muted);
+    border-radius: var(--radius-pill);
+    color: var(--color-ink);
+    font-weight: 500;
+    font-size: var(--text-md);
+    padding: var(--space-sm) var(--space-xl);
+    transition: border-color var(--dur-short), color var(--dur-short);
+}
+a.border-emerald-500:hover, #inicio button[data-abrir-asistente]:hover { border-color: var(--color-accent); color: var(--color-accent-2); background: transparent; }
+#inicio button[data-abrir-asistente] svg { color: var(--color-accent); }
+
+/* ===== Hero ===== */
+#inicio {
+    position: relative;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-end;
+    min-height: 100svh;
+    width: 100%;
+    overflow: clip;
+    background: var(--color-scrim);
+}
+#inicio picture img { object-position: 50% 50%; transform: none; }
+.hero-video {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; pointer-events: none;
+}
+#inicio .bg-gradient-to-r { background: linear-gradient(to right, color-mix(in oklab, var(--color-scrim) 82%, transparent), color-mix(in oklab, var(--color-scrim) 45%, transparent) 55%, transparent); }
+#inicio .bg-gradient-to-t { background: linear-gradient(to top, var(--color-scrim), transparent 55%); }
+.hero-sombra-nav { position: absolute; inset: 0 0 auto 0; height: 11rem; background: linear-gradient(to bottom, color-mix(in oklab, var(--color-scrim) 70%, transparent), transparent); pointer-events: none; }
+#inicio .hero-contenido {
+    max-width: var(--container);
+    padding: var(--space-4xl) var(--gutter) var(--space-3xl);
+    margin-inline: auto;
+}
+#inicio h1 { margin-bottom: var(--space-lg); }
+#inicio h1 .hero-location {
+    display: block;
+    margin-top: var(--space-md);
+    font-family: inherit;
+    font-size: var(--text-xl);
+    font-weight: inherit;
+    line-height: 1.25;
+    letter-spacing: 0;
+    color: var(--color-ink);
+    max-width: 32ch;
+}
+.hero-price { margin-block: var(--space-lg) var(--space-xl); }
+.hero-price > div { display: none; }
+.hero-price__cifra { font-variant-numeric: tabular-nums; font-family: var(--font-display); font-size: var(--text-display-s); line-height: 1; color: var(--color-ink); }
+.hero-price::before { content: "Parcelas disponibles"; display: block; margin-bottom: var(--space-xs); font-size: var(--text-sm); font-weight: 500; color: var(--color-accent); }
+.hero-ctas { gap: var(--space-md); }
+.hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin: var(--space-3xl) 0 0;
+    border-top: var(--rule-hair) solid var(--color-muted);
+}
+.hero-stat { padding: var(--space-md) var(--space-md) 0 0; border-right: var(--rule-hair) solid var(--color-rule); padding-left: var(--space-md); }
+.hero-stat:first-child { padding-left: 0; }
+.hero-stat:last-child { border-right: 0; }
+.hero-stat dd { margin: 0; font-variant-numeric: tabular-nums; font-family: var(--font-display); font-size: var(--text-xl); line-height: 1.15; color: var(--color-ink); order: -1; }
+.hero-stat dt { font-size: var(--text-sm); color: var(--color-muted); margin-top: var(--space-2xs); }
+.hero-stat { display: flex; flex-direction: column; }
+@media (max-width: 40rem) {
+    #inicio .hero-contenido { padding-top: 8rem; padding-bottom: var(--space-2xl); }
+    .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: var(--space-xl); }
+    .hero-stat:nth-child(2) { border-right: 0; }
+    .hero-stat:nth-child(odd) { padding-left: 0; }
+    .hero-stat { padding-bottom: var(--space-md); }
 }
 
-/* =========================================
-   7. MODAL DE ÉXITO FORMULARIO
-   ========================================= */
-#contact-success-modal {
-    display: none;
+/* ===== Proyecto: tres razones como índice + el plano ===== */
+#proyecto > div { gap: var(--gap-columns); align-items: flex-start; }
+#proyecto .number-accent { font-variant-numeric: tabular-nums; font-family: var(--font-display); font-style: normal; font-size: var(--text-title); color: var(--color-accent); font-weight: 400; opacity: 1; min-width: 2.5ch; }
+#proyecto .space-y-12 > div { padding-block: var(--space-md); border-top: var(--rule-hair) solid var(--color-rule); gap: var(--space-md); }
+#proyecto .space-y-12 > div:first-child { border-top: 1.5px solid var(--color-accent); }
+#proyecto h3 { color: var(--color-ink); margin-bottom: var(--space-2xs); }
+#mapa .glass-container {
+    background: var(--color-paper-2);
+    border: var(--rule-hair) solid var(--color-rule);
+    border-radius: 0;
+    padding: var(--space-md);
+    overflow: visible;
 }
-#contact-success-modal.flex {
-    display: flex;
-}
+#mapa .glass-container > div[class*="absolute"] { display: none; }
+#mapa .glass-container > div.flex p { font-size: var(--text-sm); color: var(--color-ink-2); }
+#mapa .glass-container > div.flex span { font-size: var(--text-sm); font-weight: 700; color: var(--color-accent); }
+#plano-lotes { filter: none; }
 
-/* =========================================
-   8. PROMOCIÓN TEMPORAL — Lotes 2 y 33
-   ========================================= */
-.lote.promo {
-    stroke: rgba(251, 191, 36, 0.85) !important;
-    animation: promo-pulse 2s ease-in-out infinite;
-}
+.leyenda { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-md); margin-top: var(--space-lg); padding-top: var(--space-md); border-top: var(--rule-hair) solid var(--color-rule); }
+.leyenda__precio { font-family: var(--font-display); font-size: var(--text-lg); color: var(--color-accent-2); }
+.leyenda__estados { display: flex; flex-wrap: wrap; gap: var(--space-lg); list-style: none; margin: 0; padding: 0; }
+.leyenda__estados li { display: flex; align-items: center; gap: var(--space-xs); font-size: var(--text-sm); font-weight: 500; color: var(--color-ink-2); }
+.leyenda__marca { width: 12px; height: 12px; flex-shrink: 0; }
+.leyenda__marca--disponible { border: 1.5px solid var(--color-ink); }
+.leyenda__marca--vendido { background: var(--lote-vendido); }
+.leyenda__marca--reservado { background: var(--lote-reservado); }
+.leyenda__marca--tramite { background: var(--lote-tramite); }
 
-.lote.promo:hover {
-    fill: rgba(251, 191, 36, 0.4) !important;
-    stroke: #fbbf24 !important;
-}
+/* ===== Plano de lotes ===== */
+.lote { cursor: pointer; fill: transparent !important; stroke-width: 0.5; transition: fill var(--dur-long) var(--ease-out), stroke var(--dur-long) var(--ease-out), stroke-width var(--dur-short); }
+.lote.disponible { stroke: color-mix(in oklab, var(--color-ink) 70%, transparent); }
+.lote.vendido { stroke: color-mix(in oklab, var(--lote-vendido) 85%, transparent); }
+.lote.reservado { stroke: color-mix(in oklab, var(--lote-reservado) 85%, transparent); }
+.lote.tramite { stroke: color-mix(in oklab, var(--lote-tramite) 85%, transparent); stroke-dasharray: 3 2; }
+.camino-interactivo { fill: color-mix(in oklab, var(--color-ink) 6%, transparent) !important; stroke: color-mix(in oklab, var(--color-ink) 25%, transparent); pointer-events: auto; transition: fill var(--dur-long), stroke var(--dur-long); }
+.camino-interactivo:hover { fill: color-mix(in oklab, var(--color-ink) 14%, transparent) !important; stroke: color-mix(in oklab, var(--color-ink) 45%, transparent); }
+.lote:hover { stroke-width: 1.5; stroke: var(--color-ink) !important; stroke-dasharray: none; }
+.lote.disponible:hover { fill: color-mix(in oklab, var(--color-ink) 75%, transparent) !important; }
+.lote.vendido:hover { fill: color-mix(in oklab, var(--lote-vendido) 75%, transparent) !important; stroke: var(--lote-vendido-2) !important; }
+.lote.reservado:hover { fill: color-mix(in oklab, var(--lote-reservado) 75%, transparent) !important; stroke: var(--lote-reservado-2) !important; }
+.lote.tramite:hover { fill: color-mix(in oklab, var(--lote-tramite) 75%, transparent) !important; stroke: var(--lote-tramite-2) !important; }
+.lote.promo { stroke: var(--lote-reservado) !important; }
+.lote.promo:hover { fill: color-mix(in oklab, var(--lote-reservado) 40%, transparent) !important; stroke: var(--lote-reservado-2) !important; }
+#satelital-bg { mask-image: radial-gradient(circle, black 40%, transparent 95%); -webkit-mask-image: radial-gradient(circle, black 40%, transparent 95%); opacity: 0.55; }
 
-@keyframes promo-pulse {
-    0%, 100% { filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.3)); }
-    50%       { filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.85)); }
-}
-
-@keyframes promo-dot {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0.2; }
-}
-/* =========================================
-   FOOTER — espacio para el botón del asistente
-   ========================================= */
-/* El botón flotante del asistente (widget IA) se ancla abajo a la derecha, contra el
-   mismo borde del contenedor al que se alinea el crédito "Implementada por", así que
-   lo tapaba. Se le reserva abajo la banda que ocupa el botón (60px de alto + su
-   separación del borde), medida en 84px: el footer sube y el botón queda flotando en
-   el espacio libre, sin cubrir nada. */
-/* Va con !important porque la clase `py-10` de Tailwind que trae el <footer> gana
-   por especificidad sobre un selector de elemento. Mismo patrón que ya usa la regla
-   de `scroll-margin-top` de las secciones, más arriba en este archivo. */
-footer {
-    padding-bottom: 8rem !important;
-}
-
-/* =========================================
-   Plano de lotes sobre mapa satelital (mapa-proyecto.js)
-   ========================================= */
 .mapa-lotes { position: relative; }
-/* El mapa va detrás del SVG y ocupa su mismo recuadro: el alto lo sigue dando el SVG. */
-.mapa-lotes__lienzo {
-    position: absolute; inset: 0; z-index: 1; isolation: isolate; background: transparent;
-    /* Mismo tratamiento que tenía la foto: oscurecida y difuminada hacia los bordes. */
-    filter: brightness(0.6) contrast(1.1) saturate(0.9);
-    mask-image: radial-gradient(ellipse at center, black 45%, transparent 98%);
-    -webkit-mask-image: radial-gradient(ellipse at center, black 45%, transparent 98%);
-}
+.mapa-lotes__lienzo { position: absolute; inset: 0; z-index: 1; isolation: isolate; background: transparent; filter: brightness(0.6) contrast(1.1) saturate(0.9); mask-image: radial-gradient(ellipse at center, black 45%, transparent 98%); -webkit-mask-image: radial-gradient(ellipse at center, black 45%, transparent 98%); }
 #mapa-lotes .leaflet-container { background: transparent; font: inherit; }
-.mapa-lotes--vivo #plano-lotes { position: relative; z-index: 2; transition: opacity 0.7s ease; }
-/* Las parcelas aparecen al terminar el vuelo. */
+.mapa-lotes--vivo #plano-lotes { position: relative; z-index: 2; transition: opacity 0.7s var(--ease-out); }
 .mapa-lotes--volando #plano-lotes { opacity: 0; pointer-events: none; }
-#mapa-lotes .leaflet-control-attribution {
-    background: transparent; color: rgba(255, 255, 255, 0.6);
-    font-size: 8px; letter-spacing: 0.08em; padding: 1px 6px; margin: 0 12% 6% 0;
-}
-#mapa-lotes .leaflet-control-attribution a { color: inherit; }/* Sobre la imagen satelital las líneas necesitan más cuerpo que sobre la foto. */
+#mapa-lotes .leaflet-control-attribution { background: transparent; color: var(--color-muted); font-size: var(--text-xs); padding: var(--space-3xs) var(--space-xs); margin: 0 12% 6% 0; }
+#mapa-lotes .leaflet-control-attribution a { color: inherit; }
 .mapa-lotes .lote { stroke-width: 1; }
 .mapa-lotes .lote:hover { stroke-width: 2; }
 .mapa-lotes .lote.tramite { stroke-dasharray: 4 2.5; }
-/* Mientras las líneas se dibujan, el plano se muestra de inmediato (sin fundido) y las
-   parcelas todavía no responden al mouse. */
 .mapa-lotes--dibujando #plano-lotes { transition: none; pointer-events: none; }
 
-/* Contacto en escritorio: título más chico para que la columna de datos calce con el formulario. */
-@media (min-width: 1024px) {
-    #contacto h2 { font-size: 2.5rem; margin-bottom: 2rem; }
+/* ===== Tarjeta de la parcela ===== */
+#info-lote {
+    position: absolute; display: none; z-index: var(--z-tooltip);
+    background: var(--color-scrim); color: var(--color-ink);
+    padding: var(--space-md) var(--space-lg);
+    border: var(--rule-hair) solid var(--color-muted);
+    border-radius: 0;
+    font-size: var(--text-sm); letter-spacing: 0; text-transform: none;
+    pointer-events: auto; opacity: 0; transition: opacity var(--dur-short) var(--ease-out);
 }
+#info-lote .lote-tooltip__label { font-size: var(--text-xs); color: var(--color-muted); margin-bottom: var(--space-2xs); }
+#info-lote .lote-tooltip__title { font-family: var(--font-display); font-weight: 400; font-size: var(--text-lg); color: var(--color-ink); }
+#info-lote .lote-tooltip__estado { font-weight: 700; font-size: var(--text-sm); }
+.lote-tooltip__estado--vendida { color: var(--lote-vendido-2); }
+.lote-tooltip__estado--reservada { color: var(--lote-reservado-2); }
+.lote-tooltip__estado--tramite { color: var(--lote-tramite-2); }
+.lote-tooltip__estado--disponible { color: var(--color-accent-2); }
+#info-lote.lote-tooltip--touch { padding: var(--space-sm) var(--space-md); min-width: 160px; max-width: 100vw; }
+.precio-lote { font-family: var(--font-display); font-size: var(--text-xl); margin-top: var(--space-md); padding-top: var(--space-xs); border-top: var(--rule-hair) solid var(--color-rule); color: var(--color-ink); }
+#info-lote:not(.lote-tooltip--touch) { padding: var(--space-sm) var(--space-md); pointer-events: none; }
+#info-lote:not(.lote-tooltip--touch) .precio-lote { font-size: var(--text-lg); margin-top: var(--space-xs); padding-top: var(--space-xs); }
+.lote-tooltip__propietario { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-xs); padding-bottom: var(--space-xs); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.lote-tooltip__propietario img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid var(--lote-vendido); flex: 0 0 auto; }
+.lote-tooltip__propietario-rol { font-size: var(--text-xs); color: var(--color-ink-2); }
+.lote-tooltip__propietario-nombre { font-size: var(--text-sm); font-weight: 700; color: var(--color-ink); margin-top: var(--space-3xs); }
+#info-lote.lote-tooltip--touch .lote-tooltip__propietario img { width: 40px; height: 40px; }
+.lote-tooltip__pista { margin-top: var(--space-sm); padding-top: var(--space-xs); border-top: var(--rule-hair) solid var(--color-rule); font-size: var(--text-xs); color: var(--color-muted); }
+.lote-tooltip__cta {
+    display: block; width: 100%; margin-top: var(--space-sm); padding: var(--space-sm) var(--space-md);
+    background: var(--color-accent); color: var(--color-accent-ink);
+    font-family: inherit; font-size: var(--text-sm); font-weight: 700; text-align: center; text-decoration: none;
+    border: 0; border-radius: var(--radius-pill); cursor: pointer; transition: background-color var(--dur-short);
+}
+.lote-tooltip__cta:hover, .lote-tooltip__cta:focus-visible { background: var(--color-accent-2); }
+.camino-nota { font-size: var(--text-xs); }
+@media (max-width: 768px) {
+    #info-lote { position: static; width: 100%; min-height: 100px; margin-top: var(--space-xs); }
+    #info-lote.lote-tooltip--touch { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+    #info-lote.lote-tooltip--touch .lote-tooltip__cta { flex: 1 1 100%; margin-top: var(--space-sm); }
+    #info-lote.lote-tooltip--touch .precio-lote { font-size: var(--text-md); }
+}
+
+/* ===== Galería ===== */
+.gallery-grid { gap: var(--space-md); }
+.gallery-item { opacity: 0; animation: galleryFadeIn 0.6s var(--ease-out) forwards; border: 0; border-radius: 0; background: var(--color-paper-2); padding: 0; cursor: pointer; }
+.gallery-item img { transition: opacity var(--dur-long); }
+.gallery-item:hover img { opacity: 0.88; }
+.gallery-item > div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; background: linear-gradient(to top, color-mix(in oklab, var(--color-scrim) 72%, transparent), transparent); color: var(--color-ink); font-size: var(--text-sm); font-weight: 500; text-align: left; padding: var(--space-lg) var(--space-md) var(--space-sm); }
+.gi-1 { animation-delay: 0s; } .gi-2 { animation-delay: 0.07s; } .gi-3 { animation-delay: 0.14s; } .gi-4 { animation-delay: 0.21s; } .gi-5 { animation-delay: 0.28s; }
+@keyframes galleryFadeIn { from { opacity: 0; } to { opacity: 1; } }
+.section-reveal { animation: galleryFadeIn 0.8s var(--ease-out) 0.2s both; }
+#galeria > div:first-child { text-align: left; margin-bottom: var(--space-xl); }
+#galeria > div:first-child p { max-width: 52ch; margin-inline: 0; font-size: var(--text-md); }
+
+/* Visor de la galería */
+#lightbox-image, #lightbox-video { transition: opacity 0.28s var(--ease-out); }
+#lightbox-image { width: 100%; height: 100%; }
+#lightbox-image.lightbox-fading, #lightbox-video.lightbox-fading { opacity: 0; }
+#gallery-lightbox { opacity: 0; transition: opacity 0.3s var(--ease-out); background: color-mix(in oklab, var(--color-scrim) 96%, transparent); }
+#gallery-lightbox.lightbox-visible { opacity: 1; }
+#gallery-lightbox button { border-radius: var(--radius-pill); color: var(--color-ink); border-color: var(--color-muted); background: var(--color-scrim); transition: background-color var(--dur-short), color var(--dur-short); }
+#gallery-lightbox button:hover { background: var(--color-ink); color: var(--color-accent-ink); }
+#lightbox-caption { font-size: var(--text-md); letter-spacing: 0; text-transform: none; color: var(--color-ink-2); }
+
+/* ===== Ubicación y entorno ===== */
+#ubicacion > div { align-items: stretch; }
+#ubicacion .space-y-4 { font-size: var(--text-md); color: var(--color-ink-2); }
+#ubicacion .space-y-4 span { font-size: var(--text-md); }
+#ubicacion .glass-container { background: transparent; border: var(--rule-hair) solid var(--color-rule); padding: 0; border-radius: 0; }
+.map-dark { filter: grayscale(0.35) contrast(1.05); }
+#entorno .border-l { border-left: 0; border-top: var(--rule-hair) solid var(--color-rule); padding: var(--space-md) 0 0; }
+#entorno .border-l:first-child, #entorno .border-l:nth-child(2) { border-top: 1.5px solid var(--color-accent); }
+#entorno h3 { color: var(--color-ink); }
+#entorno p { color: var(--color-ink-2); }
+
+/* ===== Preguntas frecuentes ===== */
+#faq details.faq-item { background: transparent; border: 0; border-top: var(--rule-hair) solid var(--color-rule); border-radius: 0; padding: 0; transition: border-color var(--dur-short); }
+#faq details.faq-item:first-of-type { border-top: 1.5px solid var(--color-accent); }
+#faq details.faq-item:hover { border-color: var(--color-muted); }
+#faq details.faq-item summary { padding: var(--space-md) 0; font-family: var(--font-display); font-size: var(--text-lg); line-height: 1.25; color: var(--color-ink); cursor: pointer; }
+#faq details summary svg { width: 12px; height: 12px; flex-shrink: 0; transition: transform var(--dur-long) var(--ease-out); }
+#faq details.faq-item.faq-open summary svg { transform: rotate(180deg); }
+#faq details.faq-item summary .faq-chevron { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--color-muted); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background-color var(--dur-short), border-color var(--dur-short); }
+#faq details.faq-item.faq-open summary .faq-chevron { background: var(--color-accent); border-color: var(--color-accent); }
+#faq details.faq-item.faq-open summary .faq-chevron svg { color: var(--color-accent-ink); }
+#faq details.faq-item { contain: layout paint; }
+#faq .faq-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--dur-long) var(--ease-in-out); }
+#faq details.faq-item.faq-open .faq-answer { grid-template-rows: 1fr; }
+#faq .faq-answer > p { overflow: hidden; min-height: 0; margin: 0; opacity: 0; transition: opacity var(--dur-short); max-width: 62ch; }
+#faq details.faq-item.faq-open .faq-answer > p { opacity: 1; padding-bottom: var(--space-lg); }
+details summary::-webkit-details-marker { display: none; }
+details summary::marker { display: none; }
+
+/* ===== Contacto ===== */
+#contacto label { display: block; font-size: var(--text-sm); font-weight: 500; color: var(--color-ink-2); }
+#contacto input, #contacto select, #contacto textarea {
+    width: 100%; background: transparent; color: var(--color-ink);
+    border: 0; border-bottom: var(--rule-hair) solid var(--color-muted); border-radius: 0;
+    padding: var(--space-sm) 0; font-size: var(--text-md);
+    transition: border-color var(--dur-short);
+}
+#contacto input::placeholder, #contacto textarea::placeholder { color: var(--color-muted); }
+#contacto input:focus, #contacto select:focus, #contacto textarea:focus { outline: 0; border-bottom-color: var(--color-accent); box-shadow: 0 1px 0 var(--color-accent); }
+#contacto select { color: var(--color-ink-2); }
+#contacto option { background: var(--color-paper-2); color: var(--color-ink); }
+#contacto svg { color: var(--color-accent); }
+
+/* Modal de éxito */
+#contact-success-modal { display: none; background: color-mix(in oklab, var(--color-scrim) 94%, transparent); }
+#contact-success-modal.flex { display: flex; }
+#contact-success-modal > div { background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); border-radius: 0; }
+#contact-success-modal p:first-child { font-size: var(--text-sm); font-weight: 700; color: var(--color-accent); letter-spacing: 0; }
+#contact-success-close { border: 1px solid var(--color-muted); border-radius: var(--radius-pill); color: var(--color-ink); font-size: var(--text-md); letter-spacing: 0; padding: var(--space-xs) var(--space-xl); transition: border-color var(--dur-short), color var(--dur-short); }
+#contact-success-close:hover { border-color: var(--color-accent); color: var(--color-accent-2); }
+
+/* ===== Menú móvil ===== */
+.mobile-menu { position: fixed; inset: 0; z-index: var(--z-modal); visibility: hidden; pointer-events: none; }
+.mobile-menu.active { visibility: visible; pointer-events: auto; }
+.mobile-menu__backdrop { position: absolute; inset: 0; background: color-mix(in oklab, var(--color-scrim) 95%, transparent); opacity: 0; transition: opacity var(--dur-long) var(--ease-out); }
+.mobile-menu.active .mobile-menu__backdrop { opacity: 1; }
+.mobile-menu__panel { position: absolute; inset: 0 0 0 auto; width: 100%; max-width: 400px; background: var(--color-paper); display: flex; flex-direction: column; padding: var(--space-3xl) var(--space-xl); color: var(--color-ink); transform: translateX(100%); transition: transform 0.5s var(--ease-in-out); }
+.mobile-menu.active .mobile-menu__panel { transform: translateX(0); }
+.mobile-menu__nav { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: var(--space-md); height: 100%; }
+.mobile-menu__link { font-family: var(--font-display); font-size: var(--text-xl); color: var(--color-ink); text-decoration: none; display: block; padding: var(--space-xs) 0; text-align: center; width: 100%; max-width: 260px; transition: color var(--dur-short); }
+button.mobile-menu__link { background: none; border: 0; cursor: pointer; font-weight: inherit; }
+.mobile-menu__link--active, .mobile-menu__link:hover { color: var(--color-accent); }
+.mobile-menu__close { position: absolute; top: 30px; right: 30px; background: transparent; border: 1px solid var(--color-muted); border-radius: var(--radius-pill); color: var(--color-ink); width: 45px; height: 45px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+/* ===== Pie ===== */
+footer { padding-block: var(--space-xl) var(--space-3xl) !important; border-top: var(--rule-hair) solid var(--color-rule); color: var(--color-muted); font-size: var(--text-sm); }
+footer a { color: var(--color-ink-2); transition: color var(--dur-short); }
+footer a:hover { color: var(--color-accent-2); }
+footer .text-gray-400, footer .text-gray-500, footer .text-gray-600 { color: var(--color-ink-2); }
+
+@media (max-width: 60rem) {
+    body section[id] { padding-block: var(--space-2xl); min-height: 0; }
+    #inicio h1[class] { max-width: 11ch; }
+}
+
+/* ===== Desplazamiento por secciones: cada sección encaja en la pantalla ===== */
+html { scroll-padding-top: var(--space-3xl); }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+#inicio, footer { scroll-snap-align: start; }
+@media (min-width: 64rem) {
+    html { scroll-snap-type: y mandatory; }
+    .gallery-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-sm); }
+    #galeria > div:first-child { margin-bottom: var(--space-lg); }
+}
+@media (max-width: 63.99rem) {
+    html { scroll-snap-type: y proximity; }
+}
+
+#entorno h2[class] { margin-bottom: var(--space-md); }
+#entorno p { margin-bottom: var(--space-md); }
+#entorno .lg:w-2/5 p.mb-10 { margin-bottom: var(--space-lg); }
+#mapa .glass-container { padding: var(--space-sm); }
+#mapa .glass-container > div.flex { margin-bottom: var(--space-sm); }
+.leyenda { margin-top: var(--space-md); }
+#contact-form { display: grid; gap: var(--space-md); }
+#contact-form > * { margin: 0; }
+#contacto h2[class] { margin-bottom: var(--space-md); }
+
+/* Mientras el acordeón se abre o cierra, el encaje por secciones se pausa: si no, el navegador re-ajusta el scroll en cada cuadro y la animación se traba. */
+html.sin-snap { scroll-snap-type: none !important; }
+
+
+/* Tarjeta de parcela en escritorio: más liviana. Una línea con el número y el estado, el precio debajo, sin marco ni etiqueta, y aparece con un fundido corto. */
+#info-lote { transition: opacity 140ms ease-out; }
+#info-lote:not(.lote-tooltip--touch) { padding: var(--space-xs) var(--space-md); background: color-mix(in oklab, var(--color-scrim) 90%, transparent); border: 0; border-left: 2px solid var(--color-muted); }
+#info-lote:not(.lote-tooltip--touch) > div { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--space-sm); min-width: 0 !important; }
+#info-lote:not(.lote-tooltip--touch) .lote-tooltip__label { display: none; }
+#info-lote:not(.lote-tooltip--touch) > div > div:not(.precio-lote):not(.lote-tooltip__pista):not(.lote-tooltip__propietario) { font-family: var(--font-display); font-weight: 400; font-size: var(--text-lg); margin: 0; }
+#info-lote:not(.lote-tooltip--touch) .precio-lote, #info-lote:not(.lote-tooltip--touch) .lote-tooltip__pista, #info-lote:not(.lote-tooltip--touch) .lote-tooltip__propietario { flex-basis: 100%; }
+#info-lote:not(.lote-tooltip--touch) .precio-lote { border-top: 0; margin-top: var(--space-2xs); padding-top: 0; font-size: var(--text-md); color: var(--color-ink-2); }
+#info-lote:not(.lote-tooltip--touch) .lote-tooltip__pista { border-top: 0; margin-top: var(--space-2xs); padding-top: 0; }
+
+/* Mismo ancho de contenido en menú, secciones, hero y pie: el del menú. */
+#main-nav > div, footer > div { max-width: var(--container); padding-inline: var(--gutter); }
+
+/* El botón flotante del asistente ocupa la esquina inferior derecha: ninguna leyenda ni cifra debe quedar debajo. */
+#inicio .hero-contenido { padding-bottom: calc(var(--space-3xl) + var(--space-xl)); }
+@media (max-width: 40rem) { #inicio .hero-contenido { padding-bottom: calc(var(--space-3xl) + var(--space-xl)); } }
+#mapa .glass-container { display: flex; flex-direction: column; }
+#mapa .glass-container > div.flex { order: -2; }
+#mapa .glass-container > .leyenda { order: -1; margin: 0 0 var(--space-sm); padding: 0 0 var(--space-sm); border-top: 0; border-bottom: var(--rule-hair) solid var(--color-rule); }
+
+#info-lote:not(.lote-tooltip--touch) { width: max-content; max-width: 240px; }
+#info-lote:not(.lote-tooltip--touch) .lote-tooltip__pista { font-size: var(--text-xs); }
+
+/* Secciones en dos columnas: cada columna centrada en vertical respecto a su pareja. */
+@media (min-width: 64rem) {
+    #proyecto > div, #ubicacion > div, #entorno > div, #faq > div, #contacto > div { align-items: center; }
+}
+#contact-submit-btn { justify-self: start; width: auto; }
+
+/* Enlace de la sección activa (script.js le pone text-emerald-500): sin esto la regla de color del menú lo tapaba. */
+#main-nav a.nav-link.text-emerald-500 { color: var(--color-accent-2); border-bottom-color: var(--color-accent); }

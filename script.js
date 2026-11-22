@@ -329,7 +329,7 @@ function showTooltip(e, id, estadoText, precioHTML, accionHTML, encabezadoHTML) 
             ${encabezadoHTML}
             <div style="display:flex;align-items:center;justify-content:space-between;width:100%;gap:10px;">
                 <div style="flex:1;min-width:0;">
-                    <div class="text-[7px] text-gray-300 mb-0.5 tracking-[0.3em]">Propiedad</div>
+                    <div class="lote-tooltip__label">Propiedad</div>
                     <div class="lote-tooltip__title text-white font-bold text-xs mb-1 truncate">${id}</div>
                     ${estadoText}
                 </div>
@@ -348,7 +348,7 @@ function showTooltip(e, id, estadoText, precioHTML, accionHTML, encabezadoHTML) 
         tooltip.innerHTML = `
             <div style="min-width:150px;">
                 ${encabezadoHTML}
-                <div class="text-[8px] text-gray-300 mb-1 tracking-[0.4em]">Propiedad</div>
+                <div class="lote-tooltip__label">Propiedad</div>
                 <div class="text-white font-bold text-lg mb-1">${id}</div>
                 ${estadoText}
                 ${precioHTML}
@@ -477,15 +477,15 @@ lotes.forEach(lote => {
         let encabezadoHTML = "";
 
         if (lote.classList.contains('vendido')) {
-            estadoText = '<span class="font-bold text-[9px]" style="color:#fca5a5;">VENDIDA</span>';
+            estadoText = '<span class="lote-tooltip__estado lote-tooltip__estado--vendida">Vendida</span>';
             encabezadoHTML = propietarioHTML(lote);
         } else if (lote.classList.contains('reservado')) {
-            estadoText = '<span class="font-bold text-[9px]" style="color:#fbbf77;">RESERVADA</span>';
+            estadoText = '<span class="lote-tooltip__estado lote-tooltip__estado--reservada">Reservada</span>';
         } else if (lote.classList.contains('tramite')) {
-            estadoText = '<span class="font-bold text-[9px]" style="color:#7dd3fc;">EN TRÁMITE</span>';
+            estadoText = '<span class="lote-tooltip__estado lote-tooltip__estado--tramite">En trámite</span>';
         } else {
-            estadoText = '<span class="font-bold text-[9px]" style="color:#a7f3d0;">DISPONIBLE</span>';
-            precioHTML = '<div class="precio-lote mt-4 text-white font-light tracking-tighter italic border-t border-white/10 pt-2">' + formatoCLP.format(precioDeParcela(lote)) + '</div>';
+            estadoText = '<span class="lote-tooltip__estado lote-tooltip__estado--disponible">Disponible</span>';
+            precioHTML = '<div class="precio-lote mt-4 text-white font-light border-t border-white/10 pt-2">' + formatoCLP.format(precioDeParcela(lote)) + '</div>';
         }
 
         showTooltip(e, id, estadoText, precioHTML, accionDeParcela(lote, e.type.startsWith('touch')), encabezadoHTML);
@@ -521,9 +521,9 @@ if (camino) {
         tooltip.style.display = 'block';
         tooltip.innerHTML = `
             <div style="min-width:180px">
-                <div class="text-[8px] text-gray-300 mb-1 tracking-[0.4em]">Vialidad</div>
+                <div class="lote-tooltip__label">Vialidad</div>
                 <div class="text-white font-bold text-xl mb-1">Ruta N-31</div>
-                <div class="text-[10px] text-gray-400 tracking-[0.15em] uppercase">Camino de acceso principal</div>
+                <div class="text-gray-400 camino-nota">Camino de acceso principal</div>
             </div>`;
         
         let x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
@@ -566,7 +566,9 @@ const observerOptions = {
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('id');
+            // «El entorno» no tiene enlace propio en el menú: cuenta como parte de Ubicación.
+            const idCrudo = entry.target.getAttribute('id');
+            const id = idCrudo === 'entorno' ? 'ubicacion' : idCrudo;
             navLinks.forEach(link => {
                 link.classList.remove('text-emerald-500');
                 link.classList.remove('mobile-menu__link--active');
@@ -635,6 +637,10 @@ document.querySelectorAll('#faq details.faq-item').forEach(function (detail) {
     if (!summary) return;
     summary.addEventListener('click', function (e) {
         e.preventDefault();
+        const raiz = document.documentElement;
+        raiz.classList.add('sin-snap');
+        clearTimeout(window.__faqSnapTimer);
+        window.__faqSnapTimer = setTimeout(function () { raiz.classList.remove('sin-snap'); }, 600);
         detail.classList.toggle('faq-open');
     });
 });
