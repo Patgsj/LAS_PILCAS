@@ -240,8 +240,14 @@ a.border-emerald-500:hover, #inicio button[data-abrir-asistente]:hover { border-
     border: var(--rule-hair) solid var(--color-muted);
     border-radius: 0;
     font-size: var(--text-sm); letter-spacing: 0; text-transform: none;
-    pointer-events: auto; opacity: 0; transition: opacity var(--dur-short) var(--ease-out);
+    pointer-events: auto;
+    /* Entra con un fundido y un ascenso suaves; sale más rápido, para no estorbar al pasar de una parcela a otra. */
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 450ms var(--ease-in-out), transform 450ms var(--ease-in-out);
 }
+#info-lote.lote-tooltip--visible { opacity: 1; transform: none; }
+#info-lote:not(.lote-tooltip--visible) { transition-duration: 160ms; }
+@media (prefers-reduced-motion: reduce) { #info-lote { transform: none; transition: none; } }
 #info-lote .lote-tooltip__label { font-size: var(--text-xs); color: var(--color-muted); margin-bottom: var(--space-2xs); }
 #info-lote .lote-tooltip__title { font-family: var(--font-display); font-weight: 400; font-size: var(--text-lg); color: var(--color-ink); }
 #info-lote .lote-tooltip__estado { font-weight: 700; font-size: var(--text-sm); }
@@ -322,6 +328,9 @@ a.border-emerald-500:hover, #inicio button[data-abrir-asistente]:hover { border-
 #faq details.faq-item.faq-open .faq-answer { grid-template-rows: 1fr; }
 #faq .faq-answer > p { overflow: hidden; min-height: 0; margin: 0; opacity: 0; transition: opacity var(--dur-short); max-width: 62ch; }
 #faq details.faq-item.faq-open .faq-answer > p { opacity: 1; padding-bottom: var(--space-lg); }
+/* Alto reservado de la lista (lo calcula script.js): la lista no cambia de alto al abrir una respuesta,
+   así la columna no se recentra ni la sección crece mientras corre la animación. */
+@media (min-width: 64rem) { #faq .faq-lista { min-height: var(--faq-lista-alto, 0px); } }
 details summary::-webkit-details-marker { display: none; }
 details summary::marker { display: none; }
 
@@ -398,8 +407,7 @@ html { scroll-padding-top: var(--space-3xl); }
 html.sin-snap { scroll-snap-type: none !important; }
 
 
-/* Tarjeta de parcela en escritorio: más liviana. Una línea con el número y el estado, el precio debajo, sin marco ni etiqueta, y aparece con un fundido corto. */
-#info-lote { transition: opacity 140ms ease-out; }
+/* Tarjeta de parcela en escritorio: más liviana. Una línea con el número y el estado, el precio debajo, sin marco ni etiqueta. Su animación de entrada y salida está más arriba, en «Tarjeta de la parcela». */
 #info-lote:not(.lote-tooltip--touch) { padding: var(--space-xs) var(--space-md); background: color-mix(in oklab, var(--color-scrim) 90%, transparent); border: 0; border-left: 2px solid var(--color-muted); }
 #info-lote:not(.lote-tooltip--touch) > div { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--space-sm); min-width: 0 !important; }
 #info-lote:not(.lote-tooltip--touch) .lote-tooltip__label { display: none; }

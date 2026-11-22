@@ -308,12 +308,28 @@ if (contactSuccessClose && contactSuccessModal) {
 }
 
 // --- TOOLTIP LÓGICA ---
+let tooltipOcultarTimer = null;
 function hideTooltip() {
     if (!tooltip) return;
-    tooltip.style.opacity = '0';
-    tooltip.classList.remove('lote-tooltip--touch');
     touchTooltipVisible = false;
-    tooltip.style.display = 'none';
+    clearTimeout(tooltipOcultarTimer);
+    // Una pausa corta antes de desvanecerla: al pasar de una parcela a la vecina la tarjeta no parpadea, solo se mueve.
+    tooltipOcultarTimer = setTimeout(function () {
+        tooltip.classList.remove('lote-tooltip--visible');   // se desvanece (la transición está en style.css)
+        tooltipOcultarTimer = setTimeout(function () {
+            if (tooltip.classList.contains('lote-tooltip--visible')) return;
+            tooltip.classList.remove('lote-tooltip--touch');
+            tooltip.style.display = 'none';
+        }, 180);
+    }, 50);
+}
+
+// Dos cuadros de espera para que el navegador pinte el estado inicial y la transición corra de verdad.
+function mostrarTooltipSuave() {
+    clearTimeout(tooltipOcultarTimer);
+    requestAnimationFrame(function () {
+        requestAnimationFrame(function () { tooltip.classList.add('lote-tooltip--visible'); });
+    });
 }
 
 function showTooltip(e, id, estadoText, precioHTML, accionHTML, encabezadoHTML) {
@@ -370,10 +386,7 @@ function showTooltip(e, id, estadoText, precioHTML, accionHTML, encabezadoHTML) 
         tooltip.style.transform = '';
     }
 
-    // Forzar transición de opacidad
-    requestAnimationFrame(() => {
-        tooltip.style.opacity = '1';
-    });
+    mostrarTooltipSuave();
 }
 
 // Precio de las parcelas. Única fuente de verdad de este archivo: antes el tooltip
@@ -532,6 +545,7 @@ if (camino) {
         
         tooltip.style.left = (x + (e.type.startsWith('touch') ? -90 : 52)) + 'px';
         tooltip.style.top = (y + offset) + 'px';
+        mostrarTooltipSuave();
     };
 
     camino.addEventListener('mousemove', handleCamino);
@@ -632,6 +646,24 @@ updateNavVisibility();
 
 // --- FAQ: apertura/cierre fluido con CSS grid-template-rows (sin reflow por frame) ---
 // La estructura (details[open] + .faq-answer) está en el HTML; el JS solo togglea la clase.
+// Reserva el alto de la lista para el peor caso (todas cerradas + la respuesta más larga abierta).
+function medirListaFaq() {
+    const lista = document.querySelector('#faq .faq-lista');
+    if (!lista) return;
+    lista.style.setProperty('--faq-lista-alto', '0px');
+    if (!window.matchMedia('(min-width: 64rem)').matches) return;
+    const abiertas = Array.from(lista.querySelectorAll('.faq-answer')).reduce(function (s, a) { return s + a.offsetHeight; }, 0);
+    const masLarga = Math.max.apply(null, Array.from(lista.querySelectorAll('.faq-answer > p')).map(function (p) { return p.scrollHeight; })) + 24;
+    lista.style.setProperty('--faq-lista-alto', Math.ceil(lista.offsetHeight - abiertas + masLarga) + 'px');
+}
+(function () {
+    let t;
+    const medir = function () { clearTimeout(t); t = setTimeout(medirListaFaq, 150); };
+    window.addEventListener('resize', medir);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(medirListaFaq); else window.addEventListener('load', medirListaFaq);
+    medirListaFaq();
+})();
+
 document.querySelectorAll('#faq details.faq-item').forEach(function (detail) {
     const summary = detail.querySelector('summary');
     if (!summary) return;
