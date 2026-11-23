@@ -356,7 +356,7 @@ details summary::marker { display: none; }
 #contact-success-modal.flex { display: flex; }
 #contact-success-modal > div { background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); border-radius: 0; }
 #contact-success-modal p:first-child { font-size: var(--text-sm); font-weight: 700; color: var(--color-accent); letter-spacing: 0; }
-#contact-success-close { border: 1px solid var(--color-muted); border-radius: var(--radius-pill); color: var(--color-ink); font-size: var(--text-md); letter-spacing: 0; padding: var(--space-xs) var(--space-xl); transition: border-color var(--dur-short), color var(--dur-short); }
+#contact-success-close { background: transparent; border: 1px solid var(--color-muted); border-radius: var(--radius-pill); color: var(--color-ink); font-size: var(--text-md); letter-spacing: 0; padding: var(--space-xs) var(--space-xl); transition: border-color var(--dur-short), color var(--dur-short); }
 #contact-success-close:hover { border-color: var(--color-accent); color: var(--color-accent-2); }
 
 /* ===== Menú móvil ===== */
